@@ -1,16 +1,35 @@
-/* In a separate CSS file or a style block in your component */
-.navlinks {
+.container{
+  margin-top: -75px;
+}
+.navbar {
+  height: 70px;
+ 
+}
+.navLinks {
     display: flex; /* Use Flexbox to make the links horizontal */
     align-items: center; /* Align links vertically in the center */
   }
   
-  /* Add a vertical line between links using ::before pseudo-element */
-  .navlinks > * + *::before {
-    content: "";
-    margin-left: 20px; /* Adjust the spacing between links and the line */
-    margin-right: 20px; /* Add space after the vertical line */
-    width: 1px; /* Width of the vertical line */
-    height: 15px; /* Height of the vertical line */
-    background-color: #000; /* Line color */
-    display: inline-block;
-  }
+.navLinks > * + * {
+  margin-left: 20px; /* Adjust the spacing between links and the line */
+  padding-left: 20px; /* Add space for the line */
+  position: relative;
+}
+
+.navLinks > * + *::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 1px; /* Width of the vertical line */
+  background-color: rgb(189, 186, 186); /* Line color set to gray */
+  display: block;
+}
+.navLinks > * {
+  text-decoration: none;
+  color: #000; 
+  margin-right: 20px;
+  font-weight: bold; 
+}
+  
