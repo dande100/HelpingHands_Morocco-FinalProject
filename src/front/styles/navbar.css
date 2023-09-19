@@ -1,0 +1,16 @@
+/* In a separate CSS file or a style block in your component */
+.navlinks {
+    display: flex; /* Use Flexbox to make the links horizontal */
+    align-items: center; /* Align links vertically in the center */
+  }
+  
+  /* Add a vertical line between links using ::before pseudo-element */
+  .navlinks > * + *::before {
+    content: "";
+    margin-left: 20px; /* Adjust the spacing between links and the line */
+    margin-right: 20px; /* Add space after the vertical line */
+    width: 1px; /* Width of the vertical line */
+    height: 15px; /* Height of the vertical line */
+    background-color: #000; /* Line color */
+    display: inline-block;
+  }
