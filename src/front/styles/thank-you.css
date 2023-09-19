@@ -1,0 +1,10 @@
+#progBarDiv {
+    background-color: violet;
+    height: 250px;
+}
+.hardCodeProgBar {
+    margin-left: 150px;
+    margin-top: 50px;
+    height: 150px;
+    width: 150px;
+}
