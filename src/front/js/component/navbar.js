@@ -16,8 +16,8 @@ export const Navbar = () => {
 					<Link to="/home">Home</Link>
 					<Link to="/contact">Contact</Link>
 					<Link to="/aboutUs">About Us</Link>
-					<Link to="/login">Login</Link>
-					<Link to="/signup">Signup</Link>
+					<Link to="/login" className="button-link login-button">Login</Link>
+          			<Link to="/signup" className="button-link signup-button">Sign Up</Link>
 				</div>
 			</div>
 		</nav>
