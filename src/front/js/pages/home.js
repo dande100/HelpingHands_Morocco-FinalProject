@@ -17,7 +17,6 @@ export const Home = () => {
 			<Link to="/signup" >
 				<btn className="donate-button">Donate Now</btn>
 			</Link>
-
 			<div className="progress-bar">
 
 			</div>
