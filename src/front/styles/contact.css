@@ -5,13 +5,13 @@
 }
 .aftermathPhoto1 {
     height: 300px;
-    width: 400px;
+    width: 500px;
 }
 .aftermathPhoto2 {
     height: 300px;
-    width: 400px;
+    width: 500px;
 }
-.contactFormSubmit {
+#contactFormSubmit {
     background-color: purple;
 }
 .contactPageP {
