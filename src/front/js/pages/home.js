@@ -21,7 +21,7 @@ export const Home = () => {
 			<div className="progress-bar">
 
 			</div>
-
+			
 		</div>
 	);
 };
