@@ -8,6 +8,7 @@ import "../styles/footer.css";
 import "../styles/circular-progress-bar.css";
 
 
+import "../styles/login.css";
 
 
 //import your own components
