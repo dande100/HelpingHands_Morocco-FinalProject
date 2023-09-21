@@ -7,6 +7,7 @@ import "../styles/index.css";
 import "../styles/footer.css";
 import "../styles/login.css";
 
+import "../styles/navbar.css";
 
 //import your own components
 import Layout from "./layout";
