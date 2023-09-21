@@ -17,7 +17,6 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 12px solid #fff;
     position: absolute;
     top: 0;
     left: 0;
@@ -66,7 +65,7 @@
     width: 90%;
     height: 90%;
     border-radius: 50%;
-    background: #ffffff;
+    background: transparent;
     font-size: 24px;
     color: #d10b4f;
     line-height: 135px;
@@ -76,7 +75,7 @@
     left: 5%;
 }
 .progress.blue .progress-bar{
-    border-color: #d10b4f;
+    border-color: purple;
 }
 .progress.blue .progress-left .progress-bar{
     animation: loading-2 1.5s linear forwards 1.8s;

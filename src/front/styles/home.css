@@ -73,4 +73,37 @@
   #better{
     color:purple;
   }
+  .image-video {
+    position: relative; 
+    width: 500px;
+    height: 500px; 
   
+  }
+  
+  .image1 {
+    width: 450px;
+    height: 450px;
+    border-radius: 100%;
+    margin: 40px 80px;
+  }
+  
+  .image2 {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%;
+    position: absolute;
+    right: 180px; 
+    bottom: 30px; 
+
+  }
+  
+.image2.zoomed {
+  width: 500px; 
+  height: 500px; 
+  transition: width 0.3s ease, height 0.3s ease; /* Add a smooth transition effect */
+  border-radius: 0%;
+  left: 500px;
+}
+.image-video-aboutUs{
+  margin-top: 50px;
+}

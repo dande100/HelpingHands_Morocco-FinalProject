@@ -1,17 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import sliderBGImageUrl from "../../img/slider_bg.jpg";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
 import "../../styles/circular-progress-bar.css";
+import happyKidsImageUrl from "../../img/happyKids.jpg";
+import happyKids1ImageUrl from "../../img/happyKids1.png";
+
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const [isZoomed, setIsZoomed] = useState(false);
 
 	useEffect(() => {
 		// Add your logic to set the progress here (if needed)
 	}, []);
 
+	const handleImage2Click = () => {
+		setIsZoomed(!isZoomed);
+	};
 	return (
 		<div>
 			<img className="backgroundImage" src={sliderBGImageUrl} alt="Slider Background" style={{ maxWidth: "100%", height: "auto" }} />
@@ -47,11 +55,34 @@ export const Home = () => {
 					</div>
 
 					<div className="row row-cols-auto raised-goal">
-						<div className="col ms-5 ps-1 ">Raised<br />$37,500</div>
-						<div classNames="col ms-3 ps-1 ">Goal<br />$50,000</div>
+						<div className="col ms-5 ps-1 ">Raised<br />$45,000</div>
+						<div className="col ms-3 ps-1 ">Goal<br />$50,000</div>
 					</div>
 				</div>
 			</div >
+
+			<div className="row image-video-aboutUs">
+				<div className="col image-video">
+					<img
+						className={`image1`}
+						src={happyKidsImageUrl}
+						alt="Image 1"
+					/>
+					<img
+						className={`image2 ${isZoomed ? "zoomed" : ""}`}
+						src={isZoomed ? happyKids1ImageUrl : happyKids1ImageUrl}
+						alt="Image 2"
+						onClick={handleImage2Click}
+					/>
+				</div>
+				<div className="col aboutUsStatement">
+					<h3>We’re Changing Lives with your Help</h3>
+					<p>Catalyzing Change, Building Hope: Our mission, led by the HelpingHands Foundation, is to rally communities and individuals worldwide in support of Morocco's recovery and rebuilding efforts following natural disasters. We believe in the power of collective action to make a lasting impact, fostering resilience, and creating a brighter future for the people of Morocco.</p>
+					<button className="readMore">Read More</button>
+				</div>
+			</div>
+			<br /> <br />
 		</div>
+		
 	);
 };
