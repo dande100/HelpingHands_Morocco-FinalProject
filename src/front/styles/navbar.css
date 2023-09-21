@@ -1,0 +1,90 @@
+.container{
+  margin-top: -75px;
+}
+.navbar {
+  height: 70px;
+ 
+}
+.navLinks {
+    display: flex;
+    align-items: center;
+  }
+  
+.navLinks > * + * {
+  margin-left: 30px; /* Adjust the spacing between links and the line */
+  padding-left: 20px; /* Increase the padding to add more space for the line */
+  position: relative;
+}
+.navLinks > * + *::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 1px; /* Width of the vertical line */
+  background-color: rgb(189, 186, 186); /* Line color set to gray */
+  display: block;
+}
+.navLinks > * {
+  text-decoration: none;
+  color: #000; 
+  margin-right: 20px;
+  font-weight: bold; 
+}
+.button-link {
+  text-align: center;
+  display: inline-block;
+  padding: 3px 20px;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 80px;
+  height: 30px;
+  transition: background-color 0.3s;
+  margin-right: 20px; /* Add margin to separate buttons from the line */
+}
+
+.login-button::before,
+.signup-button::before {
+  content: "";
+  position: absolute;
+  top: 50%; /* Adjust to center the line vertically */
+  transform: translateY(-50%); /* Adjust to center the line vertically */
+  left: 0;
+  height: 100%;
+  width: 1px;
+  margin-left: -20px;
+  background-color: rgb(189, 186, 186);
+  display: block;
+}
+
+.login-button::before {
+  content: "";
+  right: 0;
+}
+
+.login-button {
+  background-color:rgb(223, 203, 223);
+
+}
+
+.signup-button {
+  background-color: rgb(34, 33, 33);
+  border: 2px solid green;
+  width: 90px;
+  height: 30px;
+  padding: 2px 12px;
+  
+ 
+}
+
+.button-link:hover {
+  background-color: darkblue; /* Button background color on hover */
+}
+
+.signup-button:hover {
+  background-color: darkgreen; /* Button background color on hover */
+}
