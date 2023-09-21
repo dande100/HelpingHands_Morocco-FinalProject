@@ -136,19 +136,35 @@
 @media only screen and (max-width: 990px){
     .progress{ margin-bottom: 20px; }
 }
-.raised-goal-container {
-    display: flex;
-    justify-content: space-between; /* Spread the elements apart */
-    align-items: center; /* Center vertically */
+  .body{
+    margin-left: 310px;
+  }
+  .raised-goal{
+    margin-left: 20px;
+    margin-top: -20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
   }
   
-  .raised,
-  .goal {
-    font-weight: bold; /* Make "Raised" and "Goal" text bold */
+  .donate-button-statement{
+    background-color: purple;
+    color: white;
+    text-align: center;
+    width: 120px;
+    height:50px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+  }
+  .donate-button-statement:hover{
+    background-color: teal;
+    color:white;
+    font-weight: bold;
   }
   
-  .raised-amount,
-  .goal-amount {
-    margin-left: 10px; /* Add spacing between text and amounts */
+  .progress-bar-statement{
+    text-align: justify;
+    margin-left: 60px;
+    color: black;
   }
-  

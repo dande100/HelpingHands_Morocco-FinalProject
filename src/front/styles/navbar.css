@@ -35,7 +35,7 @@
   text-align: center;
   display: inline-block;
   padding: 3px 20px;
-  color: white;
+  color: white !important;
   text-decoration: none;
   border: none;
   border-radius: 50px;
@@ -44,7 +44,7 @@
   width: 80px;
   height: 30px;
   transition: background-color 0.3s;
-  margin-right: 20px; /* Add margin to separate buttons from the line */
+  margin-right: 20px; 
 }
 
 .login-button::before,
@@ -67,24 +67,25 @@
 }
 
 .login-button {
-  background-color:rgb(223, 203, 223);
+  background-color:purple;
 
 }
 
 .signup-button {
-  background-color: rgb(34, 33, 33);
-  border: 2px solid green;
+  background-color:  teal;
   width: 90px;
   height: 30px;
   padding: 2px 12px;
   
+}  
+.signup-button:hover{
+  background-color: purple; 
+  color: white !important;
+  font-weight: bold;
+}
+.login-button:hover{
+  background-color: teal; 
+  color: white !important;
+  font-weight: bold;
+}
  
-}
-
-.button-link:hover {
-  background-color: darkblue; /* Button background color on hover */
-}
-
-.signup-button:hover {
-  background-color: darkgreen; /* Button background color on hover */
-}

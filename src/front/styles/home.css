@@ -25,14 +25,14 @@
   .text-overlay h1 {
     position: absolute;
     font-family:monospace;
-    bottom: 280px; /* Adjust the vertical position for the h1 element */
+    bottom: 280px; 
     left: 24%;
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
     z-index: 1;
     padding: 10px;
-    font-size: 60px;
+    font-size: 50px;
     font-weight: bold;
     text-align: justify;
   }
@@ -40,20 +40,20 @@
   .text-overlay p {
     position: absolute;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    bottom: 150px; /* Adjust the vertical position for the p element */
+    bottom: 150px;
     left: 29%;
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
     z-index: 1;
     padding: 5px;
-    font-size: 18px;
+    font-size: 15px;
     text-align: justify;
   }
   .donate-button {
     position: absolute;
-    bottom: 100px; /* Adjust the vertical position for the p element */
-    left: 4%;
+    bottom: 100px; 
+    left: 8%;
     background-color: purple;
     color: white;
     text-align: center;
