@@ -1,0 +1,29 @@
+.banner-image {
+  width: 100%;
+  height: calc(100vh - 160px);
+}
+.login-wrapper {
+  position: relative;
+}
+.login-text {
+  position: absolute;
+  left: 5%;
+  top: 35%;
+  color: white;
+}
+.left-login-container {
+  width: 45%
+}
+.login-container {
+  width: 35%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  color: black;
+  right: 5%;
+  position: absolute;
+}
+.login-container label {
+  padding-left: 0;
+  margin-left: 0;
+}
