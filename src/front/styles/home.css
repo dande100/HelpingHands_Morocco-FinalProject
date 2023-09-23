@@ -1,7 +1,76 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+.backgroundImage {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .text-overlay {
+    position: relative;
+  }
+  
+  .text-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+  }
+  
+  .text-overlay:hover::before {
+    display: block;
+  }
+  
+  .text-overlay h1 {
+    position: absolute;
+    font-family:monospace;
+    bottom: 280px; 
+    left: 24%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 1;
+    padding: 10px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: justify;
+  }
+  
+  .text-overlay p {
+    position: absolute;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    bottom: 150px;
+    left: 29%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 1;
+    padding: 5px;
+    font-size: 15px;
+    text-align: justify;
+  }
+  .donate-button {
+    position: absolute;
+    bottom: 100px; 
+    left: 8%;
+    background-color: purple;
+    color: white;
+    text-align: center;
+    z-index: 1;
+    width: 120px;
+    height:50px;
+    border-radius: 5px;
+    padding: 10px;
+    
+  }
+  .donate-button:hover, .readMore:hover{
+    background-color: teal;
+    color:white;
+    font-weight: bold;
+  }
+  
+  #better{
+    color:purple;
+  }
+  

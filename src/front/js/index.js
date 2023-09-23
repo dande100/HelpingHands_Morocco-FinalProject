@@ -5,6 +5,11 @@ import ReactDOM from "react-dom";
 //include your index.scss file into the bundle
 import "../styles/index.css";
 import "../styles/footer.css";
+import "../styles/circular-progress-bar.css";
+import "../styles/aboutUs.css";
+
+
+
 import "../styles/login.css";
 
 import "../styles/navbar.css";
