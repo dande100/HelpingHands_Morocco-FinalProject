@@ -22,14 +22,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
+			getToken: async (obj) => {
+				console.log("test")
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/token", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify(obj)
+					})
+					const data = await resp.json()
+					if (data.access_token) {
+						localStorage.setItem('access_token', data.access_token)
+					}
+					setStore({ message: data.message })
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
+			createAccount: async (obj) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify(obj)
+					})
+					const data = await resp.json()
+					return data;
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},

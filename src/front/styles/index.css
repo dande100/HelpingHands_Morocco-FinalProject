@@ -5,6 +5,22 @@
     background-color: #800073 !important;
     border-color: #800073 !important;
 }
-a{
-    color: #800073 !important;
+
+a {
+    color: black !important;
+  }
+  a:hover {
+    color: purple !important;
+  }
+
+footer {
+    position: fixed;
+    bottom: -10px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
+body {
+    overflow-x: hidden;
+}
+
