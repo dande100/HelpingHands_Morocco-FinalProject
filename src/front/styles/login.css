@@ -8,7 +8,7 @@
 .login-text {
   position: absolute;
   left: 5%;
-  top: 35%;
+  top: 10%;
   color: white;
 }
 .left-login-container {
@@ -26,4 +26,21 @@
 .login-container label {
   padding-left: 0;
   margin-left: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .login-text {
+    top: 10%
+  }
+  .login-text >div {
+    display: block !important;
+  }
+  .left-login-container {
+    width: 100%;
+  }
+  .login-container {
+    width: 80%;
+    margin: auto;
+    right: auto;
+  }
 }
