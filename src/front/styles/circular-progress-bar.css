@@ -7,7 +7,7 @@
     width: 150px;
     height: 150px;
     line-height: 150px;
-    background: inherit;
+    background: inher;
     margin: 0 auto;
     box-shadow: none;
     position: relative;
@@ -75,7 +75,7 @@
     left: 5%;
 }
 .progress.blue .progress-bar{
-    border-color: purple;
+    border-color: purple !important;
 }
 .progress.blue .progress-left .progress-bar{
     animation: loading-2 1.5s linear forwards 1.8s;
