@@ -21,6 +21,15 @@
     bottom: 30px; 
 
   }
+  .image3{
+      width: 150px; 
+      height: 150px; 
+      border-radius: 50%;
+      position: absolute;
+      left: 100px; 
+      z-index: 2px;
+   
+  }
   
 .image2.zoomed {
   width: 500px; 

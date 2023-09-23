@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "../../styles/circular-progress-bar.css";
 import happyKidsImageUrl from "../../img/happyKids.jpg";
 import happyKids1ImageUrl from "../../img/happyKids1.png";
+import youtubeImageUrl from "../../img/youtube.png";
 import AboutUs from "./aboutUs";
 
 
@@ -77,6 +78,11 @@ export const Home = () => {
 						src={isZoomed ? happyKidsImageUrl : happyKidsImageUrl}
 						alt="Image 2"
 						onClick={handleImage2Click}
+					/>
+					<img
+						className={`image3`}
+						src={youtubeImageUrl}
+						alt="Image 3"
 					/>
 				</div>
 				<AboutUs />
