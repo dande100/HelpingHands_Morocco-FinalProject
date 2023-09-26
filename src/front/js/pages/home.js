@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import sliderBGImageUrl from "../../img/slider_bg.jpg";
 import "../../styles/home.css";
@@ -9,25 +9,54 @@ import happyKids1ImageUrl from "../../img/happyKids1.png";
 import youtubeImageUrl from "../../img/youtube.png";
 import AboutUs from "./aboutUs";
 
-
 export const Home = () => {
-	const { store, actions } = useContext(Context);
-	const [isZoomed, setIsZoomed] = useState(false);
+  const { store, actions } = useContext(Context);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
+  // Function to fetch progress data from the backend
+  const fetchProgress = () => {
+    fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/api/progress")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const { progress } = data;
+        setProgressPercentage(progress);
+      })
+      .catch((error) => {
+        console.error("Error fetching progress data:", error);
+      });
+  };
 
+  // Fetch progress data initially and set up polling
+  useEffect(() => {
+    fetchProgress(); // Fetch progress data initially
 
-	useEffect(() => {
-		// Add  logic to set the progress here 
-	}, []);
+    // Poll the progress every 10 seconds (adjust the interval as needed)
+    const intervalId = setInterval(() => {
+      fetchProgress();
+    }, 10000); // 10 seconds interval
 
-	const handleImage2Click = () => {
-		setIsZoomed(!isZoomed);
-	};
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
+  const handleImage2Click = () => {
+    setIsZoomed(!isZoomed);
+  }
 
 	return (
 		<div>
-			<img className="backgroundImage" src={sliderBGImageUrl} alt="Slider Background" style={{ maxWidth: "100%", height: "auto" }} />
+			<img
+				className="backgroundImage"
+				src={sliderBGImageUrl}
+				alt="Slider Background"
+				style={{ maxWidth: "100%", height: "auto" }}
+			/>
 			<div className="text-overlay">
 				<h1>Give A Hand To Make <br /> The <span id="better">Better</span> World</h1>
 				<p>Following the recent earthquake in Morocco, your donation can truly make a difference. <br /> Join us in helping the affected communities recover and rebuild. <br /> Your contribution offers hope and strength to those in need, and together, <br /> we can work towards a resilient Morocco.</p>
@@ -42,12 +71,12 @@ export const Home = () => {
 						<div className="col-md-3 col-sm-6">
 							<div className="progress blue">
 								<span className="progress-left">
-									<span className="progress-bar"></span>
+									<span className="progress-bar" style={{ width: `${progressPercentage}%` }}></span>
 								</span>
 								<span className="progress-right">
 									<span className="progress-bar"></span>
 								</span>
-								<div className="progress-value">90%</div>
+								<div className="progress-value">{Math.round(progressPercentage)}%</div>
 							</div>
 						</div>
 						<div className="col-md-3 col-sm-6l progress-bar-statement">
@@ -60,7 +89,8 @@ export const Home = () => {
 					</div>
 
 					<div className="row row-cols-auto raised-goal">
-						<div className="col ms-5 ps-1 ">Raised<br />$45,000</div>
+					<div className="col ms-5 ps-1">Raised<br />${Math.round(progressPercentage * 500)}</div>
+
 						<div className="col ms-3 ps-1 ">Goal<br />$50,000</div>
 					</div>
 				</div>
@@ -89,6 +119,5 @@ export const Home = () => {
 			</div>
 			<br /> <br />
 		</div>
-
 	);
 };

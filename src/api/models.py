@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
@@ -49,4 +50,15 @@ class Payments(db.Model):
             "postal_code": self.postal_code,
             "phone_number": self.phone_number,
             "user_id": self.user_id,
+        }
+    
+class Donation(db.Model):
+    __tablename__ = 'donations'
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Float)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "amount": self.amount,
         }
