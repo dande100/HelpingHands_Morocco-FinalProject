@@ -15,10 +15,8 @@ import AboutUs from "./aboutUs";
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [isZoomed, setIsZoomed] = useState(false);
-	const [progressPercentage, setProgressPercentage] = useState(0);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
-	const [showVideo, setShowVideo] = useState(false); // State variable for video visibility
-
+	const [showVideo, setShowVideo] = useState(false); 
 
 
 	const carouselImages = [sliderBGImageUrl, sliderImageUrl1];
@@ -28,35 +26,13 @@ export const Home = () => {
 	};
 
 	useEffect(() => {
-		const intervalId = setInterval(changeCarouselImage, 3000); // Change image every 1 second
+		const intervalId = setInterval(changeCarouselImage, 3000); 
 		return () => clearInterval(intervalId);
 	}, []);
 
-	const toggleVideo = () => {
-		setShowVideo(!showVideo);
-	};
-	const closeVideo = () => {
-		setShowVideo(false);
-	};
 
-
-
-	// Function to fetch progress data from the backend
 	const fetchProgress = () => {
-		fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/api/progress")
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Network response was not ok");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				const { progress } = data;
-				setProgressPercentage(progress);
-			})
-			.catch((error) => {
-				console.error("Error fetching progress data:", error);
-			});
+		actions.fetchDonation()
 	};
 
 	useEffect(() => {
@@ -68,11 +44,18 @@ export const Home = () => {
 
 		return () => clearInterval(intervalId);
 	}, []);
-
+	
+	const toggleVideo = () => {
+		setShowVideo(!showVideo);
+	};
+	const closeVideo = () => {
+		setShowVideo(false);
+	};
 	const handleImage2Click = () => {
 		setIsZoomed(!isZoomed);
 	}
 
+	
 	return (
 		<div>
 			<img
@@ -99,7 +82,7 @@ export const Home = () => {
 								<span className="progress-right">
 									<span className="progress-bar" ></span>
 								</span>
-								<div className="progress-value">{Math.round(progressPercentage)}%</div>
+								<div className="progress-value">{Math.round(store.progressPercentage)}%</div>
 							</div>
 						</div>
 						<div className="col-md-3 col-sm-6l progress-bar-statement">
@@ -112,7 +95,7 @@ export const Home = () => {
 					</div>
 
 					<div className="row row-cols-auto raised-goal">
-						<div className="col ms-5 ps-1">Raised<br />${Math.round(progressPercentage * 500)}</div>
+						<div className="col ms-5 ps-1">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
 
 						<div className="col ms-3 ps-1 ">Goal<br />$50,000</div>
 					</div>
@@ -136,9 +119,9 @@ export const Home = () => {
 						className={`image3`}
 						src={youtubeImageUrl}
 						alt="Image 3"
-						onClick={toggleVideo} // Call toggleVideo when the image is clicked
+						onClick={toggleVideo}
 					/>
-				
+
 					{showVideo && (
 						<div className="video-player">
 							<ReactPlayer
@@ -153,7 +136,7 @@ export const Home = () => {
 							</button>
 						</div>
 					)}
-				
+
 				</div>
 				<AboutUs />
 			</div>

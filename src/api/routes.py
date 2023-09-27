@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Payments
 from api.utils import generate_sitemap, APIException
-from api.models import Payments
+
 
 
 # Define the Flask app
@@ -13,7 +13,7 @@ def calculate_total_donated():
 
 @api.route('/api/progress', methods=['GET'])
 def get_donation_progress():
-    hardcoded_progress = 25000
+    hardcoded_progress = 20000
     goal_amount = 50000 
     progress_percentage = (hardcoded_progress / goal_amount) * 100
 

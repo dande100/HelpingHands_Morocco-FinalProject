@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			progressPercentage: 0,
 			message: null,
 			demo: [
 				{
@@ -13,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
+
 			]
 		},
 		actions: {
@@ -63,6 +65,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
+			},
+
+			fetchDonation: () => {
+
+				fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/api/progress")
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						const { progress } = data;
+						setStore({ progressPercentage: progress });
+					})
+					.catch((error) => {
+						console.error("Error fetching progress data:", error);
+					});
 			},
 			changeColor: (index, color) => {
 				//get the store

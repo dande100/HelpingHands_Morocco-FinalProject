@@ -88,6 +88,7 @@
   }
   
   .progress.blue .progress-left .progress-bar {
+    width: 100%;
     animation: loading-2 1.5s linear forwards 1.8s;
   }
   
