@@ -77,7 +77,7 @@ export const Home = () => {
 						<div className="col-md-3 col-sm-6">
 							<div className="progress blue">
 								<span className="progress-left">
-									<span className="progress-bar"></span>
+									<span className="progress-bar" ></span>
 								</span>
 								<span className="progress-right">
 									<span className="progress-bar" ></span>
