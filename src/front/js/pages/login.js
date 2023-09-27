@@ -1,15 +1,26 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import bannerImgURL from "../../img/banner.jpg";
+import logoImageUrl from "../../img/logo.png";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { Context } from "../store/appContext";
+const divStyle = {
+  backgroundImage: `url(${bannerImgURL})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center center',
+  height:'100vh',
+  display: 'flex',
+  alignItems: 'center',
+  color: '#fff'
+};
 
 
 import { auth } from '../firebase.js'
 const Login = () => {
-  const [input, setInput] = useState();
-  const [password, setPassword] = useState();
+  const [input, setInput] = useState('');
+  const [password, setPassword] = useState('');
   const { store, actions } = useContext(Context)
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -44,17 +55,28 @@ const Login = () => {
 
   return (
     <>
-      <div className='login-wrapper'>
-        <img src={bannerImgURL} alt="Helpeing hands banner" className='banner-image' />
-        <div className='row login-text'>
-          <div className='d-flex'>
+      <div className='login-wrapper row'>
+        <div className='col-md-8 col-sm-12' style={divStyle}>
             <h3 className='left-login-container'>Effortless Giving, Immediate <br /><br />Our app streamlines the process of supporting earthquake relief in Morocco. Experience the ease of giving with just a few taps and witness your contributions create an immediate impact. Join us in making a real difference, effortlessly.</h3>
+        </div>
+        <div className='row login-text col-sm-12 col-md-4'>
             <div className='login-container'>
+            <div className='logo-image-wrapper'>
+            <Link to="/home">
+              <img
+                className="logo"
+                src={logoImageUrl}
+                style={{ width: "250px" }}
+              />
+            </Link>
+            </div>
               <h3 className='mb-4'>Login</h3>
               <form>
                 <div className="mb-3 row ms-0">
                   <label htmlFor="email" className="form-label">Email address</label>
                   <input type="email" className="form-control" id="email" required placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
                 <div className="mb-3 row ms-0">
                   <label htmlFor="inputPassword" className="col-form-label">Password</label>
@@ -72,8 +94,8 @@ const Login = () => {
                 <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
               </svg> Sign in with Facebook</button>
             </div>
-          </div>
         </div>
+        
       </div>
 
     </>

@@ -13,12 +13,11 @@ const ForgotPassword = () => {
               <h3 className='mb-4'>Recovery Password</h3>
               <form>
                 <div className="mb-3 row ms-0">
-                  <label htmlFor="inputNewPassword" className="col-form-label">New Password</label>
-                  <input type="password" required className="form-control" id="inputNewPassword" />
-
+                 <label htmlFor="email" className="form-label">Email address</label>
+                 <input type="email" className="form-control" id="email" required placeholder="name@example.com" />
                 </div>
                 <div className="mb-3 row ms-0">
-                  <label htmlFor="inputPassword" className="col-form-label">Re enter Password</label>
+                  <label htmlFor="inputPassword" className="col-form-label">New Password</label>
                   <input type="password" required className="form-control" id="inputPassword" />
 
                 </div>

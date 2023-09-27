@@ -6,6 +6,7 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { AboutUs } from "./pages/aboutUs";
 import { ThankYou } from "./pages/thank-you-page";
 import { Contact } from "./pages/contact";
 import injectContext from "./store/appContext";
