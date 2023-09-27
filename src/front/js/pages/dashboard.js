@@ -30,9 +30,9 @@ export const Dashboard = () => {
                                         className="rounded-circle img-fluid" style={{ width: "150px" }}></img>
                                     <h5 className="my-3">Jess Morrison</h5>
                                     <p className="text-muted mb-4">Clearwater, Florida, USA</p>
-                                    <div className="d-flex justify-content-center mb-2">
+                                    {/* <div className="d-flex justify-content-center mb-2">
                                         <button type="button" className="btn btn-primary">Edit Contact info</button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <div className="card mb-4 mb-lg-0">
