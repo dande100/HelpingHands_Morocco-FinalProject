@@ -73,11 +73,12 @@
 		]
 	},
 	"dependencies": {
-		"progressbar.js": "^1.1.0",
 		"firebase": "^10.4.0",
+		"progressbar.js": "^1.1.0",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",
+		"react-player": "^2.13.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
 		"react-scroll": "^1.8.9"

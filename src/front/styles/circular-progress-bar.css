@@ -108,9 +108,7 @@
       transform: rotate(144deg);
     }
   }
-  
-  /* Add other keyframes as needed */
-  
+    
   @media only screen and (max-width: 990px) {
     .progress {
       margin-bottom: 20px;

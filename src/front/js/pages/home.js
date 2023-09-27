@@ -1,61 +1,84 @@
 import React, { useContext, useEffect, useState } from "react";
+import ReactPlayer from "react-player"; // Import the react-player library
 import { Context } from "../store/appContext";
 import sliderBGImageUrl from "../../img/slider_bg.jpg";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
 import "../../styles/circular-progress-bar.css";
+import sliderImageUrl1 from "../../img/photo.jpg";
 import happyKidsImageUrl from "../../img/happyKids.jpg";
 import happyKids1ImageUrl from "../../img/happyKids1.png";
 import youtubeImageUrl from "../../img/youtube.png";
+
 import AboutUs from "./aboutUs";
 
 export const Home = () => {
-  const { store, actions } = useContext(Context);
-  const [isZoomed, setIsZoomed] = useState(false);
-  const [progressPercentage, setProgressPercentage] = useState(0);
+	const { store, actions } = useContext(Context);
+	const [isZoomed, setIsZoomed] = useState(false);
+	const [progressPercentage, setProgressPercentage] = useState(0);
+	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+	const [showVideo, setShowVideo] = useState(false); // State variable for video visibility
 
-  // Function to fetch progress data from the backend
-  const fetchProgress = () => {
-    fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/api/progress")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const { progress } = data;
-        setProgressPercentage(progress);
-      })
-      .catch((error) => {
-        console.error("Error fetching progress data:", error);
-      });
-  };
 
-  // Fetch progress data initially and set up polling
-  useEffect(() => {
-    fetchProgress(); // Fetch progress data initially
 
-    // Poll the progress every 10 seconds (adjust the interval as needed)
-    const intervalId = setInterval(() => {
-      fetchProgress();
-    }, 10000); // 10 seconds interval
+	const carouselImages = [sliderBGImageUrl, sliderImageUrl1];
 
-    // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
+	const changeCarouselImage = () => {
+		setCurrentImageIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+	};
 
-  const handleImage2Click = () => {
-    setIsZoomed(!isZoomed);
-  }
+	useEffect(() => {
+		const intervalId = setInterval(changeCarouselImage, 3000); // Change image every 1 second
+		return () => clearInterval(intervalId);
+	}, []);
+
+	const toggleVideo = () => {
+		setShowVideo(!showVideo);
+	};
+	const closeVideo = () => {
+		setShowVideo(false);
+	};
+
+
+
+	// Function to fetch progress data from the backend
+	const fetchProgress = () => {
+		fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/api/progress")
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				const { progress } = data;
+				setProgressPercentage(progress);
+			})
+			.catch((error) => {
+				console.error("Error fetching progress data:", error);
+			});
+	};
+
+	useEffect(() => {
+		fetchProgress();
+
+		const intervalId = setInterval(() => {
+			fetchProgress();
+		}, 1000);
+
+		return () => clearInterval(intervalId);
+	}, []);
+
+	const handleImage2Click = () => {
+		setIsZoomed(!isZoomed);
+	}
 
 	return (
 		<div>
 			<img
 				className="backgroundImage"
-				src={sliderBGImageUrl}
+				src={carouselImages[currentImageIndex]}
 				alt="Slider Background"
-				style={{ maxWidth: "100%", height: "auto" }}
 			/>
 			<div className="text-overlay">
 				<h1>Give A Hand To Make <br /> The <span id="better">Better</span> World</h1>
@@ -71,10 +94,10 @@ export const Home = () => {
 						<div className="col-md-3 col-sm-6">
 							<div className="progress blue">
 								<span className="progress-left">
-									<span className="progress-bar" style={{ width: `${progressPercentage}%` }}></span>
+									<span className="progress-bar"></span>
 								</span>
 								<span className="progress-right">
-									<span className="progress-bar"></span>
+									<span className="progress-bar" ></span>
 								</span>
 								<div className="progress-value">{Math.round(progressPercentage)}%</div>
 							</div>
@@ -89,7 +112,7 @@ export const Home = () => {
 					</div>
 
 					<div className="row row-cols-auto raised-goal">
-					<div className="col ms-5 ps-1">Raised<br />${Math.round(progressPercentage * 500)}</div>
+						<div className="col ms-5 ps-1">Raised<br />${Math.round(progressPercentage * 500)}</div>
 
 						<div className="col ms-3 ps-1 ">Goal<br />$50,000</div>
 					</div>
@@ -113,7 +136,24 @@ export const Home = () => {
 						className={`image3`}
 						src={youtubeImageUrl}
 						alt="Image 3"
+						onClick={toggleVideo} // Call toggleVideo when the image is clicked
 					/>
+				
+					{showVideo && (
+						<div className="video-player">
+							<ReactPlayer
+								url="https://youtu.be/st6p05Z8NdA"
+								controls={true}
+								width="350px"
+								height="350px"
+								playing={showVideo}
+							/>
+							<button className="close-button" onClick={closeVideo}>
+								Close Video
+							</button>
+						</div>
+					)}
+				
 				</div>
 				<AboutUs />
 			</div>

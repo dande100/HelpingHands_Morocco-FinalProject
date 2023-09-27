@@ -1,24 +1,19 @@
 from flask import Flask, request, render_template, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
-from api.models import Donation
+from api.models import Payments
 
 
 # Define the Flask app
 api = Blueprint('api', __name__)
 
-@api.route('/')
-def home():
-    # Render the main page HTML template
-    return render_template('/home')
-
 def calculate_total_donated():
-    total_donated = db.session.query(db.func.sum(Donation.amount)).scalar()
-    return total_donated or 0  # Return 0 if no donations exist
+    total_donated = db.session.query(db.func.sum(Payments.amount)).scalar()
+    return total_donated or 0  
 
 @api.route('/api/progress', methods=['GET'])
 def get_donation_progress():
-    hardcoded_progress = 5000
+    hardcoded_progress = 25000
     goal_amount = 50000 
     progress_percentage = (hardcoded_progress / goal_amount) * 100
 
@@ -34,4 +29,4 @@ def handle_hello():
     return jsonify(response_body), 200
 
 if __name__ == '__main__':
-    app.run()
+    api.run()
