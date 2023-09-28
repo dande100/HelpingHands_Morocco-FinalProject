@@ -1,31 +1,28 @@
-.banner-image {
-  width: 100%;
-  height: calc(100vh - 160px);
-}
+
 .login-wrapper {
   position: relative;
 }
-.login-text {
-  position: absolute;
-  left: 5%;
-  top: 10%;
-  color: white;
-}
 .left-login-container {
-  width: 45%
+  width: 80%;
+  text-align: left;
+  margin: 0 auto;
 }
 .login-container {
-  width: 35%;
   background: #fff;
   border-radius: 10px;
   padding: 30px;
   color: black;
   right: 5%;
-  position: absolute;
 }
 .login-container label {
   padding-left: 0;
   margin-left: 0;
+}
+.logo-image-wrapper {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 1000px) {
@@ -43,4 +40,5 @@
     margin: auto;
     right: auto;
   }
+  
 }
