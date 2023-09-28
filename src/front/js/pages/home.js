@@ -16,7 +16,7 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [isZoomed, setIsZoomed] = useState(false);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
-	const [showVideo, setShowVideo] = useState(false); 
+	const [showVideo, setShowVideo] = useState(false);
 
 
 	const carouselImages = [sliderBGImageUrl, sliderImageUrl1];
@@ -26,7 +26,7 @@ export const Home = () => {
 	};
 
 	useEffect(() => {
-		const intervalId = setInterval(changeCarouselImage, 3000); 
+		const intervalId = setInterval(changeCarouselImage, 3000);
 		return () => clearInterval(intervalId);
 	}, []);
 
@@ -44,7 +44,7 @@ export const Home = () => {
 
 		return () => clearInterval(intervalId);
 	}, []);
-	
+
 	const toggleVideo = () => {
 		setShowVideo(!showVideo);
 	};
@@ -55,7 +55,7 @@ export const Home = () => {
 		setIsZoomed(!isZoomed);
 	}
 
-	
+
 	return (
 		<div>
 			<img
@@ -63,18 +63,21 @@ export const Home = () => {
 				src={carouselImages[currentImageIndex]}
 				alt="Slider Background"
 			/>
-			<div className="text-overlay">
-				<h1>Give A Hand To Make <br /> The <span id="better">Better</span> World</h1>
-				<p>Following the recent earthquake in Morocco, your donation can truly make a difference. <br /> Join us in helping the affected communities recover and rebuild. <br /> Your contribution offers hope and strength to those in need, and together, <br /> we can work towards a resilient Morocco.</p>
-				<Link to="/signup">
-					<button className="donate-button">Donate Now</button>
-				</Link>
+			<div className="row">
+				<div className="col">
+					<div className="text-overlay">
+						<h1>Give A Hand To Make <br /> The <span id="better">Better</span> World</h1>
+						<p>Following the recent earthquake in Morocco, your donation can truly make a difference. <br /> Join us in helping the affected communities recover and rebuild. <br /> Your contribution offers hope and strength to those in need, and together, <br /> we can work towards a resilient Morocco.</p>
+						<Link to="/signup">
+							<button className="donate-button">Donate Now</button>
+						</Link>
+					</div>
+				</div>
 			</div>
-
 			<div className="progress-bar">
 				<div className="body">
 					<div className="row">
-						<div className="col-md-3 col-sm-6">
+						<div className="col-md-3 col-sm-3">
 							<div className="progress blue">
 								<span className="progress-left">
 									<span className="progress-bar" ></span>
@@ -85,7 +88,7 @@ export const Home = () => {
 								<div className="progress-value">{Math.round(store.progressPercentage)}%</div>
 							</div>
 						</div>
-						<div className="col-md-3 col-sm-6l progress-bar-statement">
+						<div className="col-md-3 col-sm-3 progress-bar-statement">
 							<h2>Urgent Relief</h2>
 							<p>In the wake of a devastating earthquake that has left communities in Morocco reeling,<br /> we are calling upon compassionate individuals, organizations, and communities worldwide  <br /> to come together and join our mission to be a beacon of hope in aiding Morocco's earthquake recovery efforts.</p>
 							<Link to="/signup">
@@ -95,9 +98,9 @@ export const Home = () => {
 					</div>
 
 					<div className="row row-cols-auto raised-goal">
-						<div className="col ms-5 ps-1">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
+						<div className="col ms-3 mt-3 ps-1">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
 
-						<div className="col ms-3 ps-1 ">Goal<br />$50,000</div>
+						<div className="col ms-3  mt-3 ps-1 ">Goal<br />$50,000</div>
 					</div>
 				</div>
 			</div >

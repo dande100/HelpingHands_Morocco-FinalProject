@@ -6,6 +6,28 @@
     justify-content: center;
     align-items: center;
   }
+ 
+/* Media query for medium-sized screens */
+@media only screen and (max-width: 990px) {
+  .progress-bar {
+    height: auto; 
+    padding: 10px; 
+   
+  }
+}
+
+/* Media query for small screens */
+@media only screen and (max-width: 768px) {
+  .progress-bar {
+    height: auto; 
+    padding: 10px; 
+   
+  }
+  .raised-goal{
+    display: none;
+  }
+}
+
   
   .progress {
     width: 150px;
@@ -87,6 +109,7 @@
     border-color: purple !important;
   }
   
+
   .progress.blue .progress-left .progress-bar {
     width: 100%;
     animation: loading-2 1.5s linear forwards 1.8s;

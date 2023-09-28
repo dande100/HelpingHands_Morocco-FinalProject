@@ -1,5 +1,6 @@
 .container{
   margin-top: -75px;
+  
 }
 .navbar {
   height: 70px;
@@ -31,6 +32,41 @@
   margin-right: 20px;
   font-weight: bold; 
 }
+
+@media (max-width: 576px) {
+  .navbar {
+    height: auto; /* Adjust the height for small screens */
+  }
+
+  .logo {
+    width: 150px; /* Adjust the logo size for small screens */
+    height: 150px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .button-link {
+    margin: 10px 0; /* Add spacing to buttons */
+    width: 100%; /* Make buttons full width */
+  }
+}
+
+/* For medium screens (e.g., tablets) */
+@media (max-width: 992px) {
+  .navLinks {
+    display: flex;
+    flex-direction: column;
+    font-size: x-small !important;
+    padding: 5px;
+    margin-top: 20px;
+  }
+  .navLinks > * + *::before {
+    display: none;
+  }
+}
+
 .button-link {
   text-align: center;
   display: inline-block;
