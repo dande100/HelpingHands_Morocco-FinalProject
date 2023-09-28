@@ -100,17 +100,6 @@ def handle_payment(payment_id):
     payment1 = Payments.query.get(payment_id)
     return jsonify(payment1.serialize()), 200
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the Google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
-if __name__ == '__main__':
-    api.run()
 
 @api.route("/token", methods=['POST'])
 def createToken():
@@ -144,3 +133,15 @@ def updateUserPassword():
      db.session.commit()
      
      return jsonify({'msg': 'your password changes successfully, please return to login'}), 200
+
+@api.route('/hello', methods=['POST', 'GET'])
+def handle_hello():
+
+    response_body = {
+        "message": "Hello! I'm a message that came from the backend, check the network tab on the Google inspector and you will see the GET request"
+    }
+
+    return jsonify(response_body), 200
+
+if __name__ == '__main__':
+    api.run()
