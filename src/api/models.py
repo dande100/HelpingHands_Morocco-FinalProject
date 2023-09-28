@@ -9,8 +9,6 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     first_name = db.Column(db.String(80), unique=False, nullable=False)
     last_name = db.Column(db.String(80), unique=False, nullable=False)
-    payment_id = db.Column(db.Integer, db.ForeignKey('payment.id'), nullable=False)
-   
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -21,9 +19,8 @@ class User(db.Model):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "payment_id": self.payment_id
+            
         }
-
 
 class Payments(db.Model):
     id = db.Column(db.Integer, primary_key=True)

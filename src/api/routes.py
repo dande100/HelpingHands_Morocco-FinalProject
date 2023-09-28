@@ -8,16 +8,72 @@ from api.utils import generate_sitemap, APIException
 api = Blueprint('api', __name__)
 
 def calculate_total_donated():
-    total_donated = db.session.query(db.func.sum(Payments.amount)).scalar()
+    total_donated = db.session.query(db.func.sum(Payments.payment_amount)).scalar()
     return total_donated or 0  
-
-@api.route('/api/progress', methods=['GET'])
+@api.route('/progress', methods=['GET'])
 def get_donation_progress():
-    hardcoded_progress = 20000
-    goal_amount = 50000 
-    progress_percentage = (hardcoded_progress / goal_amount) * 100
+    goal_amount = 50000
+
+    total_donated = calculate_total_donated()
+
+    progress_percentage = (total_donated / goal_amount) * 100
 
     return jsonify({'progress': progress_percentage})
+
+
+@api.route('/user/<int:user_id>', methods=['GET'])
+def handle_user(user_id):
+    user1 = User.query.get(user_id)
+    return jsonify(user1.serialize()), 200
+
+@api.route('/users', methods=['GET'])
+def handle_users():
+    if request.method == 'GET':
+        allUsers = User.query.all()
+        user_serialize = [person.serialize()for person in allUsers]
+        return jsonify(user_serialize), 200
+    
+@api.route('/payments', methods=['POST'])
+def add_payment():
+    if request.method == 'POST':
+        data = request.json 
+        user_id = data.get('user_id')
+
+        # Check if the user with the specified user_id exists
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({"message": "User not found"}), 404
+
+        # Create a new payment record
+        new_payment = Payments(
+            date=data['date'],
+            currency=data['currency'],
+            payment_method=data['payment_method'],
+            payment_amount=data['payment_amount'],
+            city=data['city'],
+            state=data['state'],
+            country=data['country'],
+            postal_code=data['postal_code'],
+            phone_number=data.get('phone_number'),
+            user_id=user_id
+        )
+
+        db.session.add(new_payment)
+        db.session.commit()
+
+        return jsonify({"message": "Payment added successfully"}), 201
+    
+@api.route('/payments', methods=['GET'])
+def get_all_payments():
+    if request.method == 'GET':
+        allPayments = Payments.query.all()
+        payment_serialize = [Payments.serialize()for Payments in allPayments]
+        return jsonify(payment_serialize), 200
+
+@api.route('/payment/<int:payment_id>', methods=['GET'])
+def handle_payment(payment_id):
+    payment1 = Payments.query.get(payment_id)
+    return jsonify(payment1.serialize()), 200
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -30,14 +86,3 @@ def handle_hello():
 
 if __name__ == '__main__':
     api.run()
-@api.route('/user/<int:user_id>', methods=['GET'])
-def handle_user(user_id):
-    user1 = User.query.get(user_id)
-    return jsonify(user1.serialize()), 200
-
-@api.route('/users', methods=['GET'])
-def handle_users():
-    if request.method == 'GET':
-        allUsers = User.query.all()
-        user_serialize = [person.serialize()for person in allUsers]
-        return jsonify(user_serialize), 200

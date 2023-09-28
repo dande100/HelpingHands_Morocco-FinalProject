@@ -69,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			fetchDonation: () => {
 
-				fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/api/progress")
+				fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/progress")
 					.then((response) => {
 						if (!response.ok) {
 							throw new Error("Network response was not ok");
