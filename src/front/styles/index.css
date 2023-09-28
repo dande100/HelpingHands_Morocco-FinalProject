@@ -14,7 +14,7 @@ a {
   }
 
 footer {
-    position: fixed;
+    background: #e9ecef;
     bottom: -10px;
     width: 100%;
     padding: 0;

@@ -22,8 +22,13 @@ def setup_commands(app):
             user = User()
             user.email = "test_user" + str(x) + "@test.com"
             user.password = "123456"
+<<<<<<< HEAD
             user.first_name= "this is my first name"
             user.last_name= "this is my last name"
+=======
+            user.first_name = 'test'  + str(x)
+            user.last_name = 'test last name'  + str(x)
+>>>>>>> main
             user.is_active = True
             db.session.add(user)
             db.session.commit()

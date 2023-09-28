@@ -36,7 +36,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			getToken: async (obj) => {
-				console.log("test")
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/token", {
 						method: 'POST',
