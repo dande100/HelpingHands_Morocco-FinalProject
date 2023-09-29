@@ -68,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			fetchDonation: () => {
 
-				fetch("https://legendary-sniffle-r99wqwx49443wgp-3001.app.github.dev/api/progress")
+				fetch("http://127.0.0.1:3001/api/progress")
 					.then((response) => {
 						if (!response.ok) {
 							throw new Error("Network response was not ok");
