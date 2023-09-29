@@ -10,6 +10,10 @@ export const Navbar = ({ aboutUsSectionRef }) => {
       aboutUsSectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+  const storage = localStorage.getItem('user_id')
+  const handleLogout = () => {
+    localStorage.clear()
+  }
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
@@ -21,9 +25,9 @@ export const Navbar = ({ aboutUsSectionRef }) => {
           />
         </RouterLink>
         <div className="navLinks">
-          <RouterLink to="/home">Home</RouterLink>
+          <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/contact">Contact</RouterLink>
-          {currentPath === "/home" ? (
+          {currentPath === "/" ? (
             <ScrollLink
               to="aboutUs"
               spy={true}
@@ -36,9 +40,11 @@ export const Navbar = ({ aboutUsSectionRef }) => {
           ) : (
             <RouterLink to="/aboutUs">About Us</RouterLink>
           )}
-          <RouterLink to="/login" className="button-link login-button">
+          {storage > 0 ? <RouterLink to="/login" className="button-link login-button" onClick={handleLogout}>
+            Logout
+          </RouterLink> : <RouterLink to="/login" className="button-link login-button">
             Login
-          </RouterLink>
+          </RouterLink>}
           <RouterLink to="/signup" className="button-link signup-button">
             Sign Up
           </RouterLink>

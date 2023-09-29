@@ -31,7 +31,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/home" />
+                        <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<AboutUs />} path="/aboutUs" />
                         <Route element={<ThankYou />} path="/thank-you-page" />
@@ -40,7 +40,7 @@ const Layout = () => {
                         <Route element={<ForgotPassword />} path="/forgot-password" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Contact />} path="/contact" />
-
+                        <Route element={<ThankYou />} path="/dashboard" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

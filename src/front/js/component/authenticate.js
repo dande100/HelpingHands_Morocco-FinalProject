@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import bannerImgURL from "../../img/banner.jpg";
 import logoImageUrl from "../../img/logo.png";
 import firebase from 'firebase/compat/app';
@@ -20,12 +20,27 @@ const divStyle = {
 const Authenticate = (props) => {
   const [input, setInput] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [validated, setValidated] = useState(false);
   const { store, actions } = useContext(Context)
+  const navigate = useNavigate()
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await auth.signInWithPopup(provider);
-      console.log('Google login successful');
+      console.log('Google login successful', provider);
+      
+      const obj = {
+        email: input,
+        password: password,
+        social: true
+      }
+      actions.getToken(obj).then(() => {
+        // local storage having access_token
+        console.log("/navigate to donate page")
+      })
     } catch (error) {
       console.error('Google login error:', error);
     }
@@ -40,16 +55,47 @@ const Authenticate = (props) => {
       console.error('Facebook login error:', error);
     }
   };
+ 
 
-  const loginToThePortal = () => {
-    if (input != '' && password != '') {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+    if (input != '' && password != '' && props.showLogin) {
       const obj = {
-        name: input,
-        password: password
+        email: input,
+        password: password,
+        social: false
       }
-      actions.getToken(obj)
+      actions.getToken(obj).then(() => {
+        if(store.isLoginSuccess) {
+          navigate('/dashboard')
+        }
+      })
+    } else if(props.showSignup && firstName != '' && lastName != '' && input != '' && password != '') {
+      const obj = {
+        email: input,
+        password: password,
+        first_name: firstName,
+        last_name: lastName
+      }
+     actions.createAccount(obj).then(() => {
+        if(store.isSignup) {
+          navigate('/login')
+          store.message = null,
+          store.error = null
+        }
+      })
+    } else if(props.showRecovery && input != '' && newPassword != '') {
+      const obj = {
+        email: input,
+        new_password: newPassword
+      }
+      actions.changePassword(obj).then(() => {
+        if(store.isPasswordRecovery) {
+          navigate('/login')
+        }
+      })
     }
-
   }
   return (
     <>
@@ -60,7 +106,7 @@ const Authenticate = (props) => {
         <div className='row login-text col-sm-12 col-md-4'>
           <div className='login-container'>
             <div className='logo-image-wrapper'>
-              <Link to="/home">
+              <Link to="/">
                 <img
                   className="logo"
                   src={logoImageUrl}
@@ -68,23 +114,28 @@ const Authenticate = (props) => {
                 />
               </Link>
             </div>
+            
+            {store.error && <div className="alert alert-danger" role="alert">
+            {store.error}
+            </div> }
+            {store.message && <div className="alert alert-success" role="success">
+            {store.message}
+            </div> }
             <h3 className='mb-4'>{props?.title}</h3>
-            <form>
+            <form id="needs-validation" noValidate onSubmit={handleSubmit}>
               {props?.showSignup && <div className='row col'>
                 <div className="mb-3 col-md-6 ms-0">
                   <label htmlFor="firstName" className="form-label">First name</label>
-                  <input type="text" className="form-control" id="firstName" required placeholder="Enter First name" />
+                  <input type="text" className="form-control" id="firstName" required placeholder="Enter First name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
                 </div>
                 <div className="mb-3 col-md-6 ms-0">
                   <label htmlFor="lastName" className="form-label">Last Name</label>
-                  <input type="text" className="form-control" id="lastName" required placeholder="Enter Last name" />
+                  <input type="text" className="form-control" id="lastName" required placeholder="Enter Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
               </div>}
               <div className="mb-3 row ms-0">
                 <label htmlFor="email" className="form-label">Email address</label>
                 <input type="email" className="form-control" id="email" required placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
               </div>
               {!props?.showRecovery && <div className="mb-3 row ms-0">
                 <label htmlFor="inputPassword" className="col-form-label">Password</label>
@@ -93,9 +144,9 @@ const Authenticate = (props) => {
               </div>}
               {props?.showRecovery && <div className="mb-3 row ms-0">
                 <label htmlFor="inputPassword" className="col-form-label">New Password</label>
-                <input type="password" required className="form-control" id="inputPassword" />
+                <input type="password" required className="form-control" id="inputPassword" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
               </div>}
-              <button type="submit" className="btn btn-primary" onClick={loginToThePortal}>{props?.buttonText}</button>
+              <button type="submit" className="btn btn-primary">{props?.buttonText}</button>
             </form>
             {props?.showLogin && <div className='mt-3'>Don't have an account yet! <Link to={'/signup'}>Create one</Link></div>}
             {props?.showSignup && <div className='mt-3'>Already have an account? <Link to={'/login'}>Login here!</Link></div>}
