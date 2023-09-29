@@ -44,7 +44,7 @@ def addUser():
          db.session.add(new_user_data)
          db.session.commit()
          return jsonify({"msg": "User added successfully!"}), 201
-    return jsonify({"msg": "email is already exists in the database try login instead?"}), 401
+    return jsonify({"error": "email is already exists in the database try login instead?"}), 401
 
 @api.route('/user/<int:user_id>', methods=['GET'])
 def handle_user(user_id):
@@ -105,16 +105,19 @@ def handle_payment(payment_id):
 def createToken():
      email = request.json.get("email", None)
      password = request.json.get("password", None)
+     social = request.json.get("social", None)
 
-     if email is None and password is None:
-          return jsonify({"error": "Email and password are required"}), 400
+     if social:
+          user = User.query.filter_by(email=email).first()
+     else:
+         user = User.query.filter_by(email=email,password=password).first()
      
-     user = User.query.filter_by(email=email,password=password).first()
-
      if user is None:
           return jsonify({"error": "Unauthorized Access"}), 401
      access_token = create_access_token(identity=email)
-     return jsonify(access_token=access_token), 200
+     user_id =  user.id
+          
+     return jsonify(access_token=access_token, user_id=user_id), 200
 
 @api.route("/updatePassword", methods=['POST'])
 def updateUserPassword():
@@ -129,6 +132,7 @@ def updateUserPassword():
 
      if user is None:
           return jsonify({"error": "Not a valid email"}), 401
+     
      user.password = newPassword
      db.session.commit()
      
