@@ -2,6 +2,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			error: null,
+			isLoginSuccess: false,
+			isSignup: false,
+			isPasswordRecovery: false,
 			demo: [
 				{
 					title: "FIRST",
@@ -34,7 +38,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			getToken: async (obj) => {
-				console.log("test")
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/token", {
 						method: 'POST',
@@ -44,8 +47,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json()
 					if (data.access_token) {
 						localStorage.setItem('access_token', data.access_token)
+						localStorage.setItem('user_id', data.user_id)
+						setStore({ isLoginSuccess: true })
 					}
-					setStore({ message: data.message })
+					setStore({ error: data?.error })
+					setTimeout(() => {
+						setStore({ error: null })
+					}, 2000)
 					return data;
 				} catch (error) {
 					console.log("Error loading message from backend", error)
@@ -59,6 +67,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(obj)
 					})
 					const data = await resp.json()
+					if (data.msg) {
+						setStore({ message: data.msg })
+						setStore({ isSignup: true })
+						setTimeout(() => {
+							setStore({ message: null })
+						}, 2000)
+					}
+					setStore({ error: data?.error })
+					setTimeout(() => {
+						setStore({ error: null })
+					}, 2000)
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
+			changePassword: async (obj) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/updatePassword", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify(obj)
+					})
+					const data = await resp.json()
+					if (data.msg) {
+						setStore({ message: data.msg })
+						setStore({ isPasswordRecovery: true })
+						setTimeout(() => {
+							setStore({ message: null })
+						}, 2000)
+					}
+					setStore({ error: data?.error })
+					setTimeout(() => {
+						setStore({ error: null })
+					}, 2000)
 					return data;
 				} catch (error) {
 					console.log("Error loading message from backend", error)
