@@ -5,7 +5,7 @@ import "../../styles/contact.css";
 import { Link } from "react-router-dom";
 import layout from "../layout";
 
-export const Dashboard = () => {
+export const DashboardHistory = () => {
     const { store, actions } = useContext(Context);
 
     return (
@@ -16,8 +16,8 @@ export const Dashboard = () => {
                         <div className="col">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 my-5">
                                 <ol className="breadcrumb mb-0">
-                                    <li className="breadcrumb-item active" aria-current="page">User Profile</li>
-                                    <li className="breadcrumb-item"><Link to="/dashboard-history">Donation History</Link></li>
+                                    <li className="breadcrumb-item"><Link to="/dashboard">User Profile</Link></li>
+                                    <li className="breadcrumb-item active" aria-current="page">Donation History</li>
                                 </ol>
                             </nav>
                         </div>
@@ -31,9 +31,6 @@ export const Dashboard = () => {
                                         className="rounded-circle img-fluid" style={{ width: "150px" }}></img>
                                     <h5 className="my-3">Jess Morrison</h5>
                                     <p className="text-muted mb-4">Clearwater, Florida, USA</p>
-                                    {/* <div className="d-flex justify-content-center mb-2">
-                                        <button type="button" className="btn btn-primary">Edit Contact info</button>
-                                    </div> */}
                                 </div>
                             </div>
                             <div className="card mb-4 mb-lg-0">
@@ -46,35 +43,38 @@ export const Dashboard = () => {
                             <div className="card mb-4">
                                 <div className="card-body">
                                     <div className="row">
+                                        <div className="col-sm-10">
+                                            <h3 className="my-3">Donation History</h3>
+                                        </div>
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Full Name</p>
+                                            <p className="mb-0">Date</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className="text-muted mb-0">Jess Morrison</p>
+                                            <p className="text-muted mb-0">09/01/2023</p>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Email</p>
+                                            <p className="mb-0">Currency</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className="text-muted mb-0">example@example.com</p>
+                                            <p className="text-muted mb-0">$ Dollars</p>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Phone</p>
+                                            <p className="mb-0">Payment Method</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className="text-muted mb-0">(555) 234-5678</p>
+                                            <p className="text-muted mb-0">Credit Card</p>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Address</p>
+                                            <p className="mb-0">Donation Amount</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className="text-muted mb-0">Clearwater, FL</p>
+                                            <p className="text-muted mb-0">$5000</p>
                                         </div>
                                     </div>
                                 </div>
