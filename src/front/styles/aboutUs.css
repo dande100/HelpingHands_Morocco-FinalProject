@@ -48,6 +48,9 @@
   font-family: monospace;
   font-weight: bold;
 }
+.aboutUsPage{
+  padding: 10px;
+}
 .readMore{
   margin-bottom: 10px;
   background-color: purple;

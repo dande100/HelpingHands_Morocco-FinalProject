@@ -1,66 +1,94 @@
-.container{
+.container {
   margin-top: -75px;
-  
-}
-.navbar {
-  height: 70px;
- 
-}
-.navLinks {
-    display: flex;
-    align-items: center;
-  }
-  
-.navLinks > * + * {
-  margin-left: 30px; /* Adjust the spacing between links and the line */
-  padding-left: 20px; /* Increase the padding to add more space for the line */
-  position: relative;
-}
-.navLinks > * + *::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 1px; /* Width of the vertical line */
-  background-color: rgb(189, 186, 186); /* Line color set to gray */
-  display: block;
-}
-.navLinks > * {
-  text-decoration: none;
-  color: #000; 
-  margin-right: 20px;
-  font-weight: bold; 
 }
 
-@media (max-width: 576px) {
+.navbar {
+  height: 70px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+}
+
+.navLinks > * {
+  text-decoration: none;
+  color: #000;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.hamburger-menu .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #000;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+
+/* Mobile menu styles */
+.navLinks.open {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  position: absolute;
+  top: 70px; 
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  text-align: center;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+.navLinks.open > * {
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
   .navbar {
-    height: auto; /* Adjust the height for small screens */
+    height: auto;
   }
 
   .logo {
-    width: 150px; /* Adjust the logo size for small screens */
+    width: 150px;
     height: 150px;
   }
 
   .navLinks {
-    display: none;
+    display: none !important;
+    align-items: center;
   }
+  
+  .navLinks.open {
+    display: flex !important; 
+  }
+  
 
-  .button-link {
-    margin: 10px 0; /* Add spacing to buttons */
-    width: 100%; /* Make buttons full width */
+  .hamburger-menu {
+    display: flex;
   }
 }
 
-/* For medium screens (e.g., tablets) */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .navLinks {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     font-size: x-small !important;
-    padding: 5px;
-    margin-top: 20px;
+    padding: 10px;
+    margin-bottom:20px;
   }
   .navLinks > * + *::before {
     display: none;
@@ -87,8 +115,8 @@
 .signup-button::before {
   content: "";
   position: absolute;
-  top: 50%; /* Adjust to center the line vertically */
-  transform: translateY(-50%); /* Adjust to center the line vertically */
+  top: 50%; 
+  transform: translateY(-50%); 
   left: 0;
   height: 100%;
   width: 1px;

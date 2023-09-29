@@ -11,7 +11,7 @@ const AboutUs = () => {
     };
 
     return (
-        
+
         <div id="aboutUs" className="col aboutUsStatement" ref={aboutUsSectionRef}>
             <h3 className="aboutUsHeader">We’re Changing Lives with your Help</h3>
             <p className="statement1">Catalyzing Change, Building Hope: Our mission, led by the HelpingHands Foundation, is to rally communities and individuals worldwide in support of Morocco's recovery and rebuilding efforts following natural disasters. We believe in the power of collective action to make a lasting impact, fostering resilience, and creating a brighter future for the people of Morocco.</p>
@@ -24,7 +24,7 @@ const AboutUs = () => {
                 </p>
             )}
         </div>
- 
+      
     );
 };
 
