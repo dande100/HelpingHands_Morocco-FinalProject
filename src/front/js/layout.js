@@ -10,12 +10,13 @@ import AboutUs from "./pages/aboutUs";
 import { ThankYou } from "./pages/thank-you-page";
 import { Contact } from "./pages/contact";
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import ForgotPassword from "./pages/forgot-password";
+import { Dashboard } from "./pages/dashboard";
+import { DashboardHistory } from "./pages/dashboard-history";
 
 //create your first component
 const Layout = () => {
@@ -40,7 +41,10 @@ const Layout = () => {
                         <Route element={<ForgotPassword />} path="/forgot-password" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Contact />} path="/contact" />
-                        <Route element={<ThankYou />} path="/dashboard" />
+                        <Route element={<Dashboard />} path="/dashboard" />
+                        <Route element={<DashboardHistory />} path="/dashboard-history" />
+
+                        <Route element={<ThankYou />} path="/thank-you-page" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
