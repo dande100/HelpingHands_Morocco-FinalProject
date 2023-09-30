@@ -110,7 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			fetchDonation: () => {
+			fetchAllDonation: () => {
 
 				fetch("http://127.0.0.1:3001/api/progress")
 					.then((response) => {
@@ -125,6 +125,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch((error) => {
 						console.error("Error fetching progress data:", error);
+					});
+			},
+			fetchEachDonation: (user_id) => {
+				fetch(`http://127.0.0.1:3001/api/user/${user_id}/payments`)
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						// Set the user's donation history data in the state
+						setStore({ userDonationHistory: data });
+					})
+					.catch((error) => {
+						console.error("Error fetching donation history:", error);
 					});
 			},
 			changeColor: (index, color) => {

@@ -32,7 +32,7 @@ export const Home = () => {
 
 
 	const fetchProgress = () => {
-		actions.fetchDonation()
+		actions.fetchAllDonation()
 	};
 
 	useEffect(() => {

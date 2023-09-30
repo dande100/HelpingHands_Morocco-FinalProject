@@ -95,11 +95,15 @@ def get_all_payments():
         payment_serialize = [Payments.serialize()for Payments in allPayments]
         return jsonify(payment_serialize), 200
 
-@api.route('/payment/<int:payment_id>', methods=['GET'])
-def handle_payment(payment_id):
-    payment1 = Payments.query.get(payment_id)
-    return jsonify(payment1.serialize()), 200
-
+@api.route('/user/<int:user_id>/payments', methods=['GET'])
+def get_user_donation_history(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({"message": "User not found"}), 404
+    
+    user_payments = Payments.query.filter_by(user_id=user_id).all()
+    payment_serialize = [payment.serialize() for payment in user_payments]
+    return jsonify(payment_serialize), 200
 
 @api.route("/token", methods=['POST'])
 def createToken():
