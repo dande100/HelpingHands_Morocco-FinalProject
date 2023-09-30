@@ -63,45 +63,33 @@ const DonatePage = () => {
               </div>
             </div>
 
-            <div className="row">
+            <div className="row p-4">
               <div class="col-4">
-                <label> </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="$10"
-                />
+              <label> </label>
+                <button type="button" className="btn btn-info col-9">
+                $10
+                </button>
               </div>
               <div class="col-4">
-                <label> </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="$20"
-                />
+              <label> </label>
+                <button type="button" className="btn btn-info col-9">
+                $20
+                </button>
               </div>
               <div class="col-4">
-                <label></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="$ 30"
-                />
+              <label> </label>
+                <button type="button" className="btn btn-info col-9">
+                $30
+                </button>
               </div>
-              <div className="row pe-0">
+              </div>
+              <div className="row p-4">
                 <div class="col-4 pe-2">
-                  <label></label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    placeholder="$60"
-                  />
+                <button type="button" className="btn btn-info col-9">
+                $60
+                </button>
                 </div>
-                <div class="col-8 pe-0 ps-3">
+                <div class="col-8 pe-2">
                   <label> </label>
                   <input
                     type="text"
@@ -111,7 +99,8 @@ const DonatePage = () => {
                   />
                 </div>
               </div>
-            </div>
+            
+            
 
             <div className="row pt-3">
               <div className="d-flex align-items-center">
