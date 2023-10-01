@@ -170,7 +170,7 @@ const Authenticate = (props) => {
               {!props?.showChangePassword && !props.showForgotPassword && !props.showResetPassword && <div className="mb-3 row ms-0">
                 <label htmlFor="inputPassword" className="col-form-label">Password</label>
                 <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} className="form-control" id="inputPassword" />
-                <div className='text-end fst-italic'><Link to={'/forgot-password'}>Forgot a password?</Link></div>
+                {props.showLogin && <div className='text-end fst-italic'><Link to={'/forgot-password'}>Forgot a password?</Link></div>}
               </div>}
               {props?.showChangePassword && <>
                 <div className="mb-3 row ms-0">

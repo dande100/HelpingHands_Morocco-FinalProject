@@ -21,10 +21,11 @@ def addUser():
     password = request.json.get("password", None)
     first_name = request.json.get("first_name", None)
     last_name = request.json.get("last_name", None)
+    social = request.json.get("social")
 
     user = User.query.filter_by(email=email).first()
     if user is None:
-         new_user_data = User(email= email, password=password, first_name=first_name, last_name=last_name)
+         new_user_data = User(email= email, password=password, first_name=first_name, last_name=last_name,login_method='google' if social else 'app')
          db.session.add(new_user_data)
          db.session.commit()
          return jsonify({"msg": "User added successfully!"}), 201
@@ -49,7 +50,7 @@ def createToken():
      social = request.json.get("social", None)
 
      if social:
-          user = User.query.filter_by(email=email).first()
+          user = User.query.filter_by(email=email,login_method='google').first()
      else:
          user = User.query.filter_by(email=email,password=password).first()
      
