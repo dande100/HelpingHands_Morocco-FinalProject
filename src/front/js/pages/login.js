@@ -16,7 +16,7 @@ const Login = () => {
 
   return (
     <>
-      <Authenticate buttonText={'Login'} title={'Login'} showLogin={true} />
+      <Authenticate buttonText={'Login'} title={'Login'} showLogin={true} showGoogleLogin={true} />
     </>
   )
 }
