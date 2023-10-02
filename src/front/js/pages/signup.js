@@ -15,7 +15,7 @@ const Signup = () => {
   };
   return (
     <>
-      <Authenticate buttonText={'Signup'} title={'Create Account'} showSignup={true} />
+      <Authenticate buttonText={'Signup'} title={'Create Account'} showSignup={true} showGoogleLogin={true} />
     </>
   )
 }

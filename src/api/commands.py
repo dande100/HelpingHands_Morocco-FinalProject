@@ -26,6 +26,7 @@ def setup_commands(app):
             user.last_name= "this is my last name"
             user.first_name = 'test'  + str(x)
             user.last_name = 'test last name'  + str(x)
+            user.login_method = "app"
             user.is_active = True
             db.session.add(user)
             db.session.commit()

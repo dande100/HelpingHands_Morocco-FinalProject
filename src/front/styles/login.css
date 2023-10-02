@@ -24,6 +24,15 @@
   justify-content: center;
   align-items: center;
 }
+input:invalid {
+  border: 2px solid red;
+}
+input:invalid:required {
+  background-color: lightpink
+}
+input:valid {
+  border: 2px solid black;
+}
 
 @media screen and (max-width: 1000px) {
   .login-text {
@@ -33,7 +42,9 @@
     display: block !important;
   }
   .left-login-container {
-    width: 100%;
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
   }
   .login-container {
     width: 80%;

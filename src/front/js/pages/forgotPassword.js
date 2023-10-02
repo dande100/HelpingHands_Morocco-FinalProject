@@ -3,7 +3,7 @@ import Authenticate from '../component/authenticate';
 const ForgotPassword = () => {
   return (
     <>
-      <Authenticate buttonText={'Create a Password'} title={'Change Password'} showRecovery={true} />
+      <Authenticate buttonText={'Send Reset Email'} title={'Forgot Password'} showForgotPassword={true} />
 
     </>
   )

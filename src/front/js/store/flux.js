@@ -6,7 +6,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			error: null,
 			isLoginSuccess: false,
 			isSignup: false,
-			isPasswordRecovery: false,
+			isChangePassword: false,
+			isForgotPassword: false,
+			isPasswordReset: false,
 			demo: [
 				{
 					title: "FIRST",
@@ -28,16 +30,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: async () => {
-				try {
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
-					return data;
-				} catch (error) {
-					console.log("Error loading message from backend", error)
-				}
+				// try {
+				// 	// fetching data from the backend
+				// 	const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
+				// 	const data = await resp.json()
+				// 	setStore({ message: data.message })
+				// 	// don't forget to return something, that is how the async resolves
+				// 	return data;
+				// } catch (error) {
+				// 	console.log("Error loading message from backend", error)
+				// }
 			},
 			getToken: async (obj) => {
 				try {
@@ -95,7 +97,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json()
 					if (data.msg) {
 						setStore({ message: data.msg })
-						setStore({ isPasswordRecovery: true })
+						setStore({ isChangePassword: true })
 						setTimeout(() => {
 							setStore({ message: null })
 						}, 2000)
@@ -109,6 +111,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+<<<<<<< HEAD
 
 			fetchAllDonation: () => {
 
@@ -146,17 +149,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
+=======
+			requestForgotPassword: async (obj) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/request_reset_password", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify(obj)
+					})
+					const data = await resp.json()
+					if (data.msg) {
+						setStore({ message: data.msg })
+						setStore({ isForgotPassword: true })
+						setTimeout(() => {
+							setStore({ message: null })
+						}, 20000)
+					}
+					setStore({ error: data?.error })
+					setTimeout(() => {
+						setStore({ error: null })
+					}, 20000)
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
+			resetPassword: async (obj) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/reset_password", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify(obj)
+					})
+					const data = await resp.json()
+					if (data.msg) {
+						setStore({ message: data.msg })
+						setStore({ isPasswordReset: true })
+						setTimeout(() => {
+							setStore({ message: null })
+						}, 5000)
+					}
+					setStore({ error: data?.error })
+					setTimeout(() => {
+						setStore({ error: null })
+					}, 20000)
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
+>>>>>>> main
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
 		}
 	};
 };
