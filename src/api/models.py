@@ -15,7 +15,7 @@ class User(db.Model):
     
 
     def __repr__(self):
-        return f'<User {self.email}
+        return f'<User {self.email}>'
     def serialize(self):
         return {
             "id": self.id,
@@ -56,8 +56,6 @@ class Payments(db.Model):
             "user_id": self.user_id,
         }
     
-<<<<<<< HEAD
-=======
 class ResetTokens(db.Model):
     __tablename__ = 'reset_tokens'
     id = db.Column(db.Integer, primary_key=True)
@@ -71,4 +69,3 @@ class ResetTokens(db.Model):
             "email": self.email,
             "token": self.token
         }
->>>>>>> main
