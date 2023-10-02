@@ -14,9 +14,8 @@ from api.commands import setup_commands
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
-# import firebase_admin
-# from firebase_admin import credentials, auth
-
+from flask_mail import Mail, Message
+import secrets
 #from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -26,6 +25,15 @@ app.url_map.strict_slashes = False
 
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 jwt = JWTManager(app)
+
+# mail configuration
+# Configure Flask-Mail
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT']=587
+app.config['MAIL_USERNAME']='fundraisetest1@gmail.com' # this is test gmail account for email generate
+app.config['MAIL_PASSWORD']='vlle bzhr xaho anuz' # important for email generate
+app.config['MAIL_USE_TLS']=True
+mail = Mail(app)
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
@@ -70,8 +78,12 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
-# cred = credentials.Certificate('src/serviceAccountKey/fund-raising-app-a1439-firebase-adminsdk-75uc6-baf59170a2.json')
-# firebase_admin.initialize_app(cred)
+def send_reset_email(email, token):
+     msg = Message('Password Reset', sender="fundraisetest1@gmail.com", recipients=[email])
+     msg.body = f'click the link below to reset your password:\n {os.getenv("FRONTEND_URL")}/reset-password?token={token}&email={email}'
+     
+     msg.send(mail)
+     return "Mail has sent"
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

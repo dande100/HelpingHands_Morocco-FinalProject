@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import logoImageUrl from "../../img/logo.png";
 
 export const Navbar = ({ aboutUsSectionRef }) => {
   const currentPath = window.location.pathname;
+  const [storage, setStorageData] = useState()
   const scrollToAboutUs = () => {
     if (aboutUsSectionRef.current) {
       aboutUsSectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-  const storage = localStorage.getItem('user_id')
   const handleLogout = () => {
     localStorage.clear()
+    setStorageData(null)
   }
+  useEffect(() => {
+    setStorageData(localStorage.getItem('user_id'))
+  })
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
@@ -40,7 +44,7 @@ export const Navbar = ({ aboutUsSectionRef }) => {
           ) : (
             <RouterLink to="/aboutUs">About Us</RouterLink>
           )}
-          {storage > 0 ? <RouterLink to="/login" className="button-link login-button" onClick={handleLogout}>
+          {storage != null ? <RouterLink to="/login" className="button-link login-button" onClick={handleLogout}>
             Logout
           </RouterLink> : <RouterLink to="/login" className="button-link login-button">
             Login
