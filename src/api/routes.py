@@ -18,7 +18,6 @@ import app
 
 # Define the Flask app
 api = Blueprint('api', __name__)
-<<<<<<< HEAD
 
 def calculate_total_donated():
     total_donated = db.session.query(db.func.sum(Payments.payment_amount)).scalar()
@@ -33,8 +32,6 @@ def get_donation_progress():
 
     return jsonify({'progress': progress_percentage})
 
-=======
->>>>>>> main
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 @api.route("/signup", methods=["POST"])
@@ -150,7 +147,6 @@ def updateUserPassword():
      
      return jsonify({'msg': 'your password changes successfully, please return to login'}), 200
 
-<<<<<<< HEAD
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
@@ -162,7 +158,6 @@ def handle_hello():
 
 if __name__ == '__main__':
     api.run()
-=======
 @api.route('/request_reset_password', methods=['GET', 'POST'])
 def request_reset_password():
      email = request.json.get('email', None)
@@ -200,4 +195,3 @@ def reset_password():
 
      return jsonify({"msg": "your password is updated successfully, it is redirecting to login page."})
 
->>>>>>> main
