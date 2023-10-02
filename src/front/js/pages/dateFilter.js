@@ -19,11 +19,11 @@ const DateFilter = ({ onFilter, onPrint }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}>
+        <form className="dateFilter" onSubmit={handleSubmit}>
             <select
                 value={selectedDate}
                 onChange={handleDateChange}
-                style={{ marginLeft: "10px", padding: "5px" }}
+
             >
                 <option value="" disabled hidden>
                     Select a date
@@ -37,7 +37,7 @@ const DateFilter = ({ onFilter, onPrint }) => {
 
             </select>
 
-            <button type="submit" style={{ padding: "5px 10px", backgroundColor: "#007BFF", color: "white", border: "none", cursor: "pointer" }}>
+            <button className="applyFilterBtn" type="submit" style={{ marginLeft: "5px", backgroundColor: "#007BFF", color: "white", border: "none", cursor: "pointer" }}>
                 Apply Filter
             </button>
             <svg

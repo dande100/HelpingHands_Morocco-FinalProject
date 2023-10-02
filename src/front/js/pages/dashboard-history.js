@@ -34,8 +34,6 @@ export const DashboardHistory = () => {
         <>
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container py-5">
-                    <DateFilter onFilter={handleFilter} onPrint={handlePrint} />
-
                     <div className="row">
                         <div className="col">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 my-5">
@@ -62,10 +60,11 @@ export const DashboardHistory = () => {
                         </div>
                         <div className="col-lg-8">
                             <div className="card mb-4">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col-sm-10">
-                                            <h3 className="my-3">Donation History</h3>
+                                <div className="col-sm-10">
+                                    <div className="card-body">
+                                        <div className="row">
+                                            <DateFilter onFilter={handleFilter} onPrint={handlePrint} />
+                                            <h3 className="my-3 donationHistoryHeader">Donation History</h3>
                                         </div>
                                     </div>
                                     <table className="table">

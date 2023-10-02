@@ -13,7 +13,7 @@ export const Dashboard = () => {
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container py-5">
                     <div className="row">
-                        <div className="col">
+                        <div className="col dashboard">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 my-5">
                                 <ol className="breadcrumb mb-0">
                                     <li className="breadcrumb-item active" aria-current="page">User Profile</li>

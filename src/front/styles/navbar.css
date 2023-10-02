@@ -44,7 +44,7 @@
   flex-direction: column;
   background-color: #fff;
   position: absolute;
-  top: 70px; 
+  top: 70px;
   right: 0;
   left: 0;
   z-index: 1000;
@@ -71,11 +71,10 @@
     display: none !important;
     align-items: center;
   }
-  
+
   .navLinks.open {
-    display: flex !important; 
+    display: flex !important;
   }
-  
 
   .hamburger-menu {
     display: flex;
@@ -88,7 +87,7 @@
     flex-direction: row;
     font-size: x-small !important;
     padding: 10px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
   .navLinks > * + *::before {
     display: none;
@@ -108,15 +107,15 @@
   width: 80px;
   height: 30px;
   transition: background-color 0.3s;
-  margin-right: 20px; 
+  margin-right: 20px;
 }
 
 .login-button::before,
 .signup-button::before {
   content: "";
   position: absolute;
-  top: 50%; 
-  transform: translateY(-50%); 
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   height: 100%;
   width: 1px;
@@ -131,25 +130,22 @@
 }
 
 .login-button {
-  background-color:purple;
-
+  background-color: purple;
 }
 
 .signup-button {
-  background-color:  teal;
+  background-color: teal;
   width: 90px;
   height: 30px;
   padding: 2px 12px;
-  
-}  
-.signup-button:hover{
-  background-color: purple; 
+}
+.signup-button:hover {
+  background-color: purple;
   color: white !important;
   font-weight: bold;
 }
-.login-button:hover{
-  background-color: teal; 
+.login-button:hover {
+  background-color: teal;
   color: white !important;
   font-weight: bold;
 }
- 
