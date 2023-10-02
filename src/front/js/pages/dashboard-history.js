@@ -35,9 +35,9 @@ export const DashboardHistory = () => {
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container py-5">
                     <div className="row">
-                        <div className="col">
-                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 my-5">
-                                <ol className="breadcrumb mb-0">
+                        <div className="col dashboard">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mx-5 my-5">
+                                <ol className="breadcrumb mt-0">
                                     <li className="breadcrumb-item"><Link to="/dashboard">User Profile</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Donation History</li>
                                 </ol>

@@ -140,4 +140,27 @@
 .vision,
 .history {
   text-align: justify !important;
+  color: purple;
+}
+.missionH5Tag,
+.visionH5Tag,
+.historyH5Tag {
+  text-align: justify !important;
+  color: gray;
+}
+
+.avatar {
+  width: 250px;
+  height: 250px;
+}
+.volunteers {
+  text-align: center;
+  color: purple;
+}
+.volunteersPTag {
+  text-align: justify;
+  padding: 10px;
+}
+.aboutUsPTag {
+  color: rgb(182, 174, 174);
 }
