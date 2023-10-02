@@ -144,7 +144,7 @@ const Authenticate = (props) => {
                 <input type="email" className="form-control" id="email" required placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
                 <div className="valid-feedback">Valid.</div>
                 <div className="invalid-feedback">Please fill out this field.</div>
-              </div>
+              </div>}
               {!props?.showRecovery && <div className="mb-3 row ms-0">
                 <label htmlFor="inputPassword" className="col-form-label">Password</label>
                 <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} className="form-control" id="inputPassword" />
