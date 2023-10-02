@@ -9,6 +9,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     first_name = db.Column(db.String(80), unique=False, nullable=False)
     last_name = db.Column(db.String(80), unique=False, nullable=False)
+    login_method = db.Column(db.String(80), unique=False, nullable=True)
     phone = db.Column(db.String(20), unique=False, nullable=False)
     gender = db.Column(db.String(20), unique=False, nullable=False)
     street_address = db.Column(db.String(120), unique=False, nullable=False)
@@ -26,12 +27,13 @@ class User(db.Model):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
+            "login_method": self.login_method,
             "phone": self.phone,
             "gender": self.gender,
             "street_address": self.street_address,
             "city": self.city,
             "state": self.state,
-            "country": self.country,
+            "country": self.country
         }
     
 class Payments(db.Model):
@@ -62,4 +64,18 @@ class Payments(db.Model):
             "postal_code": self.postal_code,
             "phone_number": self.phone_number,
             "user_id": self.user_id,
+        }
+    
+class ResetTokens(db.Model):
+    __tablename__ = 'reset_tokens'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), db.ForeignKey('user.email'), nullable=False)
+    token = db.Column(db.String(250), unique=True, nullable=False)
+    user = db.relationship(User)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "token": self.token
         }
