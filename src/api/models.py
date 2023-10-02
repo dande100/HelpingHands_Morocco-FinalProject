@@ -15,19 +15,15 @@ class User(db.Model):
     
 
     def __repr__(self):
-        return f'<User {self.email}>'
-
+        return f'<User {self.email}
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
-<<<<<<< HEAD
             
-=======
             "login_method": self.login_method
->>>>>>> main
         }
 
 class Payments(db.Model):
