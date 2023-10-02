@@ -145,60 +145,58 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error fetching donation history:", error);
 					});
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-				requestForgotPassword: async (obj) => {
-					try {
-						const resp = await fetch(process.env.BACKEND_URL + "/api/request_reset_password", {
-							method: 'POST',
-							headers: { "Content-type": "application/json" },
-							body: JSON.stringify(obj)
-						})
-						const data = await resp.json()
-						if (data.msg) {
-							setStore({ message: data.msg })
-							setStore({ isForgotPassword: true })
-							setTimeout(() => {
-								setStore({ message: null })
-							}, 20000)
-						}
-						setStore({ error: data?.error })
+			requestForgotPassword: async (obj) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/request_reset_password", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify(obj)
+					})
+					const data = await resp.json()
+					if (data.msg) {
+						setStore({ message: data.msg })
+						setStore({ isForgotPassword: true })
 						setTimeout(() => {
-							setStore({ error: null })
+							setStore({ message: null })
 						}, 20000)
-						return data;
-					} catch (error) {
-						console.log("Error loading message from backend", error)
 					}
-				},
-					resetPassword: async (obj) => {
-						try {
-							const resp = await fetch(process.env.BACKEND_URL + "/api/reset_password", {
-								method: 'POST',
-								headers: { "Content-type": "application/json" },
-								body: JSON.stringify(obj)
-							})
-							const data = await resp.json()
-							if (data.msg) {
-								setStore({ message: data.msg })
-								setStore({ isPasswordReset: true })
-								setTimeout(() => {
-									setStore({ message: null })
-								}, 5000)
-							}
-							setStore({ error: data?.error })
-							setTimeout(() => {
-								setStore({ error: null })
-							}, 20000)
-							return data;
-						} catch (error) {
-							console.log("Error loading message from backend", error)
-						}
-					},
+					setStore({ error: data?.error })
+					setTimeout(() => {
+						setStore({ error: null })
+					}, 20000)
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
+
+			resetPassword: async (obj) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/reset_password", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify(obj)
+					})
+					const data = await resp.json()
+					if (data.msg) {
+						setStore({ message: data.msg })
+						setStore({ isPasswordReset: true })
+						setTimeout(() => {
+							setStore({ message: null })
+						}, 5000)
+					}
+					setStore({ error: data?.error })
+					setTimeout(() => {
+						setStore({ error: null })
+					}, 20000)
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			},
 
 		}
-		};
 	};
+};
 
-	export default getState;
+export default getState;
