@@ -10,6 +10,7 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from flask_mail import Mail
 from flask_mail import Message
 import secrets
 import app
@@ -40,11 +41,18 @@ def addUser():
     password = request.json.get("password", None)
     first_name = request.json.get("first_name", None)
     last_name = request.json.get("last_name", None)
+    phone = request.json.get("phone", None)
+    gender = request.json.get("gender", None)
+    street_address = request.json.get("street_address", None)
+    city = request.json.get("city", None)
+    state = request.json.get("state", None)
+    country = request.json.get("country", None)
     social = request.json.get("social")
+
 
     user = User.query.filter_by(email=email).first()
     if user is None:
-         new_user_data = User(email= email, password=password, first_name=first_name, last_name=last_name,login_method='google' if social else 'app')
+         new_user_data = User(email= email, password=password, first_name=first_name, last_name=last_name, phone=phone, gender=gender, street_address=street_address, city=city, state=state, country=country, login_method='google' if social else 'app')
          db.session.add(new_user_data)
          db.session.commit()
          return jsonify({"msg": "User added successfully!"}), 201

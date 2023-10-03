@@ -6,9 +6,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			error: null,
 			isLoginSuccess: false,
 			isSignup: false,
+			isPasswordRecovery: false,
 			isChangePassword: false,
 			isForgotPassword: false,
 			isPasswordReset: false,
+			user: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -43,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getToken: async (obj) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/token", {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/token/", {
 						method: 'POST',
 						headers: { "Content-type": "application/json" },
 						body: JSON.stringify(obj)
@@ -111,6 +113,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+<<<<<<< HEAD
 
 			fetchAllDonation: () => {
 
@@ -147,6 +150,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
+=======
+			getUser: () => {
+				const user_id = localStorage.getItem("user_id")
+				fetch(`https://organic-telegram-vxj55v44q67cwjw5-3001.app.github.dev/api/user/${user_id}`)
+					.then(response => response.json())
+					.then(data => {
+						console.log(data)
+						setStore({ user: data })
+					})
+			},
+			changeColor: (index, color) => {
+				//get the store
+				const store = getStore();
+			},
+>>>>>>> main
 			requestForgotPassword: async (obj) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/request_reset_password", {

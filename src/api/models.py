@@ -12,6 +12,12 @@ class User(db.Model):
     first_name = db.Column(db.String(80), unique=False, nullable=True)
     last_name = db.Column(db.String(80), unique=False, nullable=True)
     login_method = db.Column(db.String(80), unique=False, nullable=True)
+    phone = db.Column(db.String(20), unique=False, nullable=False)
+    gender = db.Column(db.String(20), unique=False, nullable=False)
+    street_address = db.Column(db.String(120), unique=False, nullable=False)
+    city = db.Column(db.String(120), unique=False, nullable=False)
+    state = db.Column(db.String(120), unique=False, nullable=False)
+    country = db.Column(db.String(120), unique=False, nullable=False)
     
 
     def __repr__(self):
@@ -22,7 +28,13 @@ class User(db.Model):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "login_method": self.login_method
+            "login_method": self.login_method,
+            "phone": self.phone,
+            "gender": self.gender,
+            "street_address": self.street_address,
+            "city": self.city,
+            "state": self.state,
+            "country": self.country
         }
 
 class Payments(db.Model):
