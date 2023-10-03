@@ -22,7 +22,6 @@ class User(db.Model):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            
             "login_method": self.login_method
         }
 

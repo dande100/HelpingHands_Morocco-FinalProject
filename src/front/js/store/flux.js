@@ -114,7 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			fetchAllDonation: () => {
 
-				fetch("http://127.0.0.1:3001/api/progress")
+				fetch(process.env.BACKEND_URL + "/api/progress")
 					.then((response) => {
 						if (!response.ok) {
 							throw new Error("Network response was not ok");
@@ -129,8 +129,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error fetching progress data:", error);
 					});
 			},
+
 			fetchEachDonation: (user_id) => {
-				fetch(`http://127.0.0.1:3001/api/user/${user_id}/payments`)
+				fetch(`http://127.0.0.1:3001/api/users/${user_id}/donations`)
 					.then((response) => {
 						if (!response.ok) {
 							throw new Error("Network response was not ok");
@@ -145,6 +146,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error fetching donation history:", error);
 					});
 			},
+
 			requestForgotPassword: async (obj) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/request_reset_password", {

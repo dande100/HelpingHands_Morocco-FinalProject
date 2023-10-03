@@ -62,8 +62,8 @@ def handle_users():
         user_serialize = [person.serialize()for person in allUsers]
         return jsonify(user_serialize), 200
     
-@api.route('/payments', methods=['POST'])
-def add_payment():
+@api.route('/donations', methods=['POST'])
+def add_donations():
     if request.method == 'POST':
         data = request.json 
         user_id = data.get('user_id')
@@ -73,7 +73,7 @@ def add_payment():
         if not user:
             return jsonify({"message": "User not found"}), 404
 
-        # Create a new payment record
+        # Create a new donation record
         new_payment = Payments(
             date=data['date'],
             currency=data['currency'],
@@ -92,22 +92,26 @@ def add_payment():
 
         return jsonify({"message": "Payment added successfully"}), 201
     
-@api.route('/payments', methods=['GET'])
-def get_all_payments():
+
+@api.route('/donations', methods=['GET'])
+def get_all_donations():
     if request.method == 'GET':
         allPayments = Payments.query.all()
-        payment_serialize = [Payments.serialize()for Payments in allPayments]
+        payment_serialize = [payment.serialize() for payment in allPayments]
         return jsonify(payment_serialize), 200
 
-@api.route('/user/<int:user_id>/payments', methods=['GET'])
+
+@api.route('/users/<int:user_id>/donations', methods=['GET'])
 def get_user_donation_history(user_id):
     user = User.query.get(user_id)
     if user is None:
         return jsonify({"message": "User not found"}), 404
-    
+
     user_payments = Payments.query.filter_by(user_id=user_id).all()
     payment_serialize = [payment.serialize() for payment in user_payments]
     return jsonify(payment_serialize), 200
+
+
 
 @api.route("/token", methods=['POST'])
 def createToken():
