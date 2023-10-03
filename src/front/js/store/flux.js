@@ -113,7 +113,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-<<<<<<< HEAD
 
 			fetchAllDonation: () => {
 
@@ -150,7 +149,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-=======
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
 				fetch(`https://organic-telegram-vxj55v44q67cwjw5-3001.app.github.dev/api/user/${user_id}`)
@@ -164,7 +162,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//get the store
 				const store = getStore();
 			},
->>>>>>> main
 			requestForgotPassword: async (obj) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/request_reset_password", {
