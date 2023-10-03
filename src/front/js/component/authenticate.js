@@ -127,10 +127,11 @@ const Authenticate = (props) => {
       }
       actions.changePassword(obj).then(() => {
         if (store.isPasswordRecovery) {
-        if (store.isChangePassword) {
-          navigate('/login')
+          if (store.isChangePassword) {
+            navigate('/login')
+          }
         }
-      }})
+      })
     } else if (props.showForgotPassword) {
       const obj = {
         email: input
@@ -186,11 +187,12 @@ const Authenticate = (props) => {
                 </div>
               </div>}
               {!props?.showRecovery && <div className="mb-3 row ms-0">
+                <label htmlFor="email" className="form-label">Email</label>
                 <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
               </div>}
               {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
                 <label htmlFor="phone" className="form-label">Phone Number</label>
-                <input type="text" className="form-control" id="phone" required placeholder="555-123-4567" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <input type="text" className="form-control" id="phone" placeholder="555-123-4567" value={phone} onChange={(e) => setPhone(e.target.value)} />
               </div>}
               {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
                 <label htmlFor="gender" className="form-label">Gender</label>
@@ -205,22 +207,19 @@ const Authenticate = (props) => {
               </div>}
               {props?.showSignup && <div className="mb-3 row ms-0">
                 <label htmlFor="street_address" className="form-label">Street Address</label>
-                <input type="text" className="form-control" id="street_address" required placeholder="1234 main street" value={street_address} onChange={(e) => setStreetAddress(e.target.value)} />
+                <input type="text" className="form-control" id="street_address" placeholder="1234 main street" value={street_address} onChange={(e) => setStreetAddress(e.target.value)} />
               </div>}
               {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
                 <label htmlFor="city" className="form-label">City</label>
-                <input type="text" className="form-control" id="city" required placeholder="Miami" value={city} onChange={(e) => setCity(e.target.value)} />
+                <input type="text" className="form-control" id="city" placeholder="Miami" value={city} onChange={(e) => setCity(e.target.value)} />
               </div>}
               {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
                 <label htmlFor="state" className="form-label">State</label>
-                <input type="text" className="form-control" id="state" required placeholder="Florida" value={state} onChange={(e) => setState(e.target.value)} />
+                <input type="text" className="form-control" id="state" placeholder="Florida" value={state} onChange={(e) => setState(e.target.value)} />
               </div>}
               {props?.showSignup && <div className="mb-3 row ms-0">
                 <label htmlFor="country" className="form-label">Country</label>
-                <input type="text" className="form-control" id="country" required placeholder="USA" value={country} onChange={(e) => setCountry(e.target.value)} />
-              </div>}
-              {!props?.showRecovery && <div className="mb-3 row ms-0">
-                <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
+                <input type="text" className="form-control" id="country" placeholder="USA" value={country} onChange={(e) => setCountry(e.target.value)} />
               </div>}
               {!props?.showChangePassword && !props.showForgotPassword && !props.showResetPassword && <div className="mb-3 row ms-0">
                 <label htmlFor="inputPassword" className="col-form-label">Password</label>

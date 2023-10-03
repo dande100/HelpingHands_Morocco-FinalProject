@@ -32,7 +32,7 @@ export const Dashboard = () => {
                             <div className="card mb-4">
                                 <div className="card-body text-center">
                                     <img src={store.user.gender == "male" ? 'https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=826&t=st=1696263499~exp=1696264099~hmac=e15908ec944c24765a64d9b8185abf84624a8d5de64883456a88f04bbb692d58' :
-                                        store.user.gender == "not specified" ? 'C:\Users\calli\AppData\Local\Temp\Tempf8c4d5ae-b7a3-40a8-be11-c5f0e11724eb_vecteezy_profile-user-icon-isolated-on-white-background-vector-eps10__351.zip\vecteezy_profile-user-icon-isolated-on-white-background-vector-eps10_.jpg' :
+                                        store.user.gender == "not specified" ? 'https://t3.ftcdn.net/jpg/01/77/54/02/360_F_177540231_SkxuDjyo8ECrPumqf0aeMbean2Ai1aOK.jpg' :
                                             'https://img.freepik.com/free-vector/illustration-businesswoman_53876-5857.jpg?w=740&t=st=1696264556~exp=1696265156~hmac=32e49fc27755cf638e74a7414a1ef7dd852eedce42db8323c85c7499f1244623'} alt="avatar"
                                         className="rounded-circle img-fluid" style={{ width: "250px", height: "250px" }}></img>
                                     <h5 className="mt-n5 mb-3 fs-2">{store.user.first_name}  {store.user.last_name}</h5>
