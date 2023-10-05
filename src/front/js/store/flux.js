@@ -121,8 +121,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 			},
 			editObject: (newObj) => {
-				fetch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-					method: 'POST',
+				fetch(process.env.BACKEND_URL + `/api/user`, {
+					method: 'PUT',
 					headers: { "Content-type": "application/json" },
 					body: JSON.stringify(newObj)
 				})

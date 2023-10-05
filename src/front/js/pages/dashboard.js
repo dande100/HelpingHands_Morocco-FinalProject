@@ -20,11 +20,9 @@ export const Dashboard = (props) => {
         console.log(localStorage.getItem("user_id"))
     }, [])
 
-    const handleSubmitEditContact = () => {
+    const handleSubmitEditContact = (e) => {
+        e.preventDefault()
         const newObj = {
-            email: store.user.email,
-            login_method: store.user.login_method,
-            password: store.user.password,
             first_name: newFirstName,
             last_name: newLastName,
             phone: newPhone,
@@ -32,7 +30,8 @@ export const Dashboard = (props) => {
             street_address: newStreetAddress,
             city: newCity,
             state: newState,
-            country: newCountry
+            country: newCountry,
+            user_id: localStorage.getItem("user_id")
         };
         actions.editObject(newObj)
     }
@@ -63,8 +62,9 @@ export const Dashboard = (props) => {
                                     <h5 className="mt-n5 mb-3 fs-2">{store.user.first_name}  {store.user.last_name}</h5>
                                     <p className="text-muted mb-4 fs-3">{store.user.city},  {store.user.state}, {store.user.country}</p>
                                     <div className="d-flex justify-content-center mb-2">
-                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="editContactModal">
-                                            Edit Contact info
+
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Edit Contact Info
                                         </button>
                                     </div>
                                 </div>
@@ -117,29 +117,29 @@ export const Dashboard = (props) => {
                 </div>
             </section>
 
-            {/* --MODAL-- */}
-            <div className="modal fade" id="editContactModal" tabIndex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div className="modal-content w-75">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel2">Edit Contact Info</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Contact Info</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body p-4">
+                        <div class="modal-body">
                             <form>
                                 {/* -- Name input -- */}
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-2">
                                     <input type="text" id="new_first_name" className="form-control" placeholder="Enter First name" value={newFirstName} onChange={(e) => setNewFirstName(e.target.value)} />
                                     <label className="form-label" htmlFor="new_first_name">First Name</label>
                                 </div>
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-2">
                                     <input type="text" id="new_last_name" className="form-control" placeholder="Enter Last name" value={newLastName} onChange={(e) => setNewLastName(e.target.value)} />
                                     <label className="form-label" htmlFor="new_last_name">last Name</label>
                                 </div>
 
                                 {/* -- Gender -- */}
-                                <div className="form-outline mb-4">
-                                    <label htmlFor="gender" className="form-label">Gender</label>
+                                <div className="form-outline mb-2">
+                                    <label htmlFor="gender" className="form-label me-2">Gender</label>
                                     <select onChange={(e) => {
                                         setNewGender(e.target.value)
                                     }} className="picker" id="gender">
@@ -151,39 +151,42 @@ export const Dashboard = (props) => {
                                 </div>
 
                                 {/* -- phone input -- */}
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-2">
                                     <input type="text" id="phone" className="form-control" placeholder="Enter Phone Number" value={newPhone} onChange={(e) => setNewPhone(e.target.value)} />
                                     <label className="form-label" htmlFor="phone">Phone</label>
                                 </div>
 
                                 {/* -- address -- */}
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-2">
                                     <input type="text" id="new_street_address" className="form-control" placeholder="Enter Street Address" value={newStreetAddress} onChange={(e) => setNewStreetAddress(e.target.value)} />
                                     <label className="form-label" htmlFor="new_street_address">Street Address</label>
                                 </div>
                                 {/* -- city -- */}
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-2">
                                     <input type="text" id="new_city" className="form-control" placeholder="Enter City" value={newCity} onChange={(e) => setNewCity(e.target.value)} />
                                     <label className="form-label" htmlFor="new_city">city</label>
                                 </div>
                                 {/* -- state -- */}
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-2">
                                     <input type="text" id="new_state" className="form-control" placeholder="Enter State" value={newState} onChange={(e) => setNewState(e.target.value)} />
                                     <label className="form-label" htmlFor="new_state">State</label>
                                 </div>
                                 {/* -- country -- */}
-                                <div className="form-outline mb-4">
+                                <div className="form-outline mb-2">
                                     <input type="text" id="new_country" className="form-control" placeholder="Enter Country" value={newCountry} onChange={(e) => setNewCountry(e.target.value)} />
                                     <label className="form-label" htmlFor="new_country">Country</label>
                                 </div>
-
-                                {/* -- Submit button -- */}
-                                <button type="submit" className="btn btn-primary btn-block" onClick={() => handleSubmitEditContact()}>Submit</button>
                             </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-block" data-bs-dismiss="modal"
+                                onClick={(e) => handleSubmitEditContact(e)}>Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </>
     )
 }
