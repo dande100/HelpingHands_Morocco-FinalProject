@@ -90,60 +90,60 @@ export const Home = () => {
 				</div>
 				<br /> <br />
 			</div>
-			<section class="home-testimonial">
-				<div class="container-fluid">
-					<div class="row d-flex justify-content-center testimonial-pos">
-						<div class="col-md-12 pt-4 d-flex justify-content-center">
+			<section className="home-testimonial">
+				<div className="container-fluid">
+					<div className="row d-flex justify-content-center testimonial-pos">
+						<div className="col-md-12 pt-4 d-flex justify-content-center">
 							<h3>Testimonials</h3>
 						</div>
 					</div>
-					<section class="home-testimonial-bottom">
-						<div class="container testimonial-inner">
-							<div class="row d-flex justify-content-center">
-								<div class="col-md-4 style-3">
-									<div class="tour-item ">
-										<div class="tour-desc bg-white">
-											<div class="tour-text color-grey-3 text-center">"So happy I was able to use Helping Hands Morocco to make a donation for those affected in Morocco. The site was very easy to use and was a simple donation process!"</div>
-											<div class="link-name d-flex justify-content-center mt-3">- John Smith</div>
-											<div class="link-position d-flex justify-content-center mt-2">Donor</div>
-											<div class="ratings justify-content-center">
-												<i class="fa fa-star rating-color mr-n3"></i>
-												<i class="fa fa-star rating-color mr-n3"></i>
-												<i class="fa fa-star rating-color mr-n3"></i>
-												<i class="fa fa-star rating-color mr-n3"></i>
-												<i class="fa fa-star rating-color"></i>
+					<section className="home-testimonial-bottom">
+						<div className="container testimonial-inner">
+							<div className="row d-flex justify-content-center">
+								<div className="col-md-4 style-3">
+									<div className="tour-item ">
+										<div className="tour-desc bg-white">
+											<div className="tour-text color-grey-3 text-center">"So happy I was able to use Helping Hands Morocco to make a donation for those affected in Morocco. The site was very easy to use and was a simple donation process!"</div>
+											<div className="link-name d-flex justify-content-center mt-3">- John Smith</div>
+											<div className="link-position d-flex justify-content-center mt-2">Donor</div>
+											<div className="ratings justify-content-center">
+												<i className="fa fa-star rating-color mr-n3"></i>
+												<i className="fa fa-star rating-color mr-n3"></i>
+												<i className="fa fa-star rating-color mr-n3"></i>
+												<i className="fa fa-star rating-color mr-n3"></i>
+												<i className="fa fa-star rating-color"></i>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-4 style-3">
-									<div class="tour-item ">
-										<div class="tour-desc bg-white">
-											<div class="tour-text color-grey-3 text-center">"Very easy to use to website to make a donation to help those in Morocco affected by the earthquakes!"</div>
-											<div class="link-name d-flex justify-content-center mt-3">- Jane Rogers</div>
-											<div class="link-position d-flex justify-content-center mt-2">Donor</div>
-											<div class="ratings">
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star"></i>
+								<div className="col-md-4 style-3">
+									<div className="tour-item ">
+										<div className="tour-desc bg-white">
+											<div className="tour-text color-grey-3 text-center">"Very easy to use to website to make a donation to help those in Morocco affected by the earthquakes!"</div>
+											<div className="link-name d-flex justify-content-center mt-3">- Jane Rogers</div>
+											<div className="link-position d-flex justify-content-center mt-2">Donor</div>
+											<div className="ratings">
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star"></i>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-4 style-3">
-									<div class="tour-item ">
-										<div class="tour-desc bg-white">
-											<div class="tour-text color-grey-3 text-center">"So happy to have found Helping Hands Morocco so I could help those in Morocco who need it. Glad Helping Hands are here to help us make a difference!"</div>
-											<div class="link-name d-flex justify-content-center mt-3">- David White</div>
-											<div class="link-position d-flex justify-content-center mt-2">Donor</div>
-											<div class="ratings">
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star rating-color"></i>
-												<i class="fa fa-star rating-color"></i>
+								<div className="col-md-4 style-3">
+									<div className="tour-item ">
+										<div className="tour-desc bg-white">
+											<div className="tour-text color-grey-3 text-center">"So happy to have found Helping Hands Morocco so I could help those in Morocco who need it. Glad Helping Hands are here to help us make a difference!"</div>
+											<div className="link-name d-flex justify-content-center mt-3">- David White</div>
+											<div className="link-position d-flex justify-content-center mt-2">Donor</div>
+											<div className="ratings">
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star rating-color"></i>
+												<i className="fa fa-star rating-color"></i>
 											</div>
 										</div>
 									</div>

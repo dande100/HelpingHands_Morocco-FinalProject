@@ -126,3 +126,13 @@ def reset_password():
 
      return jsonify({"msg": "your password is updated successfully, it is redirecting to login page."})
 
+# @api.route("/user/<int:user_id>", methods=["POST"])
+# def updateUser():
+#     first_name = request.json.get("first_name", None)
+#     last_name = request.json.get("last_name", None)
+#     phone = request.json.get("phone", None)
+#     gender = request.json.get("gender", None)
+#     street_address = request.json.get("street_address", None)
+#     city = request.json.get("city", None)
+#     state = request.json.get("state", None)
+#     country = request.json.get("country", None)
