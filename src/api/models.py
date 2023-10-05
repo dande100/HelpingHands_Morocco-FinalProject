@@ -9,8 +9,6 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     first_name = db.Column(db.String(80), unique=False, nullable=False)
     last_name = db.Column(db.String(80), unique=False, nullable=False)
-    first_name = db.Column(db.String(80), unique=False, nullable=True)
-    last_name = db.Column(db.String(80), unique=False, nullable=True)
     login_method = db.Column(db.String(80), unique=False, nullable=True)
     phone = db.Column(db.String(20), unique=False, nullable=False)
     gender = db.Column(db.String(20), unique=False, nullable=False)
@@ -22,6 +20,7 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.email}>'
+
     def serialize(self):
         return {
             "id": self.id,
@@ -36,10 +35,10 @@ class User(db.Model):
             "state": self.state,
             "country": self.country
         }
-
+    
 class Payments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Integer, unique=False, nullable=False)
+    date = db.Column(db.String, unique=False, nullable=False)
     currency = db.Column(db.String(80), unique=False, nullable=False)
     payment_method = db.Column(db.String(80), unique=False, nullable=False)
     payment_amount = db.Column(db.Integer, unique=False, nullable=False)

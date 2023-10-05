@@ -1,8 +1,7 @@
   
 import os
 from flask_admin import Admin
-from .models import db, User, Payments
-from .models import db, User, ResetTokens
+from .models import db, User, Payments, ResetTokens
 from flask_admin.contrib.sqla import ModelView
 
 

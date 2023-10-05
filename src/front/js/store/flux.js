@@ -11,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isForgotPassword: false,
 			isPasswordReset: false,
 			user: [],
+			donations: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -132,26 +133,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			fetchEachDonation: (user_id) => {
-				fetch(`http://127.0.0.1:3001/api/users/${user_id}/donations`)
-					.then((response) => {
-						if (!response.ok) {
-							throw new Error("Network response was not ok");
-						}
-						return response.json();
-					})
-					.then((data) => {
-						// Set the user's donation history data in the state
-						setStore({ userDonationHistory: data });
-					})
-					.catch((error) => {
-						console.error("Error fetching donation history:", error);
-					});
+			fetchEachDonation: () => {
+				const user_id = localStorage.getItem("user_id")
+				fetch(process.env.BACKEND_URL + `/api/donations/user/${user_id}`)
+					.then(resp => resp.json())
+					.then(data => setStore({ donations: data }))
+					.catch(error =>
+						console.log(error)
+					)
+
+
 			},
 
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-				fetch(`https://organic-telegram-vxj55v44q67cwjw5-3001.app.github.dev/api/user/${user_id}`)
+				fetch(`http://127.0.0.1:3001/api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)

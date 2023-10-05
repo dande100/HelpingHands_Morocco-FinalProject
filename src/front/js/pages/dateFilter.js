@@ -9,8 +9,9 @@ const DateFilter = ({ onFilter, onPrint }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Call the onFilter function with the selected date as an argument
+
         onFilter(selectedDate);
+        console.log(selectedDate);
     };
 
     const handlePrintClick = () => {
@@ -29,11 +30,11 @@ const DateFilter = ({ onFilter, onPrint }) => {
                     Select a date
                 </option>
                 <option value="All">All</option>
-                <option value="2023-09-28">2023-2024</option>
-                <option value="2023-09-28">2022-2023</option>
-                <option value="2023-09-28">2021-2022</option>
-                <option value="2023-09-28">2020-2021</option>
-                <option value="2023-09-28">2019-2020</option>
+                <option value="2023">2023-2024</option>
+                <option value="2022">2022-2023</option>
+                <option value="2021">2021-2022</option>
+                <option value="2020">2020-2021</option>
+                <option value="2019">2019-2020</option>
 
             </select>
 

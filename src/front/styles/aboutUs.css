@@ -141,12 +141,20 @@
 .history {
   text-align: justify !important;
   color: purple;
+  font-family: monospace;
+  font-size: 40px;
+  margin-top: 10px;
 }
 .missionH5Tag,
 .visionH5Tag,
 .historyH5Tag {
   text-align: justify !important;
   color: gray;
+}
+.missionPTag,
+.visionPTag,
+.historyPTag {
+  font-size: smaller;
 }
 
 .avatar {
@@ -157,10 +165,8 @@
   text-align: center;
   color: purple;
 }
-.volunteersPTag {
-  text-align: justify;
-  padding: 10px;
-}
+
 .aboutUsPTag {
   color: rgb(182, 174, 174);
+  font-size: smaller;
 }
