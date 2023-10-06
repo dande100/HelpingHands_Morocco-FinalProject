@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import PrintDonationHistory from "./printDonationHistory";
 import DateFilter from "./dateFilter";
+import PrintDonationHistory from "./printDonationHistory"
+import "../../styles/print.css"
+
 
 export const DashboardHistory = () => {
     const { store, actions } = useContext(Context);
     const [filteredDonationHistory, setFilteredDonationHistory] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(""); // Add selecte
+    const [selectedDate, setSelectedDate] = useState(""); // Add selected
+
+
 
 
     useEffect(() => {
@@ -16,7 +20,20 @@ export const DashboardHistory = () => {
     }, []);
 
     const handlePrint = () => {
-        window.print(); // Trigger the browser's print dialog
+
+        const printWindow = window.open('', '', 'width=600,height=600');
+
+        printWindow.document.open();
+        printWindow.document.write('<html><head><title>Print</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"></head><body>');
+        printWindow.document.write('<div id="printable-content">');
+        printWindow.document.write(document.querySelector('.printable-content').innerHTML);
+        printWindow.document.write('</div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script></body></html>');
+        printWindow.document.close();
+
+        printWindow.print();
+        printWindow.onafterprint = function () {
+            printWindow.close();
+        };
     };
 
     const handleFilter = (selectedDate) => {
@@ -27,42 +44,28 @@ export const DashboardHistory = () => {
             setFilteredDonationHistory(store.donations);
         } else {
             const filteredData = store.donations.filter((payment) => {
-
-                let newPayment = ""; // Initialize as an empty string
+                let newPayment = "";
                 for (let i = 4; i < 8; i++) {
-                    newPayment += payment.date.toString()[i]; // Use += to concatenate
+                    newPayment += payment.date.toString()[i];
                 }
-                let newSelected = ""; // Initialize as an empty string
+                let newSelected = "";
                 for (let i = 0; i < 4; i++) {
-                    newSelected += selectedDate[i]; // Use += to concatenate
+                    newSelected += selectedDate[i];
                 }
-                console.log(newPayment, "payment date")
-                console.log(newSelected, "selected")
+                console.log(newPayment, "payment date");
+                console.log(newSelected, "selected");
 
                 return newPayment === newSelected;
             });
+
             setFilteredDonationHistory(filteredData);
         }
     };
-    // const handleFilter = (selectedDate) => {
-    //     setSelectedDate(selectedDate);
-
-    //     if (selectedDate === "All") {
-    //         setFilteredDonationHistory(store.donations);
-    //     } else {
-    //         const filteredData = store.donations.filter((payment) => {
-    //             const paymentYear = payment.date.substring(0, 4); // Extract the year portion (e.g., "2023")
-    //             return paymentYear === selectedDate;
-    //         });
-    //         setFilteredDonationHistory(filteredData);
-    //     }
-    // };
-
 
     useEffect(() => {
-        actions.getUser()
-        console.log(localStorage.getItem("user_id"))
-    }, [])
+        actions.getUser();
+        console.log(localStorage.getItem("user_id"));
+    }, []);
 
     return (
         <>
@@ -104,7 +107,10 @@ export const DashboardHistory = () => {
                                             <h3 className="my-3 donationHistoryHeader">Donation History</h3>
                                         </div>
                                     </div>
-                                    <table className="table">
+
+
+                                    <PrintDonationHistory userDonationHistory={filteredDonationHistory} />
+                                    {/* <table className="table">
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
@@ -123,7 +129,7 @@ export const DashboardHistory = () => {
                                                 </tr>
                                             ))}
                                         </tbody>
-                                    </table>
+                                    </table> */}
                                 </div>
                             </div>
                         </div>
