@@ -5,12 +5,13 @@ import Morocco1ImageUrl from "../../img/morocco1.jpg";
 
 const DonatePage = () => {
   const { store, actions } = useContext(Context);
- const [
-  currency, setCurrency
- ] = useState (["USD","Bitcoin", "EUR" ,"AUD"])
- const [
-  selection, setSelection
- ] = useState (currency[0])
+  const [currency, setCurrency] = useState(["USD", "Bitcoin", "EUR", "AUD"]);
+  const [selection, setSelection] = useState(currency[0]);
+  const [activeButton, setActiveButton] = useState(null);
+
+  const handleAmountClick = (buttonId) => {
+    setActiveButton(buttonId);
+  };
   return (
     <>
       <div className="container width:100px">
@@ -40,89 +41,135 @@ const DonatePage = () => {
                 <p>Donate Now </p>
               </div>
               <div class="col-9 text-end dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-   <text> {selection} </text>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-    { currency.map(item =>  <li onClick={() => setSelection (item)}><a class="dropdown-item" href="#"> {item} </a></li> )}
-  </ul>
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <text> {selection} </text>
+                </button>
+                <ul
+                  class="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="dropdownMenuButton1"
+                >
+                  {currency.map((item) => (
+                    <li onClick={() => setSelection(item)}>
+                      <a class="dropdown-item" href="#">
+                        {" "}
+                        {item}{" "}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-
-            <div className="row">
-              <div class="col-3">
-                <form action="">
-                  <input type="checkbox" /> One Time
-                </form>
-              </div>
-
-              <div class="col-3">
-                <form action="">
-                  <input type="checkbox" /> Monthly
-                </form>
-              </div>
-            </div>
-
-            <div className="row p-4">
-              <div class="col-4">
-              <label> </label>
-                <button type="button" className="btn btn-info col-9">
-                $10
-                </button>
-              </div>
-              <div class="col-4">
-              <label> </label>
-                <button type="button" className="btn btn-info col-9">
-                $20
-                </button>
-              </div>
-              <div class="col-4">
-              <label> </label>
-                <button type="button" className="btn btn-info col-9">
-                $30
-                </button>
-              </div>
-              </div>
-              <div className="row p-4">
-                <div class="col-4 pe-2">
-                <button type="button" className="btn btn-info col-9">
-                $60
-                </button>
+            <div className="">
+              <div className="d-flex">
+                <div className="">
+                  <input type="radio" name="frequency" value="one_time" /> One
+                  Time
                 </div>
-                <div class="col-8 pe-2">
+
+                <div className="mx-2">
+                  <input type="radio" name="frequency" value="monthly" />{" "}
+                  Monthly
+                </div>
+              </div>
+              <div className="row my-2">
+                <div class="col-4">
                   <label> </label>
+                  <button
+                    type="button"
+                    className={` btn btn-info w-100 amountButton ${
+                      activeButton == "10" ? "activeAmountButton" : ""
+                    }`}
+                    onClick={() => {
+                      handleAmountClick("10");
+                    }}
+                  >
+                    $10.00
+                  </button>
+                </div>
+                <div class="col-4">
+                  <label> </label>
+                  <button
+                    type="button"
+                    className={` btn btn-info w-100 amountButton ${
+                      activeButton == "10" ? "activeAmountButton" : ""
+                    }`}
+                    onClick={() => {
+                      handleAmountClick("10");
+                    }}
+                  >
+                    $20.00
+                  </button>
+                </div>
+                <div class="col-4">
+                  <label> </label>
+                  <button
+                    type="button"
+                    className={`btn btn-info w-100 amountButton ${
+                      activeButton == "10" ? "activeAmountButton" : ""
+                    }`}
+                    onClick={() => {
+                      handleAmountClick("10");
+                    }}
+                  >
+                    $30.00
+                  </button>
+                </div>
+              </div>
+              <div className="row">
+                <div class="col-4">
+                  <button
+                    type="button"
+                    className={`btn btn-info w-100 amountButton ${
+                      activeButton == "10" ? "activeAmountButton" : ""
+                    }`}
+                    onClick={() => {
+                      handleAmountClick("10");
+                    }}
+                  >
+                    $60.00
+                  </button>
+                </div>
+
+                <div class="col-8">
                   <input
                     type="text"
-                    class="form-control"
+                    className={`w-100 form-control`}
                     id="name"
                     placeholder="$ other amount"
                   />
                 </div>
               </div>
-            
-            
 
-            <div className="row pt-3">
-              <div className="d-flex align-items-center">
-                <strong>Choose Payment</strong>
+              <div className="text-center pt-4">Your Gift Amount</div>
 
+              <div className="row pt-3">
                 <div className="d-flex align-items-center">
-                  <i class="fa-solid fa-lock mx-3"></i>
+                  <strong>Choose Payment</strong>
+
+                  <div className="d-flex align-items-center">
+                    <i class="fa-solid fa-lock mx-3"></i>
                     <strong>Secure</strong>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="row p-3 mt-5">
-              <div class="col text-center">
-                <button type="button" className="btn btn-info col-9">
-                  Visa
-                </button>
-              </div>
-              <div class="col text-center">
-                <button type="button" className="btn btn-info col-9">
-                  Visa
-                </button>
+              <div className="row mt-5">
+                <div class="col-6 text-center">
+                  <button type="button" className="btn btn-info w-100">
+                    Pay With PayPal
+                  </button>
+                </div>
+                <div class="col-6 text-center">
+                  <button type="button" className="btn btn-info w-100">
+                    Pay With Stripe
+                  </button>
+                </div>
               </div>
             </div>
           </div>
