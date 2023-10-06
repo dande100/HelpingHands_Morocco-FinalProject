@@ -8,9 +8,11 @@ const DonatePage = () => {
   const [currency, setCurrency] = useState(["USD", "Bitcoin", "EUR", "AUD"]);
   const [selection, setSelection] = useState(currency[0]);
   const [activeButton, setActiveButton] = useState(null);
-
+  const [amountToDonate, setAmountToDonate] = useState(0);
   const handleAmountClick = (buttonId) => {
+    document.querySelector(".amount-input").value = "";
     setActiveButton(buttonId);
+    setAmountToDonate(parseInt(buttonId));
   };
   return (
     <>
@@ -97,10 +99,10 @@ const DonatePage = () => {
                   <button
                     type="button"
                     className={` btn btn-info w-100 amountButton ${
-                      activeButton == "10" ? "activeAmountButton" : ""
+                      activeButton == "20" ? "activeAmountButton" : ""
                     }`}
                     onClick={() => {
-                      handleAmountClick("10");
+                      handleAmountClick("20");
                     }}
                   >
                     $20.00
@@ -111,10 +113,10 @@ const DonatePage = () => {
                   <button
                     type="button"
                     className={`btn btn-info w-100 amountButton ${
-                      activeButton == "10" ? "activeAmountButton" : ""
+                      activeButton == "30" ? "activeAmountButton" : ""
                     }`}
                     onClick={() => {
-                      handleAmountClick("10");
+                      handleAmountClick("30");
                     }}
                   >
                     $30.00
@@ -126,10 +128,10 @@ const DonatePage = () => {
                   <button
                     type="button"
                     className={`btn btn-info w-100 amountButton ${
-                      activeButton == "10" ? "activeAmountButton" : ""
+                      activeButton == "60" ? "activeAmountButton" : ""
                     }`}
                     onClick={() => {
-                      handleAmountClick("10");
+                      handleAmountClick("60");
                     }}
                   >
                     $60.00
@@ -139,9 +141,13 @@ const DonatePage = () => {
                 <div class="col-8">
                   <input
                     type="text"
-                    className={`w-100 form-control`}
+                    className={`amount-input w-100 form-control`}
                     id="name"
                     placeholder="$ other amount"
+                    onChange={(e) => {
+                      setActiveButton("");
+                      setAmountToDonate(e.target.value);
+                    }}
                   />
                 </div>
               </div>
@@ -166,7 +172,11 @@ const DonatePage = () => {
                   </button>
                 </div>
                 <div class="col-6 text-center">
-                  <button type="button" className="btn btn-info w-100">
+                  <button
+                    onClick={() => console.log(amountToDonate)}
+                    type="button"
+                    className="btn btn-info w-100"
+                  >
                     Pay With Stripe
                   </button>
                 </div>
