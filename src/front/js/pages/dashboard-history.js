@@ -20,8 +20,7 @@ export const DashboardHistory = () => {
     }, []);
 
     const handlePrint = () => {
-
-        const printWindow = window.open('', '', 'width=600,height=600');
+        const printWindow = window.open("", "", "width=600,height=600");
 
         printWindow.document.open();
         printWindow.document.write('<html><head><title>Print</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"></head><body>');
@@ -35,7 +34,6 @@ export const DashboardHistory = () => {
             printWindow.close();
         };
     };
-
     const handleFilter = (selectedDate) => {
         setSelectedDate(selectedDate);
 
@@ -45,7 +43,7 @@ export const DashboardHistory = () => {
         } else {
             const filteredData = store.donations.filter((payment) => {
                 let newPayment = "";
-                for (let i = 4; i < 8; i++) {
+                for (let i = 4; i < 8 || i == 7; i++) {
                     newPayment += payment.date.toString()[i];
                 }
                 let newSelected = "";

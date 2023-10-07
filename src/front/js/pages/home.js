@@ -29,6 +29,7 @@ export const Home = () => {
 
 	const carouselImages = [sliderBGImageUrl, sliderImageUrl1];
 
+
 	const changeCarouselImage = () => {
 		setCurrentImageIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
 	};
@@ -88,7 +89,8 @@ export const Home = () => {
 						<div className="col-md-3 col-sm-3">
 							<div className="progress blue">
 								<span className="progress-left">
-									<span className="progress-bar" ></span>
+									{/* style={{ width: store.progressPercentage }} */}
+									<span className="progress-bar"  ></span>
 								</span>
 								<span className="progress-right">
 									<span className="progress-bar" ></span>
