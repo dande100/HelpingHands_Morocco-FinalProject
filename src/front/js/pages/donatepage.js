@@ -15,24 +15,40 @@ const DonatePage = () => {
     setAmountToDonate(parseInt(buttonId));
   };
   const checkout = async () => {
+    // Validate the donation amount
+    if (isNaN(amountToDonate) || amountToDonate <= 0) {
+      alert("Please enter a valid donation amount.");
+      return;
+    }
+
     await fetch('https://reimagined-space-giggle-pxv6vxpq94q26wr7-3001.app.github.dev/checkout', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ amount: amountToDonate }) // Send the selected donation amount
+      body: JSON.stringify({ amount: amountToDonate})
     })
-      .then((response) => response.json())
+    // add on line 29 next to amount to donate if you want to use the currency slection, currency: selection 
       .then((response) => {
-        if (response.url) {
-          window.location.assign(response.url);
+        if (!response.ok) {
+          throw new Error(`Server responded with status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        if (data.url) {
+          window.location.assign(data.url);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        alert(`An error occurred: ${error.message}`);
       });
   };
-  
+
   return (
     <>
       <div className="container width:100px">
@@ -103,9 +119,8 @@ const DonatePage = () => {
                   <label> </label>
                   <button
                     type="button"
-                    className={` btn btn-info w-100 amountButton ${
-                      activeButton == "10" ? "activeAmountButton" : ""
-                    }`}
+                    className={` btn btn-info w-100 amountButton ${activeButton == "10" ? "activeAmountButton" : ""
+                      }`}
                     onClick={() => {
                       handleAmountClick("10");
                     }}
@@ -117,9 +132,8 @@ const DonatePage = () => {
                   <label> </label>
                   <button
                     type="button"
-                    className={` btn btn-info w-100 amountButton ${
-                      activeButton == "20" ? "activeAmountButton" : ""
-                    }`}
+                    className={` btn btn-info w-100 amountButton ${activeButton == "20" ? "activeAmountButton" : ""
+                      }`}
                     onClick={() => {
                       handleAmountClick("20");
                     }}
@@ -131,9 +145,8 @@ const DonatePage = () => {
                   <label> </label>
                   <button
                     type="button"
-                    className={`btn btn-info w-100 amountButton ${
-                      activeButton == "30" ? "activeAmountButton" : ""
-                    }`}
+                    className={`btn btn-info w-100 amountButton ${activeButton == "30" ? "activeAmountButton" : ""
+                      }`}
                     onClick={() => {
                       handleAmountClick("30");
                     }}
@@ -146,9 +159,8 @@ const DonatePage = () => {
                 <div class="col-4">
                   <button
                     type="button"
-                    className={`btn btn-info w-100 amountButton ${
-                      activeButton == "60" ? "activeAmountButton" : ""
-                    }`}
+                    className={`btn btn-info w-100 amountButton ${activeButton == "60" ? "activeAmountButton" : ""
+                      }`}
                     onClick={() => {
                       handleAmountClick("60");
                     }}
@@ -159,13 +171,14 @@ const DonatePage = () => {
 
                 <div class="col-8">
                   <input
-                   type="number" 
+                    type="number"
+                    step="0.01"
+                    min="0"
                     className={`amount-input w-100 form-control`}
-                    id="name"
                     placeholder="$ other amount"
                     onChange={(e) => {
                       setActiveButton("");
-                      setAmountToDonate(e.target.value);
+                      setAmountToDonate(parseFloat(e.target.value));
                     }}
                   />
                 </div>
@@ -186,14 +199,14 @@ const DonatePage = () => {
 
               <div className="row mt-5">
                 <div class="col-6 text-center">
-                  <button  onClick={() => console.log(amountToDonate)}
-                  type="button" className="btn btn-info w-100">
+                  <button onClick={() => console.log(amountToDonate)}
+                    type="button" className="btn btn-info w-100">
                     Pay With PayPal
                   </button>
                 </div>
                 <div class="col-6 text-center">
                   <button
-                    onClick={() => checkout  (amountToDonate)}
+                    onClick={() => checkout(amountToDonate)}
                     type="button"
                     className="btn btn-info w-100"
                   >
@@ -260,7 +273,7 @@ const DonatePage = () => {
             </p>
           </div>
           <div className="col-6 p-5">
-          <img src={Morocco1ImageUrl} alt="Morocco" width="460" height="345" />
+            <img src={Morocco1ImageUrl} alt="Morocco" width="460" height="345" />
           </div>
         </div>
 
