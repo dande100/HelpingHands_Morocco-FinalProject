@@ -168,5 +168,69 @@
 
 .aboutUsPTag {
   color: rgb(182, 174, 174);
-  font-size: smaller;
+  font: smaller;
 }
+.volunteersPTag {
+  color: rgb(182, 174, 174);
+  font-size: 12px;
+  text-align: center;
+}
+.bi-linkedin {
+  width: 22px;
+  height: 22px;
+  margin-left: -14px;
+}
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensures the content takes up the full height of the parent div */
+}
+
+.bi-github {
+  width: 22px;
+  height: 22px;
+}
+.bi-instagram {
+  width: 22px;
+  height: 22px;
+  margin-left: 10px;
+}
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line if necessary */
+  margin: -10px; /* Adjust this value to control the gap size */
+}
+
+.card {
+  width: 250px;
+  margin: 10px;
+}
+
+/* .card-hover-bg1 {
+  left: 25%;
+  position: absolute;
+  top: 0%;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  z-index: 9;
+}
+.card-hover-bg1:after {
+  background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+  content: "";
+  height: 0%;
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+} */
