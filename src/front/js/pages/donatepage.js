@@ -14,6 +14,25 @@ const DonatePage = () => {
     setActiveButton(buttonId);
     setAmountToDonate(parseInt(buttonId));
   };
+  const checkout = async () => {
+    await fetch('https://reimagined-space-giggle-pxv6vxpq94q26wr7-3001.app.github.dev/checkout', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ amount: amountToDonate }) // Send the selected donation amount
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.url) {
+          window.location.assign(response.url);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+  
   return (
     <>
       <div className="container width:100px">
@@ -140,7 +159,7 @@ const DonatePage = () => {
 
                 <div class="col-8">
                   <input
-                    type="text"
+                   type="number" 
                     className={`amount-input w-100 form-control`}
                     id="name"
                     placeholder="$ other amount"
@@ -167,13 +186,14 @@ const DonatePage = () => {
 
               <div className="row mt-5">
                 <div class="col-6 text-center">
-                  <button type="button" className="btn btn-info w-100">
+                  <button  onClick={() => console.log(amountToDonate)}
+                  type="button" className="btn btn-info w-100">
                     Pay With PayPal
                   </button>
                 </div>
                 <div class="col-6 text-center">
                   <button
-                    onClick={() => console.log(amountToDonate)}
+                    onClick={() => checkout  (amountToDonate)}
                     type="button"
                     className="btn btn-info w-100"
                   >
@@ -240,12 +260,7 @@ const DonatePage = () => {
             </p>
           </div>
           <div className="col-6 p-5">
-            <img
-              src="morocco1.jpg"
-              alt="morocco1.jpg"
-              width="460"
-              height="345"
-            />
+          <img src={Morocco1ImageUrl} alt="Morocco" width="460" height="345" />
           </div>
         </div>
 

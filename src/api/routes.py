@@ -2,10 +2,11 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, DonationInfo
 from api.utils import generate_sitemap, APIException
 from datetime import datetime
+import stripe
 
 api = Blueprint('api', __name__)
 
-
+stripe.api_key = 'sk_test_51NuMomEkSwAVwyolKawuX9hQ9U0Uzp2dMImjTiMZzs5Z6V2F2zersSp7B8EMATJIYfFicqn25M5n2qTeGSoUCWKZ00ywOxjq0F'
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
     response_body = {
@@ -13,6 +14,24 @@ def handle_hello():
     }
     return jsonify(response_body), 200
 
+
+stripe.api_key = 'sk_test_51NuMomEkSwAVwyolKawuX9hQ9U0Uzp2dMImjTiMZzs5Z6V2F2zersSp7B8EMATJIYfFicqn25M5n2qTeGSoUCWKZ00ywOxjq0F'
+@api.route('/payment', methods=['POST'])
+def process_payment():
+    try:
+        data = request.get_json()
+        amount = data['amount'] 
+        payment_intent = stripe.PaymentIntent.create(
+            amount=amount,
+            currency='usd',
+            description='Payment for your product',
+            payment_method=data['payment_method_id'],
+            payment_method_types=['card'],
+            confirm=True,
+        )
+        return jsonify({"message": "Payment successful"})
+    except Exception as e:
+        return jsonify({"message": f"Payment failed: {str(e)}"}), 400
 
 @api.route('/donation_info', methods=["POST"])
 def handle_adding_donation_info():
