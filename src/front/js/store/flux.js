@@ -113,7 +113,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-				fetch(`https://organic-telegram-vxj55v44q67cwjw5-3001.app.github.dev/api/user/${user_id}`)
+				fetch(process.env.BACKEND_URL + `api/user/${user_id}`)
+					.then(response => response.json())
+					.then(data => {
+						console.log(data)
+						setStore({ user: data })
+					})
+			},
+			editObject: (newObj) => {
+				fetch(process.env.BACKEND_URL + `/api/user`, {
+					method: 'PUT',
+					headers: { "Content-type": "application/json" },
+					body: JSON.stringify(newObj)
+				})
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)

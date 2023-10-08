@@ -126,3 +126,37 @@ def reset_password():
 
      return jsonify({"msg": "your password is updated successfully, it is redirecting to login page."})
 
+@api.route("/user", methods=["PUT"])
+def updateUser():
+     first_name = request.json.get("first_name", None)
+     last_name = request.json.get("last_name", None)
+     phone = request.json.get("phone", None)
+     gender = request.json.get("gender", None)
+     street_address = request.json.get("street_address", None)
+     city = request.json.get("city", None)
+     state = request.json.get("state", None)
+     country = request.json.get("country", None)
+     user_id = request.json.get("user_id", None)
+     user = User.query.filter_by(id=user_id).first()
+
+     if not user: 
+          return jsonify("User not found"), 404
+     if first_name is not None: 
+          user.first_name=first_name
+     if last_name is not None: 
+          user.last_name=last_name
+     if phone is not None:
+          user.phone=phone
+     if gender is not None:
+          user.gender=gender
+     if street_address is not None:
+          user.street_address=street_address
+     if city is not None:
+          user.city=city
+     if state is not None:
+          user.state=state
+     if country is not None:
+          user.country=country
+     
+     db.session.commit()
+     return jsonify(user.serialize())
