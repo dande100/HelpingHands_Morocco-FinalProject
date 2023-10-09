@@ -85,39 +85,24 @@ export const Home = () => {
 				</div>
 			</div>
 			<div className="progress-bar">
-				<div className="body">
-					<div className="row">
-						<div className="col-md-3 col-sm-3">
-							<div className="progress blue">
-								<span className="progress-left">
-									{/* style={{ width: store.progressPercentage }} */}
-									<span className="progress-bar"  ></span>
-								</span>
-								<span className="progress-right">
-									<span className="progress-bar" ></span>
-								</span>
-								<div className="progress-value">{Math.round(store.progressPercentage)}%</div>
-							</div>
-						</div>
-						<div className="col-md-3 col-sm-3 progress-bar-statement">
-							<h2>Urgent Relief</h2>
-							<p>In the wake of a devastating earthquake that has left communities in Morocco reeling,<br /> we are calling upon compassionate individuals, organizations, and communities worldwide  <br /> to come together and join our mission to be a beacon of hope in aiding Morocco's earthquake recovery efforts.</p>
-							<Link to="/signup">
-								<button className="donate-button-statement">Donate Now</button>
-							</Link>
-						</div>
+				<div className="row">
+					<div className="col-6"><CircularProgressBar />
+
 					</div>
-
-					<div className="row row-cols-auto raised-goal">
-						<div className="col ms-3 mt-3 ps-1">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
-
-						<div className="col ms-3  mt-3 ps-1 ">Goal<br />$50,000</div>
+					<div className="col-6 mt-5 ">
+						<h2>Urgent Relief</h2>
+						<p>In the wake of a devastating earthquake that has left communities in Morocco reeling,<br /> we are calling upon compassionate individuals, organizations, and communities worldwide  <br /> to come together and join our mission to be a beacon of hope in aiding Morocco's earthquake recovery efforts.</p>
+						<Link to="/signup">
+							<button className="donate-button-statement">Donate Now</button>
+						</Link>
 					</div>
 				</div>
+				<div className="row  raised-goal">
+					<div className="col">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
+
+					<div className="col ">Goal<br />$50,000</div>
+				</div>
 			</div >
-			<div>
-				<CircularProgressBar />
-			</div>
 			<div className="row image-video-aboutUs">
 				<div className="col image-video">
 					<img
@@ -168,6 +153,6 @@ export const Home = () => {
 				</div>
 			</div>
 			<br /> <br />
-		</div>
+		</div >
 	);
 };

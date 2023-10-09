@@ -4,8 +4,8 @@ import { Context } from '../store/appContext';
 const CircularProgressBar = () => {
   const { store, actions } = useContext(Context);
   const [progress, setProgress] = useState(0);
-  const radius = 100;
-  const strokeWidth = 10;
+  const radius = 95;
+  const strokeWidth = 12;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = (1 - progress / 100) * circumference;
 
@@ -43,9 +43,11 @@ const CircularProgressBar = () => {
           textAnchor="middle"
           dy=".35em"
           fill="#333"
+          transform={`rotate(95 ${radius} ${radius})`} // Set x and y to radius and rotate 360 degrees
         >
           {progress}%
         </text>
+
       </svg>
     </div>
   );

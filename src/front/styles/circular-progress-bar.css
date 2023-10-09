@@ -3,7 +3,8 @@
   height: 350px;
   background-color: rgba(146, 110, 146, 0.44);
   display: flex;
-  justify-content: center;
+  flex-direction: column !important;
+
   align-items: center;
 }
 
@@ -140,13 +141,12 @@
 }
 
 .raised-goal {
-  margin-left: 20px;
-  margin-top: -20px;
+  margin-left: -530px;
+  margin-top: -30px;
   font-weight: bold;
   font-size: 18px;
   color: black;
 }
-
 .donate-button-statement {
   background-color: purple;
   color: white;
@@ -170,7 +170,6 @@
   color: black;
 }
 
-/* App.css */
 .circular-progress {
   transform: rotate(-95deg);
 }
@@ -178,13 +177,13 @@
 .circular-progress-background {
   fill: none;
   stroke: #ddd; /* Color of the background circle */
-  stroke-width: 10; /* Adjust the stroke width as needed */
+  stroke-width: 12; /* Adjust the stroke width as needed */
 }
 
 .circular-progress-bar {
   fill: none;
   stroke: purple; /* Color of the progress circle (change to your preferred color) */
-  stroke-width: 10; /* Adjust the stroke width as needed */
+  stroke-width: 12; /* Adjust the stroke width as needed */
   transition: stroke-dashoffset 0.5s ease-in-out;
 }
 
@@ -192,7 +191,8 @@
   font-size: 24px;
   text-anchor: middle; /* Horizontal alignment */
   fill: #333; /* Color of the progress text */
+  transform: rotate(-95) !important;
 }
-.App {
+/* .App {
   margin: 50px;
-}
+} */
