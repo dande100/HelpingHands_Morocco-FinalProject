@@ -9,8 +9,9 @@ import sliderImageUrl1 from "../../img/photo.jpg";
 import happyKidsImageUrl from "../../img/happyKids.jpg";
 import happyKids1ImageUrl from "../../img/happyKids1.png";
 import youtubeImageUrl from "../../img/youtube.png";
+import CircularProgressBar from "./circularProgressBar";
 
-import AboutUs from "./aboutUs";
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -114,7 +115,9 @@ export const Home = () => {
 					</div>
 				</div>
 			</div >
-
+			<div>
+				<CircularProgressBar />
+			</div>
 			<div className="row image-video-aboutUs">
 				<div className="col image-video">
 					<img

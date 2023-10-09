@@ -169,3 +169,30 @@
   margin-left: 60px;
   color: black;
 }
+
+/* App.css */
+.circular-progress {
+  transform: rotate(-95deg);
+}
+
+.circular-progress-background {
+  fill: none;
+  stroke: #ddd; /* Color of the background circle */
+  stroke-width: 10; /* Adjust the stroke width as needed */
+}
+
+.circular-progress-bar {
+  fill: none;
+  stroke: purple; /* Color of the progress circle (change to your preferred color) */
+  stroke-width: 10; /* Adjust the stroke width as needed */
+  transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+.circular-progress-text {
+  font-size: 24px;
+  text-anchor: middle; /* Horizontal alignment */
+  fill: #333; /* Color of the progress text */
+}
+.App {
+  margin: 50px;
+}

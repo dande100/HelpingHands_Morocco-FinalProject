@@ -21,6 +21,7 @@ import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/resetPassword";
 import { Dashboard } from "./pages/dashboard";
 import { DashboardHistory } from "./pages/dashboard-history";
+import CircularProgressBar from "./pages/circularProgressBar";
 
 //create your first component
 const Layout = () => {
@@ -46,6 +47,7 @@ const Layout = () => {
                         <Route element={<ForgotPassword />} path="/forgot-password" />
                         <Route element={<ResetPassword />} path="/reset-password" />
                         <Route element={<Signup />} path="/signup" />
+                        <Route element={<CircularProgressBar />} path="/circularprogressbar" />
                         <Route element={<Contact />} path="/contact" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<DashboardHistory />} path="/dashboard-history" />
