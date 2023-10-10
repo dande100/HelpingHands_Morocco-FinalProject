@@ -4,6 +4,7 @@ import React from "react";
 const PrintDonationHistory = ({ userDonationHistory }) => {
     return (
         <div className="printable-content">
+
             <table className="table">
                 <thead>
                     <tr>

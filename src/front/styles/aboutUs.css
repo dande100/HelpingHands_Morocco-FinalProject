@@ -35,19 +35,7 @@
   border-radius: 0%;
   left: 500px;
 }
-.aboutUsStatement {
-  margin-top: 30px;
-}
-.aboutUsHeader {
-  margin-bottom: 10px;
-  font-size: 30px;
-  color: purple;
-  font-family: monospace;
-  font-weight: bold;
-}
-.aboutUsPage {
-  padding: 10px;
-}
+
 .readMore {
   margin-bottom: 10px;
   background-color: purple;
@@ -65,18 +53,18 @@
   text-align: justify;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .image1 {
-    width: 350px;
-    height: 350px;
+    width: 250px;
+    height: 250px;
   }
   .image2 {
-    width: 200px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     position: absolute;
-    right: 500px;
-    bottom: 80px;
+    right: 180px;
+    bottom: 180px;
   }
   .aboutUsHeader {
     margin-bottom: 10px;
@@ -86,11 +74,32 @@
     font-weight: bold;
   }
 }
-
-@media (min-width: 664px) and (max-width: 768px) {
+@media (min-width: 1300px) and (max-width: 1500px) {
   .image1 {
     width: 350px;
     height: 350px;
+  }
+  .image2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    right: 240px;
+    bottom: 130px;
+  }
+
+  .aboutUsHeader {
+    margin-bottom: 10px;
+    font-size: 30px;
+    color: purple;
+    font-family: monospace;
+    font-weight: bold;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1300px) {
+  .image1 {
+    width: 300px;
+    height: 300px;
   }
   .image3 {
     width: 150px;
@@ -105,19 +114,40 @@
     height: 110px;
     border-radius: 50%;
     position: absolute;
-    right: 80px;
-    bottom: 90px;
+    right: 280px;
+    bottom: 120px;
   }
 }
-
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .image1 {
+    width: 300px;
+    height: 300px;
+  }
+  .image3 {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    position: absolute;
+    left: 100px;
+    top: -5px;
+  }
+  .image2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    right: 220px;
+    bottom: 120px;
+  }
+}
 @media (min-width: 576px) and (max-width: 663px) {
   .image1 {
     width: 350px;
     height: 350px;
   }
   .image3 {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     position: absolute;
     left: 100px;
@@ -136,6 +166,20 @@
     display: none;
   }
 }
+@media (min-width: 200px) and (max-width: 580px) {
+  .circularProgressBar {
+    margin-left: 150px;
+  }
+  .progress-bar1 {
+    display: flex;
+    flex-direction: column;
+  }
+  .statement {
+    margin: 50px;
+    font-size: 10px;
+  }
+}
+
 .mission,
 .vision,
 .history {
@@ -201,7 +245,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap; /* Allow cards to wrap to the next line if necessary */
-  margin: -10px; /* Adjust this value to control the gap size */
+  margin: -10px; /*  Adjust this value to control the gap size */
 }
 
 .card {

@@ -1,10 +1,9 @@
 import React, { useState, } from "react";
-import { ReactToPrint } from 'react-to-print';
 
 
 
 const DateFilter = ({ onFilter, onPrint }) => {
-    const [selectedDate, setSelectedDate] = useState("");
+    const [selectedDate, setSelectedDate] = useState("All");
 
 
 

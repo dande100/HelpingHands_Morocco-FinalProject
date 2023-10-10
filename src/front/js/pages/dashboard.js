@@ -29,7 +29,7 @@ export const Dashboard = () => {
 
                     <div className="row">
                         <div className="col-lg-4">
-                            <div className="card mb-4">
+                            <div className="card mb-4" style={{ width: 'auto' }}>
                                 <div className="card-body text-center">
                                     <img src={store.user.gender == "male" ? 'https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=826&t=st=1696263499~exp=1696264099~hmac=e15908ec944c24765a64d9b8185abf84624a8d5de64883456a88f04bbb692d58' :
                                         store.user.gender == "not specified" ? 'https://t3.ftcdn.net/jpg/01/77/54/02/360_F_177540231_SkxuDjyo8ECrPumqf0aeMbean2Ai1aOK.jpg' :
@@ -37,19 +37,17 @@ export const Dashboard = () => {
                                         className="rounded-circle img-fluid" style={{ width: "250px", height: "250px" }}></img>
                                     <h5 className="mt-n5 mb-3 fs-2">{store.user.first_name}  {store.user.last_name}</h5>
                                     <p className="text-muted mb-4 fs-3">{store.user.city},  {store.user.state}, {store.user.country}</p>
-                                    {/* <div className="d-flex justify-content-center mb-2">
-                                        <button type="button" className="btn btn-primary">Edit Contact info</button>
-                                    </div> */}
+
                                 </div>
                             </div>
-                            <div className="card mb-4 mb-lg-0">
+                            <div className="card mb-4 mb-lg-0" style={{ width: 'auto' }}>
                                 <div className="card-body p-0">
 
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-8">
-                            <div className="card mb-4">
+                            <div className="card mb-4" style={{ width: 'auto' }}>
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-sm-3">

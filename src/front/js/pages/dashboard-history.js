@@ -9,17 +9,21 @@ import "../../styles/print.css"
 export const DashboardHistory = () => {
     const { store, actions } = useContext(Context);
     const [filteredDonationHistory, setFilteredDonationHistory] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(""); // Add selected
-
-
-
+    const [selectedDate, setSelectedDate] = useState("All");
 
     useEffect(() => {
-        // Fetch user's donation history when the component mounts
+
         actions.fetchEachDonation();
+        setFilteredDonationHistory(store.donations);
+
     }, []);
 
     const handlePrint = () => {
+
+        if (filteredDonationHistory.length === 0) {
+            console.log("No records to print");
+            return;
+        }
         const printWindow = window.open("", "", "width=600,height=600");
 
         printWindow.document.open();
@@ -82,7 +86,7 @@ export const DashboardHistory = () => {
 
                     <div className="row">
                         <div className="col-lg-4">
-                            <div className="card mb-4">
+                            <div className="card mb-4" style={{ width: 'auto' }}>
                                 <div className="card-body text-center">
                                     <img src={store.user.gender == "male" ? 'https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=826&t=st=1696263499~exp=1696264099~hmac=e15908ec944c24765a64d9b8185abf84624a8d5de64883456a88f04bbb692d58' :
                                         store.user.gender == "not specified" ? 'https://t3.ftcdn.net/jpg/01/77/54/02/360_F_177540231_SkxuDjyo8ECrPumqf0aeMbean2Ai1aOK.jpg' :
@@ -92,12 +96,12 @@ export const DashboardHistory = () => {
                                     <p className="text-muted mb-4 fs-3">{store.user.city},  {store.user.state}, {store.user.country}</p>
                                 </div>
                             </div>
-                            <div className="card mb-4 mb-lg-0">
+                            <div className="card mb-4 mb-lg-0" style={{ width: 'auto' }}>
                                 <div className="card-body p-0"></div>
                             </div>
                         </div>
                         <div className="col-lg-8">
-                            <div className="card mb-4">
+                            <div className="card  mb-4" style={{ width: 'auto' }}>
                                 <div className="col-sm-10">
                                     <div className="card-body">
                                         <div className="row">
@@ -106,28 +110,11 @@ export const DashboardHistory = () => {
                                         </div>
                                     </div>
 
-
-                                    <PrintDonationHistory userDonationHistory={filteredDonationHistory} />
-                                    {/* <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Payment Method</th>
-                                                <th>Currency</th>
-                                                <th>Donation Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {filteredDonationHistory.map((payment) => (
-                                                <tr key={payment.id}>
-                                                    <td>{payment.date}</td>
-                                                    <td>{payment.payment_method}</td>
-                                                    <td>{payment.currency}</td>
-                                                    <td>${payment.payment_amount}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table> */}
+                                    {filteredDonationHistory.length === 0 ? (
+                                        <h3 style={{ textAlign: "center", color: "red" }}>No record found!</h3>
+                                    ) : (
+                                        <PrintDonationHistory userDonationHistory={filteredDonationHistory} />
+                                    )}
                                 </div>
                             </div>
                         </div>

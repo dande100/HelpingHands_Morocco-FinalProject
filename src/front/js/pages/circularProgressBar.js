@@ -18,7 +18,7 @@ const CircularProgressBar = () => {
   }, [store.progressPercentage]);
 
   return (
-    <div className="App">
+    <div className="circularProgressBar">
       <svg className="circular-progress" width={radius * 2} height={radius * 2}>
         <circle
           className="circular-progress-background"
