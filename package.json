@@ -71,7 +71,7 @@
     "react-dom": "^16.8.4",
     "react-polyfills": "0.0.1",
     "react-router-dom": "^6.3.0",
-    "stripe": "^13.9.0"
+    "stripe": "^13.10.0"
   },
   "directories": {
     "doc": "docs"

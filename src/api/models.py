@@ -37,6 +37,8 @@ class DonationInfo(db.Model):
     user = db.relationship(
         "User", backref="donation_info", foreign_keys=[user_id])
 
+    amount=db.Column()
+
     # establish the relationship between user and donations
     # establish the relation between donator and payment proccessing
 
