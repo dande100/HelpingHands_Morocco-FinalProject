@@ -1,57 +1,80 @@
-import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import logoImageUrl from "../../img/logo.png";
 
-export const Navbar = ({ aboutUsSectionRef }) => {
-  const currentPath = window.location.pathname;
-  const [storage, setStorageData] = useState()
-  const scrollToAboutUs = () => {
-    if (aboutUsSectionRef.current) {
-      aboutUsSectionRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+export const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  const handleLogout = () => {
-    localStorage.clear()
-    setStorageData(null)
-  }
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   useEffect(() => {
-    setStorageData(localStorage.getItem('user_id'))
-  })
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      // Define breakpoint for larger screens (768px)
+      const breakpoint = 768;
+      if (screenWidth >= breakpoint) {
+        closeMobileMenu();
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const storage = localStorage.getItem('user_id');
+
+  const handleLogout = () => {
+    localStorage.clear();
+  };
+
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
-        <RouterLink to="/">
+        <Link to="/">
           <img
             className="logo"
             src={logoImageUrl}
             style={{ width: "220px", height: "220px" }}
+            alt="Logo"
           />
-        </RouterLink>
-        <div className="navLinks">
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/contact">Contact</RouterLink>
-          {currentPath === "/" ? (
-            <ScrollLink
-              to="aboutUs"
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
+        </Link>
+        <div className={`navLinks ${isMobileMenuOpen ? "open" : ""}`}>
+          <Link to="/home">Home</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="/aboutUs">About Us</Link>
+          {storage > 0 ? (
+            <Link
+              to="/login"
+              className="button-link login-button"
+              onClick={handleLogout}
             >
-              About Us
-            </ScrollLink>
+              Logout
+            </Link>
           ) : (
-            <RouterLink to="/aboutUs">About Us</RouterLink>
+            <Link to="/login" className="button-link login-button">
+              Login
+            </Link>
           )}
-          {storage != null ? <RouterLink to="/login" className="button-link login-button" onClick={handleLogout}>
-            Logout
-          </RouterLink> : <RouterLink to="/login" className="button-link login-button">
-            Login
-          </RouterLink>}
-          <RouterLink to="/signup" className="button-link signup-button">
+          <Link to="/signup" className="button-link signup-button">
             Sign Up
-          </RouterLink>
+          </Link>
+        </div>
+        <div
+          className={`hamburger-menu ${isMobileMenuOpen ? "open" : ""}`}
+          onClick={toggleMobileMenu}
+        >
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
         </div>
       </div>
     </nav>

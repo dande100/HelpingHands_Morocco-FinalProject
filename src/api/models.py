@@ -38,7 +38,7 @@ class User(db.Model):
     
 class Payments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Integer, unique=False, nullable=False)
+    date = db.Column(db.String, unique=False, nullable=False)
     currency = db.Column(db.String(80), unique=False, nullable=False)
     payment_method = db.Column(db.String(80), unique=False, nullable=False)
     payment_amount = db.Column(db.Integer, unique=False, nullable=False)
