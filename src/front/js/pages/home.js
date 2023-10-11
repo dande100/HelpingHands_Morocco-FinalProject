@@ -124,20 +124,22 @@ export const Home = () => {
 					/>
 
 					{showVideo && (
-						<div className="video-player">
-							<ReactPlayer
-								url="https://youtu.be/st6p05Z8NdA"
-								controls={true}
-								width="350px"
-								height="350px"
-								playing={showVideo}
-							/>
-							<button className="close-button" onClick={closeVideo}>
-								Close Video
-							</button>
+						<div className="video-container">
+							<div className="video-player">
+								<ReactPlayer
+									url="https://youtu.be/st6p05Z8NdA"
+									controls={true}
+									width="550px"
+									height="550px"
+									top="-150px"
+									playing={showVideo}
+								/>
+								<button className="close-button" onClick={closeVideo}>
+									Close Video
+								</button>
+							</div>
 						</div>
 					)}
-
 				</div>
 				<div className="col">
 					<div id="aboutUs" className="col aboutUsStatement">

@@ -64,7 +64,7 @@ const AboutUs = () => {
             <div className="row volunteersRow">
                 <div className="col volunteers mt-5">
                     <div className="center-content">
-                        <h1>Our Volunteers</h1>
+                        <h1 class="volunteers-heading">Our Volunteers</h1>
                         <p className="volunteersPTag">The founders and volunteers of the HelpingHands Foundation are a remarkable group of individuals. <br />These four inspiring individuals are not only the visionary founders but also the driving force behind the Foundation's impactful work.<br /> Their dedication knows no bounds as they combine their unique skills and unwavering passion to create positive change.<br /> Whether providing technical expertise, fundraising acumen, linguistic skills, or heartfelt empathy, they wear multiple hats to support Morocco's communities in times of need. <br />Their collective spirit of collaboration, compassion, and global citizenship shines through, as they work tirelessly to create a brighter future for those they serve.</p>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ const AboutUs = () => {
                     </div>
                 </div>
 
-                <div className={`card  ${isCard2Hovered === "Vasanthi" ? 'card-hover-bg1' : ''}`}
+                <div className={`card ${isCard2Hovered ? 'card-hover-bg' : ''}`}
                     onMouseEnter={() => setIsCard2Hovered(true)}
                     onMouseLeave={() => setIsCard2Hovered(false)}>
                     <img className="card-hover-bg1" src={vasanthiImage} />
