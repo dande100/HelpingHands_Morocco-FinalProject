@@ -4,8 +4,10 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
+
     password = db.Column(db.String(80), nullable=False)
     is_active = db.Column(db.Boolean, nullable=False)
     address = db.Column(db.String(500), nullable=False)
@@ -13,6 +15,17 @@ class User(db.Model):
     full_name = db.Column(db.String(120), nullable=False)
     donationinfo = db.relationship(
         "DonationInfo", backref="user_tbl", lazy=True)
+    password = db.Column(db.String(80), unique=False, nullable=False)
+    first_name = db.Column(db.String(80), unique=False, nullable=False)
+    last_name = db.Column(db.String(80), unique=False, nullable=False)
+    login_method = db.Column(db.String(80), unique=False, nullable=True)
+    phone = db.Column(db.String(20), unique=False, nullable=False)
+    gender = db.Column(db.String(20), unique=False, nullable=False)
+    street_address = db.Column(db.String(120), unique=False, nullable=False)
+    city = db.Column(db.String(120), unique=False, nullable=False)
+    state = db.Column(db.String(120), unique=False, nullable=False)
+    country = db.Column(db.String(120), unique=False, nullable=False)
+    
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -21,6 +34,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
+
 
             # do not serialize the password, its a security breach
         }
@@ -58,3 +72,59 @@ class DonationInfo(db.Model):
 
             # do not serialize the card credit, its a security breach
         }
+
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "login_method": self.login_method,
+            "phone": self.phone,
+            "gender": self.gender,
+            "street_address": self.street_address,
+            "city": self.city,
+            "state": self.state,
+            "country": self.country
+        }
+    
+class Payments(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String, unique=False, nullable=False)
+    currency = db.Column(db.String(80), unique=False, nullable=False)
+    payment_method = db.Column(db.String(80), unique=False, nullable=False)
+    payment_amount = db.Column(db.Integer, unique=False, nullable=False)
+    city = db.Column(db.String(80), unique=False, nullable=False)
+    state = db.Column(db.String(80), unique=False, nullable=False)
+    country = db.Column(db.String(80), unique=False, nullable=False)
+    postal_code = db.Column(db.Integer, unique=False, nullable=False)
+    phone_number = db.Column(db.Integer, unique=False, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship(User)
+
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "date": self.date,
+            "currency": self.currency,
+            "payment_method": self.payment_method,
+            "payment_amount": self.payment_amount,
+            "city": self.city,
+            "state": self.state,
+            "country": self.country,
+            "postal_code": self.postal_code,
+            "phone_number": self.phone_number,
+            "user_id": self.user_id,
+        }
+    
+class ResetTokens(db.Model):
+    __tablename__ = 'reset_tokens'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), db.ForeignKey('user.email'), nullable=False)
+    token = db.Column(db.String(250), unique=True, nullable=False)
+    user = db.relationship(User)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "token": self.token
+        }
+
