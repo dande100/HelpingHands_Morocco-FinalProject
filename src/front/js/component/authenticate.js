@@ -17,7 +17,6 @@ const divStyle = {
   alignItems: 'center',
   color: '#fff'
 };
-
 const Authenticate = (props) => {
   const [input, setInput] = useState('');
   const [password, setPassword] = useState('');
@@ -38,11 +37,9 @@ const Authenticate = (props) => {
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-
   useEffect(() => {
     setStorageData(localStorage.getItem('user_id'))
   })
-
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -57,7 +54,6 @@ const Authenticate = (props) => {
         actions.createAccount(obj).then(() => {
           navigate('/login')
         })
-
       }
       if (props.showLogin) {
         const obj = {
@@ -77,7 +73,6 @@ const Authenticate = (props) => {
       console.error('Google login error:', error);
     }
   };
-
   const signInWithFacebook = async () => {
     const provider = new firebase.auth.FacebookAuthProvider();
     try {
@@ -87,7 +82,6 @@ const Authenticate = (props) => {
       console.error('Facebook login error:', error);
     }
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     document.getElementById("firstName")?.setAttribute("required", "");
@@ -177,7 +171,6 @@ const Authenticate = (props) => {
                 />
               </Link>
             </div>
-
             {store.error && <div className="alert alert-danger" role="alert">
               {store.error}
             </div>}
@@ -258,7 +251,6 @@ const Authenticate = (props) => {
             </form>
             {props?.showLogin && <div className='mt-3'>Don't have an account yet! <Link to={'/signup'}>Create one</Link></div>}
             {props?.showSignup && <div className='mt-3'>Already have an account? <Link to={'/login'}>Login here!</Link></div>}
-
             {props?.showGoogleLogin && <>
               <hr className='mt-4' />
               <div className='d-flex justify-content-center'>
@@ -268,11 +260,8 @@ const Authenticate = (props) => {
             }
           </div>
         </div>
-
       </div>
-
     </>
   )
 }
-
 export default Authenticate

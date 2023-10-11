@@ -10,6 +10,8 @@ import AboutUs from "./pages/aboutUs";
 import { ThankYou } from "./pages/thank-you-page";
 import { Contact } from "./pages/contact";
 import injectContext from "./store/appContext";
+
+
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Login from "./pages/login";
@@ -20,6 +22,7 @@ import ResetPassword from "./pages/resetPassword";
 import { Dashboard } from "./pages/dashboard";
 import { DashboardHistory } from "./pages/dashboard-history";
 import ChatBox from "./component/chatBox";
+import CircularProgressBar from "./pages/circularProgressBar";
 
 //create your first component
 const Layout = () => {
@@ -28,14 +31,14 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
-    
+
     return (
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/" />
+                        <Route element={<Home />} path="/home" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<AboutUs />} path="/aboutUs" />
                         <Route element={<ThankYou />} path="/thank-you-page" />
@@ -45,6 +48,7 @@ const Layout = () => {
                         <Route element={<ForgotPassword />} path="/forgot-password" />
                         <Route element={<ResetPassword />} path="/reset-password" />
                         <Route element={<Signup />} path="/signup" />
+                        <Route element={<CircularProgressBar />} path="/circularprogressbar" />
                         <Route element={<Contact />} path="/contact" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<DashboardHistory />} path="/dashboard-history" />

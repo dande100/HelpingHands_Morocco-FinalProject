@@ -78,9 +78,11 @@
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",
+		"react-player": "^2.13.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
 		"react-scroll": "^1.8.9",
-		"react-simple-chatbot": "^0.6.1"
+		"react-simple-chatbot": "^0.6.1",
+		"react-to-print": "^2.14.15"
 	}
 }

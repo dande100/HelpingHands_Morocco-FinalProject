@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			progressPercentage: 0,
 			message: null,
 			error: null,
 			isLoginSuccess: false,
@@ -10,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isForgotPassword: false,
 			isPasswordReset: false,
 			user: [],
+			donations: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -21,8 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			],
-			chatBotReply: '',
+			]
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -112,9 +113,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+
+			fetchAllDonation: () => {
+
+				fetch(process.env.BACKEND_URL + "/api/progress")
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						const { progress } = data;
+						setStore({ progressPercentage: progress });
+					})
+					.catch((error) => {
+						console.error("Error fetching progress data:", error);
+					});
+			},
+
+			fetchEachDonation: () => {
+				const user_id = localStorage.getItem("user_id")
+				fetch(process.env.BACKEND_URL + `/api/donations/user/${user_id}`)
+					.then(resp => resp.json())
+					.then(data => setStore({ donations: data }))
+					.catch(error =>
+						console.log(error)
+					)
+
+
+			},
+
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-				fetch(process.env.BACKEND_URL + `/api/user/${user_id}`)
+				fetch(`https://organic-telegram-vxj55v44q67cwjw5-3001.app.github.dev/api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
@@ -149,6 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+
 			resetPassword: async (obj) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/reset_password", {
