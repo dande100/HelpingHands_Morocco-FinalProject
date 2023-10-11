@@ -30,9 +30,11 @@ const Authenticate = (props) => {
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [reEnterPassword, setReEnterPassword] = useState('');
   const [validated, setValidated] = useState(false);
   const { store, actions } = useContext(Context)
   const [storage, setStorageData] = useState()
+  const [showError, setError] = useState()
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -64,9 +66,11 @@ const Authenticate = (props) => {
           social: true
         }
         actions.getToken(obj).then(() => {
-          if (storage != null) {
-            navigate('/dashboard')
-          }
+          setTimeout(() => {
+            if (storage != null) {
+              navigate('/dashboard')
+            }
+          }, 500)
         })
       }
     } catch (error) {
@@ -137,7 +141,13 @@ const Authenticate = (props) => {
         email: input
       }
       actions.requestForgotPassword(obj)
-    } else if (props.showResetPassword && newPassword != '') {
+    } else if (props.showResetPassword && newPassword != '' && reEnterPassword != '') {
+      if (reEnterPassword !== newPassword) {
+        document.getElementById("inputPassword")?.setAttribute("required", "");
+        setError(true)
+        return;
+      }
+      setError(false)
       const obj = {
         new_password: newPassword,
         email: searchParams.get('email'),
@@ -174,6 +184,9 @@ const Authenticate = (props) => {
             {store.message && <div className="alert alert-success" role="success">
               {store.message}
             </div>}
+            {showError && <div className="alert alert-danger" role="alert">
+              Password and confirm password do not match. Please make sure the passwords match exactly.
+            </div>}
             <h3 className='mb-4'>{props?.title}</h3>
             <form id="needs-validation" noValidate onSubmit={handleSubmit}>
               {props?.showSignup && <div className='row col'>
@@ -186,7 +199,7 @@ const Authenticate = (props) => {
                   <input type="text" className="form-control" id="lastName" placeholder="Enter Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
               </div>}
-              {!props?.showRecovery && <div className="mb-3 row ms-0">
+              {!props.showResetPassword && <div className="mb-3 row ms-0">
                 <label htmlFor="email" className="form-label">Email</label>
                 <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
               </div>}
@@ -235,9 +248,12 @@ const Authenticate = (props) => {
                   <input type="password" className="form-control" id="inputPassword" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
                 </div></>}
               {props?.showResetPassword && <><div className="mb-3 row ms-0">
-                <label htmlFor="inputPassword" className="col-form-label">New Password</label>
+                <label htmlFor="inputPassword" className="col-form-label">Password</label>
                 <input type="password" className="form-control" id="inputPassword" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
-              </div></>}
+              </div> <div className="mb-3 row ms-0">
+                  <label htmlFor="inputPassword" className="col-form-label">Confirm Password</label>
+                  <input type="password" className="form-control" id="inputPassword" onChange={(e) => setReEnterPassword(e.target.value)} value={reEnterPassword} />
+                </div></>}
               <button type="submit" className="btn btn-primary">{props?.buttonText}</button>
             </form>
             {props?.showLogin && <div className='mt-3'>Don't have an account yet! <Link to={'/signup'}>Create one</Link></div>}

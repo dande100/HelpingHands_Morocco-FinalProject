@@ -21,7 +21,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			chatBotReply: '',
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -113,7 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-				fetch(`https://organic-telegram-vxj55v44q67cwjw5-3001.app.github.dev/api/user/${user_id}`)
+				fetch(process.env.BACKEND_URL + `/api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
@@ -172,6 +173,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+			sendChat: async (msg) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/chat", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify({
+							content: msg
+						})
+					})
+					const data = await resp.json()
+					if (data.msg) {
+						setStore({ chatBotReply: data.msg })
+					}
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			}
 
 		}
 	};

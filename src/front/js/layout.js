@@ -19,6 +19,7 @@ import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/resetPassword";
 import { Dashboard } from "./pages/dashboard";
 import { DashboardHistory } from "./pages/dashboard-history";
+import ChatBox from "./component/chatBox";
 
 //create your first component
 const Layout = () => {
@@ -27,7 +28,7 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
-
+    
     return (
         <div>
             <BrowserRouter basename={basename}>
@@ -50,6 +51,7 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
+                    <ChatBox />
                 </ScrollToTop>
             </BrowserRouter>
         </div>
