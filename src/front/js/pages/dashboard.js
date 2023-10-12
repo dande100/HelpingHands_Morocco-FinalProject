@@ -61,16 +61,13 @@ export const Dashboard = (props) => {
                                         className="rounded-circle img-fluid" style={{ width: "250px", height: "250px" }}></img>
                                     <h5 className="mt-n5 mb-3 fs-2">{store.user.first_name}  {store.user.last_name}</h5>
                                     <p className="text-muted mb-4 fs-3">{store.user.city},  {store.user.state}, {store.user.country}</p>
-<<<<<<< HEAD
 
-=======
                                     <div className="d-flex justify-content-center mb-2">
 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             Edit Contact Info
                                         </button>
                                     </div>
->>>>>>> 1fa954bf7136e402631068723ea22b5ad367b73a
                                 </div>
                             </div>
                             <div className="card mb-4 mb-lg-0" style={{ width: 'auto' }}>

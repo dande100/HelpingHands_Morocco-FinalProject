@@ -147,9 +147,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-<<<<<<< HEAD
-				fetch(`http://127.0.0.1:3001/api/user/${user_id}`)
-=======
 				fetch(process.env.BACKEND_URL + `api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
@@ -163,7 +160,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-type": "application/json" },
 					body: JSON.stringify(newObj)
 				})
->>>>>>> 1fa954bf7136e402631068723ea22b5ad367b73a
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
