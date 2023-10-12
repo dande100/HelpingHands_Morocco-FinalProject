@@ -40,7 +40,7 @@ const DonatePage = () => {
       return;
     }
 
-    await fetch('https://probable-orbit-9pvxvpj4wqw34x9-3001.app.github.dev/api/checkout', {
+    await fetch(process.env.BACKEND_URL + '/api/checkout', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
