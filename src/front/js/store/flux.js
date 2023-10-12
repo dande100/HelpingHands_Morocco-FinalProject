@@ -43,7 +43,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				try {
-					const response = await fetch('https://probable-orbit-9pvxvpj4wqw34x9-3001.app.github.dev/payment', {
+					const response = await fetch(process.env.BACKEND_URL + '/payment', {
 						method: "POST",
 						headers: {
 							'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Checkout error:", error);
 				}
-			},
+			}
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
@@ -175,12 +175,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(error)
 					)
 
-
 			},
 
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-				fetch(process.env.BACKEND_URL + `/api/user/${user_id}`)
+				fetch(process.env.BACKEND_URL + `api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
@@ -192,7 +191,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'PUT',
 					headers: { "Content-type": "application/json" },
 					body: JSON.stringify(newObj)
-				}).then(response => response.json())
+				})
+					.then(response => response.json())
 					.then(data => {
 						console.log(data)
 						setStore({ user: data })
@@ -251,6 +251,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+<<<<<<<< < Temporary merge branch 1
+
+=========
 			sendChat: async (msg) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/chat", {
@@ -270,6 +273,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}
 
+>>>>>>>>> Temporary merge branch 2
 		}
 	};
 };
