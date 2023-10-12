@@ -22,6 +22,7 @@ import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/resetPassword";
 import { Dashboard } from "./pages/dashboard";
 import { DashboardHistory } from "./pages/dashboard-history";
+import ChatBox from "./component/chatBox";
 import CircularProgressBar from "./pages/circularProgressBar";
 
 //create your first component
@@ -57,6 +58,7 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
+                    <ChatBox />
                 </ScrollToTop>
             </BrowserRouter>
         </div>
