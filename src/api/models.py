@@ -7,24 +7,16 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-
-    password = db.Column(db.String(80), nullable=False)
-    is_active = db.Column(db.Boolean, nullable=False)
-    address = db.Column(db.String(500), nullable=False)
-    phone_number = db.Column(db.String(15), nullable=False)
-    full_name = db.Column(db.String(120), nullable=False)
-    donationinfo = db.relationship(
-        "DonationInfo", backref="user_tbl", lazy=True)
     password = db.Column(db.String(80), unique=False, nullable=False)
     first_name = db.Column(db.String(80), unique=False, nullable=False)
-    last_name = db.Column(db.String(80), unique=False, nullable=False)
+    last_name = db.Column(db.String(80), unique=False, nullable=True)
     login_method = db.Column(db.String(80), unique=False, nullable=True)
-    phone = db.Column(db.String(20), unique=False, nullable=False)
-    gender = db.Column(db.String(20), unique=False, nullable=False)
-    street_address = db.Column(db.String(120), unique=False, nullable=False)
-    city = db.Column(db.String(120), unique=False, nullable=False)
-    state = db.Column(db.String(120), unique=False, nullable=False)
-    country = db.Column(db.String(120), unique=False, nullable=False)
+    phone = db.Column(db.String(20), unique=False, nullable=True)
+    gender = db.Column(db.String(20), unique=False, nullable=True)
+    street_address = db.Column(db.String(120), unique=False, nullable=True)
+    city = db.Column(db.String(120), unique=False, nullable=True)
+    state = db.Column(db.String(120), unique=False, nullable=True)
+    country = db.Column(db.String(120), unique=False, nullable=True)
     
 
     def __repr__(self):
@@ -34,13 +26,20 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
-
-
-            # do not serialize the password, its a security breach
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "login_method": self.login_method,
+            "phone": self.phone,
+            "gender": self.gender,
+            "street_address": self.street_address,
+            "city": self.city,
+            "state": self.state,
+            "country": self.country
         }
 
 
 class DonationInfo(db.Model):
+    __tablename__ = 'donationInfo'
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), nullable=False)
@@ -48,10 +47,9 @@ class DonationInfo(db.Model):
     phone_number = db.Column(db.String(15), nullable=False)
     time_created = db.Column(db.String(120), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
-    user = db.relationship(
-        "User", backref="donation_info", foreign_keys=[user_id])
+    user = db.relationship(User)
 
-    amount=db.Column()
+    amount=db.Column(db.String(120), nullable=True)
 
     # establish the relationship between user and donations
     # establish the relation between donator and payment proccessing
@@ -71,17 +69,6 @@ class DonationInfo(db.Model):
             "time_created": self.time_created
 
             # do not serialize the card credit, its a security breach
-        }
-
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "login_method": self.login_method,
-            "phone": self.phone,
-            "gender": self.gender,
-            "street_address": self.street_address,
-            "city": self.city,
-            "state": self.state,
-            "country": self.country
         }
     
 class Payments(db.Model):

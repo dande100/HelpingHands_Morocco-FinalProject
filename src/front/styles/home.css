@@ -1,5 +1,5 @@
 .backgroundImage {
-  max-width: 100%;
+  width: 100%;
   height: 700px;
   transition: left 0.5s ease-out, right 0.5s ease-out;
 }

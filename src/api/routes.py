@@ -1,7 +1,20 @@
 
-from flask import Flask, request, jsonify, url_for, Blueprint, render_template, abort
-from api.models import db, User, DonationInfo
+
+"""
+This module takes care of starting the API Server, Loading the DB and Adding the endpoints
+"""
+
+from flask import Flask, request, jsonify, url_for, Blueprint, abort, render_template
+from api.models import db, User, Payments, ResetTokens, DonationInfo
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_mail import Message
+import secrets
+import app
+import re
+import os
 from datetime import datetime
 import stripe
 import os
@@ -10,39 +23,8 @@ api = Blueprint("api", __name__)
 
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
-from flask import Flask, request, render_template, jsonify, url_for, Blueprint
-from api.models import db, User, Payments
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
-
-from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, ResetTokens
-from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
-from flask_mail import Message
-import secrets
-import app
-
-
-
 # Define the Flask app
 api = Blueprint('api', __name__)
-
-def calculate_total_donated():
-    total_donated = db.session.query(db.func.sum(Payments.payment_amount)).scalar()
-    return total_donated or 0  
-@api.route('/progress', methods=['GET'])
-def get_donation_progress():
-    goal_amount = 50000
-
-    total_donated = calculate_total_donated()
-
-    progress_percentage = (total_donated / goal_amount) * 100
-
-    return jsonify({'progress': progress_percentage})
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
@@ -164,6 +146,169 @@ def updateUserPassword():
      
      return jsonify({'msg': 'your password changes successfully, please return to login'}), 200
 
+@api.route('/hello', methods=['POST', 'GET'])
+def handle_hello():
+
+    response_body = {
+        "message": "Hello! I'm a message that came from the backend, check the network tab on the Google inspector and you will see the GET request"
+    }
+
+    return jsonify(response_body), 200
+
+
+@api.route('/request_reset_password', methods=['GET', 'POST'])
+def request_reset_password():
+     email = request.json.get('email', None)
+
+     reset_token = secrets.token_hex(16)
+     user = User.query.filter_by(email=email, login_method='app').first()
+
+     if user is None:
+          return jsonify({"error": "email is not provided"}), 401
+     
+     reset_user = ResetTokens(email=email, token=reset_token)
+     db.session.add(reset_user)
+     db.session.commit()
+
+     app.send_reset_email(email, reset_token)
+     
+     
+     return jsonify({"msg": "password reset email sent. check your inbox for instructions."})
+
+@api.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+     new_password = request.json.get('new_password', None)
+     token = request.json.get('token', None)
+     email = request.json.get('email', None)
+
+     reset_token = ResetTokens.query.filter_by(token=token).first()
+     user = User.query.filter_by(email=email, login_method='app').first()
+
+     if reset_token is None:
+          return jsonify({"error": "Token expired please try to request again"}), 401
+     
+     user.password = new_password
+     db.session.delete(reset_token)
+     db.session.commit()
+
+     return jsonify({"msg": "your password is updated successfully, it is redirecting to login page."})
+
+def generate_chat_bot_reply(user_input):
+    email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}\b'
+
+    
+    email_addresses = re.findall(email_pattern, user_input)
+    if email_addresses:
+        return "Thank you for providing an email address. An agent will contact you soon."
+    if "hello" in user_input or "hi" in user_input or "hey" in user_input:
+        return "Hello! How can I assist you today?"
+
+    if "how are you" in user_input:
+        return "I'm just a computer program, but thanks for asking!"
+
+    if "bye" in user_input or "goodbye" in user_input:
+        return "Goodbye! If you have more questions, feel free to ask."
+    if "thank you" in user_input:
+        return "You're welcome! If you have any more questions or need assistance, feel free to ask."
+
+    if "weather" in user_input:
+        return "I'm sorry, I don't have access to real-time weather information."
+
+    if "make a donation" in user_input:
+        return f'You can easily make a donation by visiting our website and clicking on the "Donate Now" button. We accept various payment methods, including credit cards and PayPal. Or, {os.getenv("FRONTEND_URL")}/donatepage to go to our donation page.'
+    
+    if "link" in user_input:
+        return f'Sorry, I am text based bot. I will provide directions'
+
+    if "fundraising campaigns" in user_input:
+        return "We have several ongoing campaigns to support various causes. Would you like more details on a specific campaign?"
+
+    if "made a donation" in user_input:
+        return "Thank you so much for your generous contribution! Your support helps us make a positive impact."
+
+    if "how are donations used" in user_input:
+        return "Donations are used to fund critical programs and initiatives. You can learn more about our impact on our website."
+    
+    if "help" in user_input:
+        return "I'm here to assist you with your donation. Please describe the issue, and I'll do my best to help resolve it."
+    
+    if "upcoming events" in user_input:
+        return "Absolutely! We welcome volunteers. You can find information on volunteer opportunities on our website."
+    
+    if "volunteer" in user_input:
+        return "Yes, we have an exciting event planned for next month. Stay tuned for more details!"
+    
+    if "progress" in user_input:
+        return "Certainly! We've raised [amount] so far, and our goal is [goal amount]. Your support is vital in reaching our target."
+    if "secure" in user_input:
+        return "Your privacy and security are our top priorities. We use industry-standard encryption to protect your data."
+    if 'donation' in user_input:
+        return "You can easily make a donation by visiting our website and clicking on the 'Donate' button. We accept various payment methods, including credit cards and PayPal."
+
+    
+    if "live chat" in user_input or "agent" in user_input:
+        return "Sure! Please provide your email address, and someone will be in touch to assist you."
+
+    
+    return "I'm not sure how to respond to that. I am sorry; I am a programmatic bot."
+
+@api.route('/chat', methods=['POST'])
+def chat():
+     content = request.json.get('content')
+     chat_bot_reply = generate_chat_bot_reply(content.lower())
+     return jsonify({'msg': chat_bot_reply})
+@api.route("/user", methods=["PUT"])
+
+def updateUser():
+     first_name = request.json.get("first_name", None)
+     last_name = request.json.get("last_name", None)
+     phone = request.json.get("phone", None)
+     gender = request.json.get("gender", None)
+     street_address = request.json.get("street_address", None)
+     city = request.json.get("city", None)
+     state = request.json.get("state", None)
+     country = request.json.get("country", None)
+     user_id = request.json.get("user_id", None)
+     user = User.query.filter_by(id=user_id).first()
+
+     if not user: 
+          return jsonify("User not found"), 404
+     if first_name is not None: 
+          user.first_name=first_name
+     if last_name is not None: 
+          user.last_name=last_name
+     if phone is not None:
+          user.phone=phone
+     if gender is not None:
+          user.gender=gender
+     if street_address is not None:
+          user.street_address=street_address
+     if city is not None:
+          user.city=city
+     if state is not None:
+          user.state=state
+     if country is not None:
+          user.country=country
+     
+     db.session.commit()
+     return jsonify(user.serialize())
+
+
+def calculate_total_donated():
+    total_donated = db.session.query(db.func.sum(Payments.payment_amount)).scalar()
+    return total_donated or 0
+ 
+@api.route('/progress', methods=['GET'])
+def get_donation_progress():
+    goal_amount = 50000
+
+    total_donated = calculate_total_donated()
+
+    progress_percentage = (total_donated / goal_amount) * 100
+
+    return jsonify({'progress': progress_percentage})
+
+
 @api.route("/payment", methods=["POST"])
 def process_payment():
     try:
@@ -242,158 +387,5 @@ def stripe_webhook():
         line_items = stripe.checkout.Session.list_line_items(session["id"], limit=1)
 
     return {}
-
-
-# def add_donation(full_name, email, address=None, phone_number=None, user_id=None):
-#     time_created = datetime.now()
-#     counter = DonationInfo.query.filter_by(email=email).count()
-#     new_donation_info = DonationInfo(
-#         full_name=full_name,
-#         email=email,
-#         address=address,
-#         phone_number=phone_number,
-#         time_created=str(time_created),
-#         user_id=user_id,
-#     )
-#     db.session.add(new_donation_info)
-#     db.session.commit()
-#     added_donation_info = DonationInfo.query.filter_by(
-#         email=email, time_created=str(time_created)
-#     ).first()
-#     message = (
-#         f"Congratulations, your donation was successfully processed. You have donated {counter} times"
-#         if counter != 1
-#         else f"Congratulations, your donation was successfully processed. You have donated {counter} time"
-#     )
-#     return added_donation_info, message
-
-
-# @api.route("/donations", methods=["POST"])
-# def handle_adding_donation_info():
-#     try:
-#         request_body = request.get_json()
-#         added_donation_info, message = add_donation(
-#             request_body["full_name"],
-#             request_body["email"],
-#             request_body["address"],
-#             request_body["phone_number"],
-#         )
-#         payload = {"donation": added_donation_info.serialize(), "message": message}
-#         return jsonify(payload), 200
-#     except Exception as e:
-#         return jsonify({"message": f"Error adding donation: {str(e)}"}), 500
-
-
-# @api.route("/donations/user/<int:user_id>", methods=["POST"])
-# def add_new_user_donation(user_id):
-#     try:
-#         user = User.query.filter_by(id=user_id).first()
-#         if user is None:
-#             return "User does not exist", 404
-#         added_donation_info, message = add_donation(
-#             user.full_name, user.email, user.address, user.phone_number, user.id
-#         )
-#         payload = {"donation": added_donation_info.serialize(), "message": message}
-#         return jsonify(payload), 200
-#     except Exception as e:
-#         return jsonify({"message": f"Error adding donation for user: {str(e)}"}), 500
-
-
-# @api.route("/donations", methods=["GET"])
-# def handle_get_all_donation_info():
-#     donation_info = DonationInfo.query.all()
-#     serialized_donation_info = [info.serialize() for info in donation_info]
-#     return jsonify(serialized_donation_info), 200
-
-
-# @api.route("/donations/<int:id>", methods=["GET"])
-# def handle_get_each_donation_info(id):
-#     each_donation_info = DonationInfo.query.get(id)
-#     if each_donation_info is not None:
-#         return jsonify(each_donation_info.serialize()), 200
-#     else:
-#         return jsonify({"message": "Donation info not found"}), 404
-
-
 if __name__ == '__main__':
     api.run()
-=======
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the Google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
-if __name__ == '__main__':
-    api.run()
-@api.route('/request_reset_password', methods=['GET', 'POST'])
-def request_reset_password():
-     email = request.json.get('email', None)
-
-     reset_token = secrets.token_hex(16)
-     user = User.query.filter_by(email=email, login_method='app').first()
-
-     if user is None:
-          return jsonify({"error": "email is not provided"}), 401
-     
-     reset_user = ResetTokens(email=email, token=reset_token)
-     db.session.add(reset_user)
-     db.session.commit()
-
-     app.send_reset_email(email, reset_token)
-     
-     
-     return jsonify({"msg": "password reset email sent. check your inbox for instructions."})
-
-@api.route('/reset_password', methods=['GET', 'POST'])
-def reset_password():
-     new_password = request.json.get('new_password', None)
-     token = request.json.get('token', None)
-     email = request.json.get('email', None)
-
-     reset_token = ResetTokens.query.filter_by(token=token).first()
-     user = User.query.filter_by(email=email, login_method='app').first()
-
-     if reset_token is None:
-          return jsonify({"error": "Token expired please try to request again"}), 401
-     
-     user.password = new_password
-     db.session.delete(reset_token)
-     db.session.commit()
-
-     return jsonify({"msg": "your password is updated successfully, it is redirecting to login page."})
-
-@api.route("/user", methods=["PUT"])
-def updateUser():
-     first_name = request.json.get("first_name", None)
-     last_name = request.json.get("last_name", None)
-     phone = request.json.get("phone", None)
-     gender = request.json.get("gender", None)
-     street_address = request.json.get("street_address", None)
-     city = request.json.get("city", None)
-     state = request.json.get("state", None)
-     country = request.json.get("country", None)
-     user_id = request.json.get("user_id", None)
-     user = User.query.filter_by(id=user_id).first()
-
-     if not user: 
-          return jsonify("User not found"), 404
-     if first_name is not None: 
-          user.first_name=first_name
-     if last_name is not None: 
-          user.last_name=last_name
-     if phone is not None:
-          user.phone=phone
-     if gender is not None:
-          user.gender=gender
-     if street_address is not None:
-          user.street_address=street_address
-     if city is not None:
-          user.city=city
-     if state is not None:
-          user.state=state
-     if country is not None:
-          user.country=country
-     
-     db.session.commit()
-     return jsonify(user.serialize())

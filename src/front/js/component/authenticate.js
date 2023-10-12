@@ -29,9 +29,11 @@ const Authenticate = (props) => {
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [reEnterPassword, setReEnterPassword] = useState('');
   const [validated, setValidated] = useState(false);
   const { store, actions } = useContext(Context)
   const [storage, setStorageData] = useState()
+  const [showError, setError] = useState()
   const navigate = useNavigate()
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -60,9 +62,11 @@ const Authenticate = (props) => {
           social: true
         }
         actions.getToken(obj).then(() => {
-          if (storage != null) {
-            navigate('/dashboard')
-          }
+          setTimeout(() => {
+            if (storage != null) {
+              navigate('/dashboard')
+            }
+          }, 500)
         })
       }
     } catch (error) {
@@ -100,13 +104,7 @@ const Authenticate = (props) => {
         email: input,
         password: password,
         first_name: firstName,
-        last_name: lastName,
-        phone: phone,
-        gender: gender,
-        street_address: street_address,
-        city: city,
-        state: state,
-        country: country
+        last_name: lastName
       }
       actions.createAccount(obj).then(() => {
         if (store.isSignup) {
@@ -131,7 +129,13 @@ const Authenticate = (props) => {
         email: input
       }
       actions.requestForgotPassword(obj)
-    } else if (props.showResetPassword && newPassword != '') {
+    } else if (props.showResetPassword && newPassword != '' && reEnterPassword != '') {
+      if (reEnterPassword !== newPassword) {
+        document.getElementById("inputPassword")?.setAttribute("required", "");
+        setError(true)
+        return;
+      }
+      setError(false)
       const obj = {
         new_password: newPassword,
         email: searchParams.get('email'),
@@ -167,6 +171,9 @@ const Authenticate = (props) => {
             {store.message && <div className="alert alert-success" role="success">
               {store.message}
             </div>}
+            {showError && <div className="alert alert-danger" role="alert">
+              Password and confirm password do not match. Please make sure the passwords match exactly.
+            </div>}
             <h3 className='mb-4'>{props?.title}</h3>
             <form id="needs-validation" noValidate onSubmit={handleSubmit}>
               {props?.showSignup && <div className='row col'>
@@ -179,41 +186,11 @@ const Authenticate = (props) => {
                   <input type="text" className="form-control" id="lastName" placeholder="Enter Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
               </div>}
-              {!props?.showRecovery && <div className="mb-3 row ms-0">
+              {!props.showResetPassword && <div className="mb-3 row ms-0">
                 <label htmlFor="email" className="form-label">Email</label>
                 <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
               </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="phone" className="form-label">Phone Number</label>
-                <input type="text" className="form-control" id="phone" placeholder="555-123-4567" value={phone} onChange={(e) => setPhone(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="gender" className="form-label">Gender</label>
-                <select onChange={(e) => {
-                  setGender(e.target.value)
-                }} className="picker" id="gender">
-                  <option value="not specified">Select your Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="not specified">I'd rather not say</option>
-                </select>
-              </div>}
-              {props?.showSignup && <div className="mb-3 row ms-0">
-                <label htmlFor="street_address" className="form-label">Street Address</label>
-                <input type="text" className="form-control" id="street_address" placeholder="1234 main street" value={street_address} onChange={(e) => setStreetAddress(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="city" className="form-label">City</label>
-                <input type="text" className="form-control" id="city" placeholder="Miami" value={city} onChange={(e) => setCity(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="state" className="form-label">State</label>
-                <input type="text" className="form-control" id="state" placeholder="Florida" value={state} onChange={(e) => setState(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 row ms-0">
-                <label htmlFor="country" className="form-label">Country</label>
-                <input type="text" className="form-control" id="country" placeholder="USA" value={country} onChange={(e) => setCountry(e.target.value)} />
-              </div>}
+
               {!props?.showChangePassword && !props.showForgotPassword && !props.showResetPassword && <div className="mb-3 row ms-0">
                 <label htmlFor="inputPassword" className="col-form-label">Password</label>
                 <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} className="form-control" id="inputPassword" />
@@ -228,9 +205,12 @@ const Authenticate = (props) => {
                   <input type="password" className="form-control" id="inputPassword" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
                 </div></>}
               {props?.showResetPassword && <><div className="mb-3 row ms-0">
-                <label htmlFor="inputPassword" className="col-form-label">New Password</label>
+                <label htmlFor="inputPassword" className="col-form-label">Password</label>
                 <input type="password" className="form-control" id="inputPassword" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
-              </div></>}
+              </div> <div className="mb-3 row ms-0">
+                  <label htmlFor="inputPassword" className="col-form-label">Confirm Password</label>
+                  <input type="password" className="form-control" id="inputPassword" onChange={(e) => setReEnterPassword(e.target.value)} value={reEnterPassword} />
+                </div></>}
               <button type="submit" className="btn btn-primary">{props?.buttonText}</button>
             </form>
             {props?.showLogin && <div className='mt-3'>Don't have an account yet! <Link to={'/signup'}>Create one</Link></div>}

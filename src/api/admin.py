@@ -2,13 +2,9 @@
 import os
 from flask_admin import Admin
 
-from .models import db, User, DonationInfo
+from .models import db, User, DonationInfo, Payments, ResetTokens
 from flask_admin.contrib.sqla import ModelView
 
-
-=======
-from .models import db, User, Payments, ResetTokens
-from flask_admin.contrib.sqla import ModelView
 
 
 def setup_admin(app):

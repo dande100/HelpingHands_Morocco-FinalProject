@@ -1,7 +1,30 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-
+			progressPercentage: 0,
+			message: null,
+			error: null,
+			isLoginSuccess: false,
+			isSignup: false,
+			isPasswordRecovery: false,
+			isChangePassword: false,
+			isForgotPassword: false,
+			isPasswordReset: false,
+			user: [],
+			donations: [],
+			demo: [
+				{
+					title: "FIRST",
+					background: "white",
+					initial: "white"
+				},
+				{
+					title: "SECOND",
+					background: "white",
+					initial: "white"
+				}
+			],
+			chatBotReply: '',
 			products: [
 				{ id: "price_1NvRPvEkSwAVwyol4daWiYZ4", name: "60 donation" },
 				{ id: "price_1NvROvEkSwAVwyolL8AZYT4V", name: "30 donation" },
@@ -10,6 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				{ id: "price_1NvRJCEkSwAVwyol9ThQzuHUcd", name: "custom donation" }
 			],
 		},
+
 		actions: {
 			checkout: async (productId) => {
 				const product = getStore().products.find(p => p.id === productId);
@@ -35,33 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Checkout error:", error);
 				}
-			}
-			progressPercentage: 0,
-			message: null,
-			error: null,
-			isLoginSuccess: false,
-			isSignup: false,
-			isPasswordRecovery: false,
-			isChangePassword: false,
-			isForgotPassword: false,
-			isPasswordReset: false,
-			user: [],
-			donations: [],
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-
-			]
-		},
-		actions: {
+			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
@@ -81,7 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getToken: async (obj) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/token/", {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/token", {
 						method: 'POST',
 						headers: { "Content-type": "application/json" },
 						body: JSON.stringify(obj)
@@ -182,10 +180,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-
-				fetch(`http://127.0.0.1:3001/api/user/${user_id}`)
-=======
-				fetch(process.env.BACKEND_URL + `api/user/${user_id}`)
+				fetch(process.env.BACKEND_URL + `/api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
@@ -197,9 +192,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'PUT',
 					headers: { "Content-type": "application/json" },
 					body: JSON.stringify(newObj)
-				})
-
-					.then(response => response.json())
+				}).then(response => response.json())
 					.then(data => {
 						console.log(data)
 						setStore({ user: data })
@@ -258,6 +251,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+			sendChat: async (msg) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/chat", {
+						method: 'POST',
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify({
+							content: msg
+						})
+					})
+					const data = await resp.json()
+					if (data.msg) {
+						setStore({ chatBotReply: data.msg })
+					}
+					return data;
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+				}
+			}
 
 		}
 	};
