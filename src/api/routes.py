@@ -13,6 +13,10 @@ from flask_jwt_extended import jwt_required
 from flask_mail import Message
 import secrets
 import app
+import re
+import os
+
+
 
 
 
@@ -200,6 +204,70 @@ def reset_password():
 
      return jsonify({"msg": "your password is updated successfully, it is redirecting to login page."})
 
+def generate_chat_bot_reply(user_input):
+    email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}\b'
+
+    
+    email_addresses = re.findall(email_pattern, user_input)
+    if email_addresses:
+        return "Thank you for providing an email address. An agent will contact you soon."
+    if "hello" in user_input or "hi" in user_input or "hey" in user_input:
+        return "Hello! How can I assist you today?"
+
+    if "how are you" in user_input:
+        return "I'm just a computer program, but thanks for asking!"
+
+    if "bye" in user_input or "goodbye" in user_input:
+        return "Goodbye! If you have more questions, feel free to ask."
+    if "thank you" in user_input:
+        return "You're welcome! If you have any more questions or need assistance, feel free to ask."
+
+    if "weather" in user_input:
+        return "I'm sorry, I don't have access to real-time weather information."
+
+    if "make a donation" in user_input:
+        return f'You can easily make a donation by visiting our website and clicking on the "Donate Now" button. We accept various payment methods, including credit cards and PayPal. Or, {os.getenv("FRONTEND_URL")}/donatepage to go to our donation page.'
+    
+    if "link" in user_input:
+        return f'Sorry, I am text based bot. I will provide directions'
+
+    if "fundraising campaigns" in user_input:
+        return "We have several ongoing campaigns to support various causes. Would you like more details on a specific campaign?"
+
+    if "made a donation" in user_input:
+        return "Thank you so much for your generous contribution! Your support helps us make a positive impact."
+
+    if "how are donations used" in user_input:
+        return "Donations are used to fund critical programs and initiatives. You can learn more about our impact on our website."
+    
+    if "help" in user_input:
+        return "I'm here to assist you with your donation. Please describe the issue, and I'll do my best to help resolve it."
+    
+    if "upcoming events" in user_input:
+        return "Absolutely! We welcome volunteers. You can find information on volunteer opportunities on our website."
+    
+    if "volunteer" in user_input:
+        return "Yes, we have an exciting event planned for next month. Stay tuned for more details!"
+    
+    if "progress" in user_input:
+        return "Certainly! We've raised [amount] so far, and our goal is [goal amount]. Your support is vital in reaching our target."
+    if "secure" in user_input:
+        return "Your privacy and security are our top priorities. We use industry-standard encryption to protect your data."
+    if 'donation' in user_input:
+        return "You can easily make a donation by visiting our website and clicking on the 'Donate' button. We accept various payment methods, including credit cards and PayPal."
+
+    
+    if "live chat" in user_input or "agent" in user_input:
+        return "Sure! Please provide your email address, and someone will be in touch to assist you."
+
+    
+    return "I'm not sure how to respond to that. I am sorry; I am a programmatic bot."
+
+@api.route('/chat', methods=['POST'])
+def chat():
+     content = request.json.get('content')
+     chat_bot_reply = generate_chat_bot_reply(content.lower())
+     return jsonify({'msg': chat_bot_reply})
 @api.route("/user", methods=["PUT"])
 def updateUser():
      first_name = request.json.get("first_name", None)
