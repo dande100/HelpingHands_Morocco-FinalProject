@@ -21,7 +21,27 @@ export const Home = () => {
 	const [showVideo, setShowVideo] = useState(false);
 	const [showStatement2, setShowStatement2] = useState(false);
 	const [readMoreText, setReadMoreText] = useState("Read More");
+	const [isMoving, setIsMoving] = useState(false);
 
+	const startAnimation = () => {
+		setIsMoving(true);
+	};
+
+	const stopAnimation = () => {
+		setIsMoving(false);
+	};
+	useEffect(() => {
+
+		startAnimation();
+
+
+		const animationTimeout = setTimeout(() => {
+			stopAnimation();
+		}, 1000);
+		return () => {
+			clearTimeout(animationTimeout);
+		};
+	}, []);
 
 
 	const handleReadMoreClick = () => {
@@ -50,11 +70,11 @@ export const Home = () => {
 	useEffect(() => {
 		fetchProgress();
 
-		const intervalId = setInterval(() => {
-			fetchProgress();
-		}, 1000);
+		// const intervalId = setInterval(() => {
+		// 	fetchProgress();
+		// }, 1000);
 
-		return () => clearInterval(intervalId);
+		// return () => clearInterval(intervalId);
 	}, []);
 
 	const toggleVideo = () => {
@@ -107,7 +127,11 @@ export const Home = () => {
 					<div className="col donationMoney">Goal<br />$50000</div>
 				</div>
 			</div >
+			<div className={`instruction  ${isMoving ? 'moving' : ''}`}>
+				Click the youtube icon to watch the video/click the photo to expand
+			</div>
 			<div className="row image-video-aboutUs">
+
 				<div className="col image-video">
 					<img
 						className={`image1`}
