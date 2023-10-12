@@ -59,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Checkout error:", error);
 				}
-			}
+			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
@@ -179,7 +179,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-				fetch(process.env.BACKEND_URL + `api/user/${user_id}`)
+				fetch(process.env.BACKEND_URL + `/api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
@@ -251,9 +251,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-<<<<<<<< < Temporary merge branch 1
-
-=========
 			sendChat: async (msg) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/chat", {
@@ -272,8 +269,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			}
-
->>>>>>>>> Temporary merge branch 2
 		}
 	};
 };
