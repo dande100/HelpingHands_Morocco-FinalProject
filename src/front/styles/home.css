@@ -46,7 +46,6 @@
     font-size: 25px !important;
     margin: 120px;
   }
-<<<<<<< HEAD
 
   .text-overlay p {
     font-size: 15px !important;
@@ -187,7 +186,7 @@
 }
 .aboutUsPage {
   padding: 10px;
-=======
+}
   .home-testimonial{
     background-color: #231834;
     height: 380px
@@ -252,5 +251,4 @@
 
 .rating-color{
     color:#fbc634 !important;
->>>>>>> 1fa954bf7136e402631068723ea22b5ad367b73a
 }

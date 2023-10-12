@@ -27,7 +27,6 @@ app.url_map.strict_slashes = False
 
 
 # database configuration
-=======
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 jwt = JWTManager(app)
 

@@ -36,7 +36,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Checkout error:", error);
 				}
 			}
-=======
 			progressPercentage: 0,
 			message: null,
 			error: null,
@@ -259,7 +258,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-        
+
 		}
 	};
 };
