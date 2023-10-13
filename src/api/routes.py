@@ -21,7 +21,7 @@ import os
 
 api = Blueprint("api", __name__)
 
-stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 # Define the Flask app
 api = Blueprint('api', __name__)
