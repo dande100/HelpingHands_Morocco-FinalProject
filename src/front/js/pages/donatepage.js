@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import "../../styles/donatepage.css";
 import Morocco1ImageUrl from "../../img/morocco1.jpg";
 
 const DonatePage = () => {
@@ -66,12 +67,12 @@ const DonatePage = () => {
       // //   }
       // })
       .then(data => {
-        // if (data.error) {
-        //   throw new Error(data.error);
-        // }
-        // if (data.url) {
-        //   window.location.assign(data.url);
-        // }
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        if (data.url) {
+          window.location.assign(data.url);
+        }
         console.log(data)
       })
       .catch(error => {
@@ -82,7 +83,8 @@ const DonatePage = () => {
 
   return (
     <>
-      <div className="container width:100px">
+      <div className="container donatePagecontainer">
+
         <div className="row">
           <div className="col-6 p-5">
             <h3>
@@ -104,12 +106,12 @@ const DonatePage = () => {
           </div>
           <div className="col-6 p-5 d-flex flex-column ">
             <div className="row">
-              <div class="col-3">
+              <div className="col-3">
                 <p>Donate Now </p>
               </div>
-              <div class="col-9 text-end dropdown">
+              {/* <div className="col-9 text-end dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
+                  className="btn btn-secondary dropdown-toggle"
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
@@ -118,19 +120,19 @@ const DonatePage = () => {
                   <text> {selection} </text>
                 </button>
                 <ul
-                  class="dropdown-menu dropdown-menu-end"
+                  className="dropdown-menu dropdown-menu-end"
                   aria-labelledby="dropdownMenuButton1"
                 >
                   {currency.map((item) => (
                     <li onClick={() => setSelection(item)}>
-                      <a class="dropdown-item" href="#">
+                      <a className="dropdown-item" href="#">
                         {" "}
                         {item}{" "}
                       </a>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </div>
             <div className="">
               <div className="d-flex">
@@ -145,11 +147,11 @@ const DonatePage = () => {
                 </div>
               </div>
               <div className="row my-2">
-                <div class="col-4">
+                <div className="col-4">
                   <label> </label>
                   <button
                     type="button"
-                    className={` btn btn-info w-100 amountButton ${activeButton == 1000 ? "activeAmountButton" : ""
+                    className={` btn donationButton w-100 amountButton ${activeButton == 1000 ? "activeAmountButton" : ""
                       }`}
                     onClick={() => {
                       handleAmountClick(1000);
@@ -158,11 +160,11 @@ const DonatePage = () => {
                     $10.00
                   </button>
                 </div>
-                <div class="col-4">
+                <div className="col-4">
                   <label> </label>
                   <button
                     type="button"
-                    className={` btn btn-info w-100 amountButton ${activeButton == 2000 ? "activeAmountButton" : ""
+                    className={` btn donationButton w-100 amountButton ${activeButton == 2000 ? "activeAmountButton" : ""
                       }`}
                     onClick={() => {
                       handleAmountClick(2000);
@@ -171,11 +173,11 @@ const DonatePage = () => {
                     $20.00
                   </button>
                 </div>
-                <div class="col-4">
+                <div className="col-4">
                   <label> </label>
                   <button
                     type="button"
-                    className={`btn btn-info w-100 amountButton ${activeButton == 3000 ? "activeAmountButton" : ""
+                    className={`btn donationButton w-100 amountButton ${activeButton == 3000 ? "activeAmountButton" : ""
                       }`}
                     onClick={() => {
                       handleAmountClick(3000);
@@ -186,10 +188,10 @@ const DonatePage = () => {
                 </div>
               </div>
               <div className="row">
-                <div class="col-4">
+                <div className="col-4">
                   <button
                     type="button"
-                    className={`btn btn-info w-100 amountButton ${activeButton == 6000 ? "activeAmountButton" : ""
+                    className={`btn donationButton w-100 amountButton ${activeButton == 6000 ? "activeAmountButton" : ""
                       }`}
                     onClick={() => {
                       handleAmountClick(6000);
@@ -199,7 +201,7 @@ const DonatePage = () => {
                   </button>
                 </div>
 
-                <div class="col-8">
+                <div className="col-8">
                   <input
                     type="number"
                     step="0.01"
@@ -213,27 +215,27 @@ const DonatePage = () => {
                 </div>
               </div>
 
-              <div className="text-center pt-4">Your Gift Amount</div>
+              {/* <div className="text-center pt-4">Your Gift Amount</div> */}
 
               <div className="row pt-3">
                 <div className="d-flex align-items-center">
                   <strong>Choose Payment</strong>
 
                   <div className="d-flex align-items-center">
-                    <i class="fa-solid fa-lock mx-3"></i>
+                    <i className="fa-solid fa-lock mx-3"></i>
                     <strong>Secure</strong>
                   </div>
                 </div>
               </div>
 
               <div className="row mt-5">
-                <div class="col-6 text-center">
+                <div className="col-6 text-center">
                   <button onClick={() => console.log(amountToDonate)}
-                    type="button" className="btn btn-info w-100">
+                    type="button" className="btn activeAmountButton w-100">
                     Pay With PayPal
                   </button>
                 </div>
-                <div class="col-6 text-center">
+                <div className="col-6 text-center">
                   <button
                     onClick={() => {
                       if (amountToDonate < 50) {
@@ -243,7 +245,7 @@ const DonatePage = () => {
                       }
                     }}
                     type="button"
-                    className="btn btn-info w-100"
+                    className="btn activeAmountButton w-100"
                   >
                     Pay With Stripe
                   </button>
@@ -254,10 +256,10 @@ const DonatePage = () => {
         </div>
 
         <div className="text-center mt-5">
-          <div class="row">
+          <div className="row">
             <div className=" col-4 p-5">
               <p>
-                <i class="fa-solid fa-square-check"></i>
+                <i className="fa-solid fa-square-check fa-2xl  donatePageIcons"></i>
               </p>
               <h4> Feature One </h4>
 
@@ -269,7 +271,7 @@ const DonatePage = () => {
             </div>
             <div className=" col-4 p-5 ">
               <p>
-                <i class="fa-brands fa-font-awesome"></i>
+                <i className="fa-brands fa-font-awesome fa-2xl mb-1 donatePageIcons"></i>
               </p>
               <h4> Feature Two </h4>
 
@@ -281,7 +283,7 @@ const DonatePage = () => {
             </div>
             <div className=" col-4 p-5">
               <p>
-                <i class="fa-regular fa-star"></i>
+                <i className="fa-regular fa-star fa-2xl donatePageIcons"></i>
               </p>
               <h4> Feature Three </h4>
               <p>
@@ -293,7 +295,7 @@ const DonatePage = () => {
           </div>
         </div>
 
-        <div class="row">
+        <div className="row">
           <div className=" col-6 p-5">
             <h4>
               Effortless Giving, <br></br>
@@ -321,7 +323,7 @@ const DonatePage = () => {
             </p>
           </div>
           <div>
-            <i class="fa-regular fa-image"></i>
+            <i className="fa-regular fa-image"></i>
             <p>John Doe, CTO of Client Company</p>
           </div>
         </div>
