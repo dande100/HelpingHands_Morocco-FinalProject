@@ -287,3 +287,7 @@
   );
   border-image-slice: 10;
 }
+.image3:hover,
+.image2:hover {
+  cursor: pointer;
+}
