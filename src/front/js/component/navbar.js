@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import logoImageUrl from "../../img/logo.png";
 
 export const Navbar = () => {
+
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {

@@ -141,8 +141,8 @@
 }
 
 .raised-goal {
-  margin-left: -530px;
-  margin-top: -30px;
+  margin-left: -600px;
+  margin-top: -50px;
   font-weight: bold;
   font-size: 18px;
   color: black;
@@ -188,11 +188,15 @@
 }
 
 .circular-progress-text {
-  font-size: 24px;
-  text-anchor: middle; /* Horizontal alignment */
-  fill: #333; /* Color of the progress text */
+  font-size: 35px;
+  text-anchor: middle;
+  text-shadow: 5px 5px 8px rgba(46, 28, 47, 0.4);
+  color: #2e1c2f;
   transform: rotate(-95) !important;
 }
-/* .App {
-  margin: 50px;
-} */
+.circularProgressBar {
+  margin-top: 30px !important;
+}
+.donationMoney {
+  color: #fffdfb;
+}
