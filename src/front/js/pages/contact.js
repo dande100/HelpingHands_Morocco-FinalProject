@@ -4,10 +4,10 @@ import { Context } from "../store/appContext";
 import "../../styles/contact.css"
 
 export const Contact = () => {
-	const { store, actions } = useContext(Context);
+    const { store, actions } = useContext(Context);
 
-	return (
-		<>
+    return (
+        <>
             <div className="headerDiv">
                 <h1 className="text-center pt-4" >
                     Contact Us
@@ -18,9 +18,9 @@ export const Contact = () => {
                     <div className="col-2"></div>
                     <div class="col-8">
                         <p>
-                            If you have any questions for our team send us a message below. If you are interested in ways you can help or 
-                                about volunteering in Morocco please fill out the form below. We will reach out to you about our next 
-                                volunteer trip schedules and other ways to get involved!
+                            If you have any questions for our team send us a message below. If you are interested in ways you can help or
+                            about volunteering in Morocco please fill out the form below. We will reach out to you about our next
+                            volunteer trip schedules and other ways to get involved!
                         </p>
                     </div>
                     <div className="col-2"></div>
@@ -34,27 +34,29 @@ export const Contact = () => {
                         <img className="aftermathPhoto2" src="https://marvel-b1-cdn.bc0a.com/f00000000209887/www.projecthope.org/wp-content/uploads/2023/09/b17c7677-8481-4083-a711-1ac421de8ef6.jpg"></img>
                     </div>
                     <div class="col-7">
-                        <div class="mb-3">
-                            <label for="Name" className="form-label">First & Last Name</label>
-                            <input type="text" class="form-control" id="formNameInput" placeholder="John Doe"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Email" className="form-label">Email</label>
-                            <input type="text" class="form-control" id="formEmailInput" placeholder="john@abc.com"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Phone-Number" className="form-label">Phone Number</label>
-                            <input type="text" class="form-control" id="formPhoneNumberInput" placeholder="1-555-222-1234"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Comments" className="form-label">Questions/Comments</label>
-                            <textarea type="text-area" class="form-control" id="formCommentsInput" rows="5" placeholder="Let us know how we can help you help others."></textarea>
-                        </div>
-                        <button className="btn btn-primary btn-lg" id="contactFormSubmit">Submit</button>
+                        <form action="mailto:jessmor1993@gmail.com" method="post" enctype="text/plain">
+                            <div class="mb-3">
+                                <label for="Name" className="form-label">First & Last Name</label>
+                                <input type="text" class="form-control" id="formNameInput" placeholder="John Doe" value={input}></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Email" className="form-label">Email</label>
+                                <input type="text" class="form-control" id="formEmailInput" placeholder="john@abc.com" value={input}></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Phone-Number" className="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="formPhoneNumberInput" placeholder="1-555-222-1234" value={input}></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Comments" className="form-label">Questions/Comments</label>
+                                <textarea type="text-area" class="form-control" id="formCommentsInput" value={input} rows="5" placeholder="Let us know how we can help you help others."></textarea>
+                            </div>
+                            <button type="submit" name="submit" value={input}>Submit</button>
+                        </form>
                     </div>
-                    
+
                 </div>
             </div>
         </>
-	);
+    );
 };

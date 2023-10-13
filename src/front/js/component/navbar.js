@@ -49,9 +49,12 @@ export const Navbar = ({ aboutUsSectionRef }) => {
           </RouterLink> : <RouterLink to="/login" className="button-link login-button">
             Login
           </RouterLink>}
-          <RouterLink to="/signup" className="button-link signup-button">
-            Sign Up
-          </RouterLink>
+          {storage != null ? <RouterLink to="/dashboard" className="button-link dashboard-button">
+            Profile
+          </RouterLink> :
+            <RouterLink to="/signup" className="button-link signup-button">
+              Sign Up
+            </RouterLink>}
         </div>
       </div>
     </nav>
