@@ -4,12 +4,15 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+
+import DonatePage from "./pages/donatepage";
 import { Single } from "./pages/single";
 import AboutUs from "./pages/aboutUs";
 import { ThankYou } from "./pages/thank-you-page";
 import { Contact } from "./pages/contact";
 import injectContext from "./store/appContext";
+
+
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Login from "./pages/login";
@@ -19,6 +22,8 @@ import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/resetPassword";
 import { Dashboard } from "./pages/dashboard";
 import { DashboardHistory } from "./pages/dashboard-history";
+import ChatBox from "./component/chatBox";
+import CircularProgressBar from "./pages/circularProgressBar";
 
 //create your first component
 const Layout = () => {
@@ -35,7 +40,9 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
+                        <Route element={<DonatePage />} path="/donatepage" />
+                        <Route element={<Home />} path="/home" />
+                        {/* <Route element={<Demo />} path="/demo" /> */}
                         <Route element={<AboutUs />} path="/aboutUs" />
                         <Route element={<ThankYou />} path="/thank-you-page" />
                         <Route element={<Single />} path="/single/:theid" />
@@ -44,12 +51,14 @@ const Layout = () => {
                         <Route element={<ForgotPassword />} path="/forgot-password" />
                         <Route element={<ResetPassword />} path="/reset-password" />
                         <Route element={<Signup />} path="/signup" />
+                        <Route element={<CircularProgressBar />} path="/circularprogressbar" />
                         <Route element={<Contact />} path="/contact" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<DashboardHistory />} path="/dashboard-history" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
+                    <ChatBox />
                 </ScrollToTop>
             </BrowserRouter>
         </div>
