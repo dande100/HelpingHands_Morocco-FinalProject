@@ -178,7 +178,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getUser: () => {
 				const user_id = localStorage.getItem("user_id")
-				fetch(process.env.BACKEND_URL + `/api/user/${user_id}`)
+				fetch(process.env.BACKEND_URL + `api/user/${user_id}`)
 					.then(response => response.json())
 					.then(data => {
 						console.log(data)
