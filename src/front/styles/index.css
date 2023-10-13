@@ -24,3 +24,18 @@ body {
     overflow-x: hidden;
 }
 
+
+
+.cwuCQv {
+    box-shadow: none !important;
+    border-radius: unset !important;
+}
+
+.not-found-wrapper {
+    background: linear-gradient(0deg, #2e032e, #BFB2C2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 175px);
+    color: white;
+}

@@ -82,6 +82,12 @@
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
 		"react-scroll": "^1.8.9",
-		"react-to-print": "^2.14.15"
-	}
+		"react-simple-chatbot": "^0.6.1",
+		"react-to-print": "^2.14.15",
+		"stripe": "^13.10.0"
+	},
+	"directories": {
+    "doc": "docs"
+  },
+	"keywords": []
 }
