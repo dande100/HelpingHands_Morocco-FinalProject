@@ -4,7 +4,8 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+
+import DonatePage from "./pages/donatepage";
 import { Single } from "./pages/single";
 import AboutUs from "./pages/aboutUs";
 import { ThankYou } from "./pages/thank-you-page";
@@ -38,8 +39,10 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
+                        <Route element={<Home />} path="/" />
+                        <Route element={<DonatePage />} path="/donatepage" />
                         <Route element={<Home />} path="/home" />
-                        <Route element={<Demo />} path="/demo" />
+                        {/* <Route element={<Demo />} path="/demo" /> */}
                         <Route element={<AboutUs />} path="/aboutUs" />
                         <Route element={<ThankYou />} path="/thank-you-page" />
                         <Route element={<Single />} path="/single/:theid" />

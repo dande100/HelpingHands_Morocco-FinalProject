@@ -67,6 +67,9 @@ export const Home = () => {
 
 
 	return (
+
+
+
 		<div>
 			<img
 				className="backgroundImage"
@@ -222,7 +225,5 @@ export const Home = () => {
 				</div>
 			</section>
 		</div >
-
-
 	);
-};
+};  

@@ -104,13 +104,7 @@ const Authenticate = (props) => {
         email: input,
         password: password,
         first_name: firstName,
-        last_name: lastName,
-        phone: phone,
-        gender: gender,
-        street_address: street_address,
-        city: city,
-        state: state,
-        country: country
+        last_name: lastName
       }
       actions.createAccount(obj).then(() => {
         if (store.isSignup) {
@@ -196,37 +190,7 @@ const Authenticate = (props) => {
                 <label htmlFor="email" className="form-label">Email</label>
                 <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={(e) => setInput(e.target.value)} value={input} />
               </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="phone" className="form-label">Phone Number</label>
-                <input type="text" className="form-control" id="phone" placeholder="555-123-4567" value={phone} onChange={(e) => setPhone(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="gender" className="form-label">Gender</label>
-                <select onChange={(e) => {
-                  setGender(e.target.value)
-                }} className="picker" id="gender">
-                  <option value="not specified">Select your Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="not specified">I'd rather not say</option>
-                </select>
-              </div>}
-              {props?.showSignup && <div className="mb-3 row ms-0">
-                <label htmlFor="street_address" className="form-label">Street Address</label>
-                <input type="text" className="form-control" id="street_address" placeholder="1234 main street" value={street_address} onChange={(e) => setStreetAddress(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="city" className="form-label">City</label>
-                <input type="text" className="form-control" id="city" placeholder="Miami" value={city} onChange={(e) => setCity(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 col-md-6 ms-0">
-                <label htmlFor="state" className="form-label">State</label>
-                <input type="text" className="form-control" id="state" placeholder="Florida" value={state} onChange={(e) => setState(e.target.value)} />
-              </div>}
-              {props?.showSignup && <div className="mb-3 row ms-0">
-                <label htmlFor="country" className="form-label">Country</label>
-                <input type="text" className="form-control" id="country" placeholder="USA" value={country} onChange={(e) => setCountry(e.target.value)} />
-              </div>}
+
               {!props?.showChangePassword && !props.showForgotPassword && !props.showResetPassword && <div className="mb-3 row ms-0">
                 <label htmlFor="inputPassword" className="col-form-label">Password</label>
                 <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} className="form-control" id="inputPassword" />
