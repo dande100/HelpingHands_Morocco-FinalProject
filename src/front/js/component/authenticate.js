@@ -63,7 +63,7 @@ const Authenticate = (props) => {
         }
         actions.getToken(obj).then(() => {
           setTimeout(() => {
-            if (storage != null) {
+            if (localStorage.getItem('access_token') != null) {
               navigate('/dashboard')
             }
           }, 500)
@@ -71,15 +71,6 @@ const Authenticate = (props) => {
       }
     } catch (error) {
       console.error('Google login error:', error);
-    }
-  };
-  const signInWithFacebook = async () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    try {
-      await auth.signInWithPopup(provider);
-      console.log('Facebook login successful');
-    } catch (error) {
-      console.error('Facebook login error:', error);
     }
   };
   const handleSubmit = (event) => {
