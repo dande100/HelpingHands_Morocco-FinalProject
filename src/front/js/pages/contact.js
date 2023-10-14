@@ -5,56 +5,71 @@ import "../../styles/contact.css"
 
 export const Contact = () => {
     const { store, actions } = useContext(Context);
+    const [firstNameInput, setFirstNameInput] = useState("");
+    const [lastNameInput, setLastNameInput] = useState("");
+    const [emailInput, setEmailInput] = useState("");
+    const [phoneInput, setPhoneInput] = useState("");
+    const [commentsInput, setCommentsInput] = useState("");
 
     return (
         <>
-            <div className="headerDiv">
-                <h1 className="text-center pt-4" >
-                    Contact Us
-                </h1>
-            </div>
-            <div className="container mt-4" id="contactPageP">
-                <div className="row">
-                    <div className="col-2"></div>
-                    <div className="col-8">
-                        <p>
-                            If you have any questions for our team send us a message below. If you are interested in ways you can help or
-                            about volunteering in Morocco please fill out the form below. We will reach out to you about our next
-                            volunteer trip schedules and other ways to get involved!
-                        </p>
-                    </div>
-                    <div className="col-2"></div>
+            <div id="contactPageContainer">
+                <div className="headerDiv">
+                    <h1 className="text-center pt-4 text-white" >
+                        Contact Us
+                    </h1>
                 </div>
-            </div>
-            <div className="container mt-4">
-                <div className="row">
-                    <div className="col-5">
-                        <img className="aftermathPhoto1" src="https://s.france24.com/media/display/e57eef1a-4eee-11ee-b700-005056bf30b7/w:1280/p:1x1/2023-09-09T081028Z_1417888762_RC2U43AEAKXE_RTRMADP_3_MOROCCO-QUAKE.JPG"></img>
-                        <br></br><br></br>
-                        <img className="aftermathPhoto2" src="https://marvel-b1-cdn.bc0a.com/f00000000209887/www.projecthope.org/wp-content/uploads/2023/09/b17c7677-8481-4083-a711-1ac421de8ef6.jpg"></img>
+                <div className="container mt-4" id="contactPageP">
+                    <div className="row">
+                        <div className="col-1"></div>
+                        <div className="col-10">
+                            <p className="text-white fs-4">
+                                If you have any questions for our team send us a message below. If you are interested in ways you can help or
+                                about volunteering in Morocco please fill out the form below. We will reach out to you about our next
+                                volunteer trip schedules and other ways to get involved!
+                            </p>
+                        </div>
+                        <div className="col-2"></div>
                     </div>
-                    <div class="col-7">
-                        <form action="mailto:jessmor1993@gmail.com" method="post" enctype="text/plain">
-                            <div class="mb-3">
-                                <label for="Name" className="form-label">First & Last Name</label>
-                                <input type="text" class="form-control" id="formNameInput" placeholder="John Doe" value={input}></input>
+                </div>
+                <div className="container mt-4" id="contactBody">
+                    <div className="row">
+                        <div className="col-5">
+                        </div>
+                        <div className="card col-10" id="contactFormCard">
+                            <div className="card-body">
+                                <form id="contactForm" action="mailto:jessmor1993@gmail.com" method="post" encType="text/plain">
+                                    <div className="mb-3">
+                                        <label htmlFor="Name" className="form-label">First Name</label>
+                                        <input type="text" className="form-control" id="nameInput" name="firstName" placeholder="John Doe"
+                                            onChange={event => setFirstNameInput(event.target.value)} value={firstNameInput}></input>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="Name" className="form-label">Last Name</label>
+                                        <input type="text" className="form-control" id="nameInput" name="lastName" placeholder="John Doe"
+                                            onChange={event => setLastNameInput(event.target.value)} value={lastNameInput}></input>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="Email" className="form-label">Email</label>
+                                        <input type="text" className="form-control" id="emailInput" name="email" placeholder="john@abc.com"
+                                            onChange={event => setEmailInput(event.target.value)} value={emailInput}></input>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="Phone-Number" className="form-label">Phone Number</label>
+                                        <input type="text" className="form-control" id="phoneInput" name="phone" placeholder="1-555-222-1234"
+                                            onChange={event => setPhoneInput(event.target.value)} value={phoneInput}></input>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="Comments" className="form-label">Questions/Comments</label>
+                                        <textarea type="text-area" className="form-control" id="commentsInput" name="comments" rows="5" placeholder="Let us know how we can help you help others."
+                                            onChange={event => setCommentsInput(event.target.value)} value={commentsInput}></textarea>
+                                    </div>
+                                    <button type="submit" id="contactFormSubmit" name="submit" value={"Successfully sent message"}>Submit</button>
+                                </form>
                             </div>
-                            <div class="mb-3">
-                                <label for="Email" className="form-label">Email</label>
-                                <input type="text" class="form-control" id="formEmailInput" placeholder="john@abc.com" value={input}></input>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Phone-Number" className="form-label">Phone Number</label>
-                                <input type="text" class="form-control" id="formPhoneNumberInput" placeholder="1-555-222-1234" value={input}></input>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Comments" className="form-label">Questions/Comments</label>
-                                <textarea type="text-area" class="form-control" id="formCommentsInput" value={input} rows="5" placeholder="Let us know how we can help you help others."></textarea>
-                            </div>
-                            <button type="submit" name="submit" value={input}>Submit</button>
-                        </form>
-                    </div>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </>

@@ -55,6 +55,18 @@ export const Navbar = () => {
           <Link to="/aboutUs">About Us</Link>
           {storage > 0 ? (
             <Link
+              to="/dashboard"
+              className="button-link dashboard-button"
+            >
+              Profile
+            </Link>
+          ) : (
+            <Link to="/login" className="button-link login-button">
+              Login
+            </Link>
+          )}
+          {storage > 0 ? (
+            <Link
               to="/login"
               className="button-link login-button"
               onClick={handleLogout}
@@ -62,13 +74,10 @@ export const Navbar = () => {
               Logout
             </Link>
           ) : (
-            <Link to="/login" className="button-link login-button">
-              Login
+            <Link to="/signup" className="button-link signup-button">
+              Sign Up
             </Link>
           )}
-          <Link to="/signup" className="button-link signup-button">
-            Sign Up
-          </Link>
         </div>
         <div
           className={`hamburger-menu ${isMobileMenuOpen ? "open" : ""}`}

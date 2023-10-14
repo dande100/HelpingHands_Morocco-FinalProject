@@ -1,5 +1,9 @@
+#contactPageContainer {
+    background-color: purple;
+    height: 100%;
+    width: 100%;
+}
 .headerDiv {
-    background-color: #BFB2C2;
     height: 120px;
     margin-bottom: 10px; 
 }
@@ -13,7 +17,17 @@
 }
 #contactFormSubmit {
     background-color: purple;
+    color: white;
 }
-.contactPageP {
-    width: 200px;
+#contactBody {
+    background-image: url("https://s.france24.com/media/display/e57eef1a-4eee-11ee-b700-005056bf30b7/w:1280/p:1x1/2023-09-09T081028Z_1417888762_RC2U43AEAKXE_RTRMADP_3_MOROCCO-QUAKE.JPG");
+    height: 800px; 
+    background-position: center bottom; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+}
+#contactFormCard {
+    width: 500px;
+    margin-left: 120px;
+    margin-top: 40px;
 }
