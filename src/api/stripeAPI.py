@@ -15,7 +15,7 @@ def index():
     # For now, I've left it commented out.
     return render_template('index.html')
 
-@api.route('/stripe_pay')
+@app.route('/stripe_pay')
 def stripe_pay():
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],

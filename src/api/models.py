@@ -51,10 +51,7 @@ class DonationInfo(db.Model):
 
     amount=db.Column(db.String(120), nullable=True)
 
-    # establish the relationship between user and donations
-    # establish the relation between donator and payment proccessing
-
-    # credit card
+   
     def __repr__(self):
         return f'<DonationInfo {self.email}>'
 
@@ -68,8 +65,10 @@ class DonationInfo(db.Model):
             "phone_number": self.phone_number,
             "time_created": self.time_created
 
-            # do not serialize the card credit, its a security breach
+            
         }
+
+
     
 class Payments(db.Model):
     id = db.Column(db.Integer, primary_key=True)

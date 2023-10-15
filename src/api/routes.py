@@ -21,10 +21,10 @@ import os
 
 api = Blueprint("api", __name__)
 
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+#stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 # Define the Flask app
-api = Blueprint('api', __name__)
+
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
@@ -106,6 +106,20 @@ def get_user_donation_history(user_id):
     payment_serialize = [payment.serialize() for payment in user_payments]
     return jsonify(payment_serialize), 200
 
+def calculate_total_donated():
+    total_donated = db.session.query(db.func.sum(Payments.payment_amount)).scalar()
+    return total_donated or 0
+ 
+
+@api.route('/progress', methods=['GET'])
+def get_donation_progress():
+    goal_amount = 50000
+
+    total_donated = calculate_total_donated()
+
+    progress_percentage = (total_donated / goal_amount) * 100
+
+    return jsonify({'progress': progress_percentage})
 
 
 @api.route("/token", methods=['POST'])
@@ -294,20 +308,20 @@ def updateUser():
      return jsonify(user.serialize())
 
 
-def calculate_total_donated():
-    total_donated = db.session.query(db.func.sum(Payments.payment_amount)).scalar()
-    return total_donated or 0
- 
-@api.route('/progress', methods=['GET'])
-def get_donation_progress():
-    goal_amount = 50000
 
-    total_donated = calculate_total_donated()
 
-    progress_percentage = (total_donated / goal_amount) * 100
+# def calculate_total_stripe_payments():
+#     total_donated = db.session.query(db.func.sum(DonationInfo.amount)).scalar()
+#     return total_donated or 0
+# @api.route('/stripe_progress', methods=['GET'])
+# def get_stripe_donation_progress():
 
-    return jsonify({'progress': progress_percentage})
+#     goal_amount = 50000  
+#     total_stripe_payments = calculate_total_stripe_payments()
 
+#     stripe_progress_percentage = (total_stripe_payments / goal_amount) * 100
+
+#     return jsonify({'stripe_progress': stripe_progress_percentage})
 
 @api.route("/payment", methods=["POST"])
 def process_payment():
