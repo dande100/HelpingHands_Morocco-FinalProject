@@ -49,7 +49,11 @@ class DonationInfo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
     user = db.relationship(User)
 
-    amount=db.Column(db.String(120), nullable=True)
+    amount = db.Column(db.Numeric(precision=10, scale=2))
+    date = db.Column(db.String, unique=False, nullable=False)
+    currency = db.Column(db.String(80), unique=False, nullable=False)
+    payment_method = db.Column(db.String(80), unique=False, nullable=False)
+
 
    
     def __repr__(self):
@@ -63,42 +67,18 @@ class DonationInfo(db.Model):
             "email": self.email,
             "address": self.address,
             "phone_number": self.phone_number,
-            "time_created": self.time_created
+            "time_created": self.time_created,
+            "date": self.date,
+            "currency": self.currency,
+            "payment_method": self.payment_method,
+            "amount": self.amount,
+            
 
             
         }
 
 
     
-class Payments(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String, unique=False, nullable=False)
-    currency = db.Column(db.String(80), unique=False, nullable=False)
-    payment_method = db.Column(db.String(80), unique=False, nullable=False)
-    payment_amount = db.Column(db.Integer, unique=False, nullable=False)
-    city = db.Column(db.String(80), unique=False, nullable=False)
-    state = db.Column(db.String(80), unique=False, nullable=False)
-    country = db.Column(db.String(80), unique=False, nullable=False)
-    postal_code = db.Column(db.Integer, unique=False, nullable=False)
-    phone_number = db.Column(db.Integer, unique=False, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship(User)
-
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "date": self.date,
-            "currency": self.currency,
-            "payment_method": self.payment_method,
-            "payment_amount": self.payment_amount,
-            "city": self.city,
-            "state": self.state,
-            "country": self.country,
-            "postal_code": self.postal_code,
-            "phone_number": self.phone_number,
-            "user_id": self.user_id,
-        }
     
 class ResetTokens(db.Model):
     __tablename__ = 'reset_tokens'
