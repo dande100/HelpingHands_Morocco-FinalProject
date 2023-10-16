@@ -42,15 +42,14 @@ class DonationInfo(db.Model):
     __tablename__ = 'donationInfo'
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(120), nullable=False)
+    gender = db.Column(db.String(20), unique=False, nullable=True)
     email = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(500), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
     time_created = db.Column(db.String(120), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
     user = db.relationship(User)
-
     amount = db.Column(db.Numeric(precision=10, scale=2))
-    date = db.Column(db.String, unique=False, nullable=False)
     currency = db.Column(db.String(80), unique=False, nullable=False)
     payment_method = db.Column(db.String(80), unique=False, nullable=False)
 
@@ -68,9 +67,9 @@ class DonationInfo(db.Model):
             "address": self.address,
             "phone_number": self.phone_number,
             "time_created": self.time_created,
-            "date": self.date,
             "currency": self.currency,
             "payment_method": self.payment_method,
+            "gender": self.gender,
             "amount": self.amount,
             
 

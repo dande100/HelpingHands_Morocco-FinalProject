@@ -58,41 +58,59 @@ def handle_users():
     
 @api.route('/donations', methods=['POST'])
 def add_donations():
-    if request.method == 'POST':
+    #if request.method == 'POST':
         data = request.json 
         user_id = data.get('user_id')
 
         # Check if the user with the specified user_id exists
-        user = User.query.get(user_id)
-        if not user:
-            return jsonify({"message": "User not found"}), 404
+       
+        if user_id == 'anonymous' : 
+           
+            
+            new_donation = DonationInfo(
+                time_created=data['time_created'],
+                currency=data['currency'],
+                payment_method=data['payment_method'],
+                amount=data['amount'],
+                full_name = data['full_name'],
+                gender = data ['gender'],
+                address = data ['address'],
+                phone_number=data['phone_number'],
+                email = data['email'] ,
+                
+            )
 
+        else : 
+            user = User.query.get(user_id)
+            if not user:
+                return jsonify({"message": "User not found"}), 404
+            user = user.serialize()
         # Create a new donation record
         
-        new_payment = Payments(
-            date=data['date'],
-            currency=data['currency'],
-            payment_method=data['payment_method'],
-            payment_amount=data['payment_amount'],
-            city=data['city'],
-            state=data['state'],
-            country=data['country'],
-            postal_code=data['postal_code'],
-            phone_number=data.get('phone_number'),
-            user_id=user_id
-        )
+            new_donation = DonationInfo(
+                time_created=data['date'],
+                currency=data['currency'],
+                payment_method=data['payment_method'],
+                amount=data['payment_amount'],
+                full_name = user ['first_name'] + ' ' +  user ['last_name'],
+                gender = user ['gender'],
+                address = user ['street_address'] + ' ' + user ['city'] + ' ' + user ['state'] + ' ' + user['country'],
+                phone_number=user['phone'],
+                email = user['email'] ,
+                user_id=user_id
+            )
 
-        db.session.add(new_payment)
+        db.session.add(new_donation)
         db.session.commit()
 
-        return jsonify({"message": "Payment added successfully"}), 201
+        return jsonify({"message": "Donation added successfully"}), 201
     
 
 @api.route('/donations', methods=['GET'])
 def get_all_donations():
-    if request.method == 'GET':
-        allPayments = Payments.query.all()
-        payment_serialize = [payment.serialize() for payment in allPayments]
+    #if request.method == 'GET':
+        allDOnations = DonationInfo.query.all()
+        payment_serialize = [payment.serialize() for payment in allDOnations]
         return jsonify(payment_serialize), 200
 
 
@@ -102,12 +120,12 @@ def get_user_donation_history(user_id):
     if user is None:
         return jsonify({"message": "User not found"}), 404
 
-    user_payments = Payments.query.filter_by(user_id=user_id).all()
+    user_payments = DonationInfo.query.filter_by(user_id=user_id).all()
     payment_serialize = [payment.serialize() for payment in user_payments]
     return jsonify(payment_serialize), 200
 
 def calculate_total_donated():
-    total_donated = db.session.query(db.func.sum(Payments.payment_amount)).scalar()
+    total_donated = db.session.query(db.func.sum(DonationInfo.payment_amount)).scalar()
     return total_donated or 0
  
 
