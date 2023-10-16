@@ -17,6 +17,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail, Message
 import secrets
+import smtplib
 #from models import Person
 
 
@@ -87,6 +88,12 @@ def send_reset_email(email, token):
      
      msg.send(mail)
      return "Mail has sent"
+
+def send_contact_form():
+    msg = Message("Contact Form Submit", sender= 'fundraisetest1@gmail.com', recipients=['jessmor1993@gmail.com'])
+    msg.body = "testing form send"
+    mail.send(msg)
+    return "Contact form has sent. Thank you"
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

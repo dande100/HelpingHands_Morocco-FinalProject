@@ -11,6 +11,17 @@ export const Contact = () => {
     const [phoneInput, setPhoneInput] = useState("");
     const [commentsInput, setCommentsInput] = useState("");
 
+    const onSubmit = () => {
+        let senderInfo = {
+            first_name: firstNameInput,
+            last_name: lastNameInput,
+            email: emailInput,
+            phone: phoneInput,
+            comments: commentsInput
+        }
+        actions.sendContactForm(senderInfo)
+    }
+
     return (
         <>
             <div id="contactPageContainer">
@@ -38,15 +49,15 @@ export const Contact = () => {
                         </div>
                         <div className="card col-10" id="contactFormCard">
                             <div className="card-body">
-                                <form id="contactForm" action="mailto:jessmor1993@gmail.com" method="post" encType="text/plain">
+                                <form id="contactForm" >
                                     <div className="mb-3">
                                         <label htmlFor="Name" className="form-label">First Name</label>
-                                        <input type="text" className="form-control" id="nameInput" name="firstName" placeholder="John Doe"
+                                        <input type="text" className="form-control" id="nameInput" name="first_name" placeholder="John Doe"
                                             onChange={event => setFirstNameInput(event.target.value)} value={firstNameInput}></input>
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="Name" className="form-label">Last Name</label>
-                                        <input type="text" className="form-control" id="nameInput" name="lastName" placeholder="John Doe"
+                                        <input type="text" className="form-control" id="nameInput" name="last_name" placeholder="John Doe"
                                             onChange={event => setLastNameInput(event.target.value)} value={lastNameInput}></input>
                                     </div>
                                     <div className="mb-3">
@@ -64,7 +75,8 @@ export const Contact = () => {
                                         <textarea type="text-area" className="form-control" id="commentsInput" name="comments" rows="5" placeholder="Let us know how we can help you help others."
                                             onChange={event => setCommentsInput(event.target.value)} value={commentsInput}></textarea>
                                     </div>
-                                    <button type="submit" id="contactFormSubmit" name="submit" value={"Successfully sent message"}>Submit</button>
+                                    <button id="contactFormSubmit" name="submit" value={"Successfully sent message"}
+                                        onClick={() => onSubmit()}>Submit</button>
                                 </form>
                             </div>
                         </div>

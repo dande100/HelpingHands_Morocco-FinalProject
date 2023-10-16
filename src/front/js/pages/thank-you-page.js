@@ -1,18 +1,24 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import DateFilter from "./dateFilter";
+import PrintDonationHistory from "./printDonationHistory";
 import "../../styles/thank-you.css";
 
 export const ThankYou = () => {
     const { store, actions } = useContext(Context);
+    const [filteredDonationHistory, setFilteredDonationHistory] = useState([]);
 
     useEffect(() => {
         actions.getUser()
         console.log(localStorage.getItem("user_id"))
+        actions.fetchEachDonation();
+        setFilteredDonationHistory(store.donations);
+        console.log(store.donations)
     }, [])
 
     const shareButtons = document.querySelectorAll('.share-button');
     const url = window.location.href;
-    
+
     shareButtons.forEach(button => {
         button.addEventListener('click', () => {
             const url = window.location.href;
