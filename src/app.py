@@ -49,7 +49,7 @@ MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
 # Allow CORS requests to this API from specific origin
-CORS(app, origins=["https://probable-orbit-9pvxvpj4wqw34x9-3000.app.github.dev"])
+CORS(app)
 
 # add the admin
 setup_admin(app)
