@@ -35,7 +35,7 @@ const CountdownTimer = ({ dueDate }) => {
         <div className="countdown-timer">
             <h2 className="countDownHeading">Time to Make a Difference</h2>
             <div className="numberOfDays" >
-                <div className="card" style={{ width: "200px", height: "155px" }}>
+                <div className="card cardCounter" >
                     <div className="card-body">
                         <h3 className="card-text "><span className="timeRemaining fs-1 mt-5">{timeRemaining.days}</span></h3>
                     </div>
@@ -44,7 +44,7 @@ const CountdownTimer = ({ dueDate }) => {
                     </div>
                 </div>
 
-                <div className="card" style={{ width: "200px", height: "155px" }}>
+                <div className="card cardCounter" >
                     <div className="card-body">
                         <h3 className="card-text "><span className="timeRemaining fs-1">{timeRemaining.hours}</span></h3>
                     </div>
@@ -53,7 +53,7 @@ const CountdownTimer = ({ dueDate }) => {
                     </div>
                 </div>
 
-                <div className="card" style={{ width: "200px", height: "155px" }}>
+                <div className="card cardCounter" >
                     <div className="card-body">
                         <h3 className="card-text "><span className="timeRemaining fs-1">{timeRemaining.minutes}</span></h3>
                     </div>
@@ -61,7 +61,7 @@ const CountdownTimer = ({ dueDate }) => {
                         Minutes
                     </div>
                 </div>
-                <div className="card" style={{ width: "200px", height: "155px" }}>
+                <div className="card cardCounter" >
                     <div className="card-body">
                         <h3 className="card-text "><span className="timeRemaining fs-1">{timeRemaining.seconds}</span></h3>
                     </div>

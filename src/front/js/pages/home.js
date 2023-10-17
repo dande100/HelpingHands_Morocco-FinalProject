@@ -103,7 +103,7 @@ export const Home = () => {
 					<div className="text-overlay">
 						<h1>Give A Hand To Make <br /> The <span id="better">Better</span> World</h1>
 						<p>Following the recent earthquake in Morocco, your donation can truly make a difference. <br /> Join us in helping the affected communities recover and rebuild. <br /> Your contribution offers hope and strength to those in need, and together, <br /> we can work towards a resilient Morocco.</p>
-						<Link to="/signup">
+						<Link to="/donatepage">
 							<button className="donate-button">Donate Now</button>
 						</Link>
 					</div>
@@ -183,10 +183,10 @@ export const Home = () => {
 			<br /> <br />
 
 			<section className="home-testimonial">
-				<div className="container-fluid">
+				<div className="container-fluid testimonial">
 					<div className="row d-flex justify-content-center testimonial-pos">
 						<div className="col-md-12 pt-4 d-flex justify-content-center">
-							<h3>Testimonials</h3>
+							<h3 className="testimonialHeading">Testimonials</h3>
 						</div>
 					</div>
 					<section className="home-testimonial-bottom">
