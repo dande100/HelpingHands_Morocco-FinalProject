@@ -42,33 +42,38 @@ class DonationInfo(db.Model):
     __tablename__ = 'donationInfo'
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(120), nullable=False)
+    gender = db.Column(db.String(20), unique=False, nullable=True)
     email = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(500), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
     time_created = db.Column(db.String(120), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
     user = db.relationship(User)
+    amount = db.Column(db.Numeric(precision=10, scale=2))
+    currency = db.Column(db.String(80), unique=False, nullable=False)
+    payment_method = db.Column(db.String(80), unique=False, nullable=False)
 
-    amount=db.Column(db.String(120), nullable=True)
 
-    # establish the relationship between user and donations
-    # establish the relation between donator and payment proccessing
-
-    # credit card
+   
     def __repr__(self):
         return f'<DonationInfo {self.email}>'
 
     def serialize(self):
         return {
             "transaction_id": self.id,
-            "user_id": self.user_id if self.user_id is True else "anonymous",
+            "user_id": self.user_id,
             "full_name": self.full_name,
             "email": self.email,
             "address": self.address,
             "phone_number": self.phone_number,
-            "time_created": self.time_created
+            "time_created": self.time_created,
+            "currency": self.currency,
+            "payment_method": self.payment_method,
+            "gender": self.gender,
+            "amount": self.amount,
+            
 
-            # do not serialize the card credit, its a security breach
+            
         }
     
 class Payments(db.Model):
@@ -81,7 +86,7 @@ class Payments(db.Model):
     state = db.Column(db.String(80), unique=False, nullable=False)
     country = db.Column(db.String(80), unique=False, nullable=False)
     postal_code = db.Column(db.Integer, unique=False, nullable=False)
-    phone_number = db.Column(db.Integer, unique=False, nullable=True)
+    phone_number = db.Column(db.String(20), unique=False, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship(User)
 

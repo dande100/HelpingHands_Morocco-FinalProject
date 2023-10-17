@@ -41,14 +41,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Product not found");
 					return;
 				}
+				const user_id = localStorage.getItem("user_id")
+				const localtime=Date.now()
+				const currency="usd"
+				const amount= 
+				const paymnent_method="Card"
+				const paymnent_id="pm_card_us"
+
+				
 
 				try {
-					const response = await fetch(process.env.BACKEND_URL + '/payment', {
+					const response = await fetch(process.env.BACKEND_URL + "/api/donations", {
 						method: "POST",
 						headers: {
 							'Content-Type': 'application/json'
 						},
-						body: JSON.stringify({ items: [{ name: product.name, id: product.id }] })
+						body: JSON.stringify({ 
+							"user_id": user_id,
+							"time_created":localtime ,
+							"currency": currency,
+							"payment_method_id": "payment_method_id",
+							"payment_method": "payment_method",
+							"amount": 8000,
+							
+						 })
 					});
 
 					const data = await response.json();

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import "../../styles/donatepage.css";
@@ -10,6 +11,7 @@ const DonatePage = () => {
   const [selection, setSelection] = useState(currency[0]);
   const [activeButton, setActiveButton] = useState(null);
   const [amountToDonate, setAmountToDonate] = useState(0);
+  const [stripeLoading, setStripeLoading] = useState(false);
 
   const handleAmountClick = (buttonId) => {
     document.querySelector(".amount-input").value = "";
@@ -35,13 +37,12 @@ const DonatePage = () => {
   }
 
   const checkout = async (amount) => {
-    // Validate the donation amount
     if (isNaN(amount) || amount <= 0) {
       alert("Please enter a valid donation amount.");
       return;
     }
 
-    await fetch(process.env.BACKEND_URL + '/api/checkout', {
+    await fetch(process.env.BACKEND_URL + '/api/donations', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -55,17 +56,6 @@ const DonatePage = () => {
         }
         return response.json();
       })
-      // // .then(data => {
-      // //   console.log("Raw response from server:", data);  // This logs the raw text response
-
-      // //   // Continue processing the text
-      // //   try {
-      // //     return JSON.parse(data);  // Try to parse the text as JSON
-      // //   } catch (error) {
-      // //     console.error("Failed to parse as JSON:", data);
-      // //     throw new Error("Received invalid JSON from the server.");
-      // //   }
-      // })
       .then(data => {
         if (data.error) {
           throw new Error(data.error);
@@ -256,7 +246,7 @@ const DonatePage = () => {
         </div>
 
         <div className="text-center mt-5">
-          <div className="row">
+          <div className="row ">
             <div className=" col-4 p-5">
               <p>
                 <i className="fa-solid fa-square-check fa-2xl  donatePageIcons"></i>
