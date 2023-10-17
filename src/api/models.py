@@ -61,7 +61,7 @@ class DonationInfo(db.Model):
     def serialize(self):
         return {
             "transaction_id": self.id,
-            "user_id": self.user_id if self.user_id is True else "anonymous",
+            "user_id": self.user_id,
             "full_name": self.full_name,
             "email": self.email,
             "address": self.address,
@@ -75,7 +75,6 @@ class DonationInfo(db.Model):
 
             
         }
-
 
     
     

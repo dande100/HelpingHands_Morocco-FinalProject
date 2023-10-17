@@ -2,7 +2,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			progressPercentage: 0,
-			// stripeProgress: 0,
 			message: null,
 			error: null,
 			isLoginSuccess: false,
@@ -167,22 +166,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error fetching progress data:", error);
 					});
 			},
-			// fetchAllDonation: () => {
-			// 	fetch(process.env.BACKEND_URL + "/api/stripe_progress")
-			// 		.then((response) => {
-			// 			if (!response.ok) {
-			// 				throw new Error("Network response was not ok");
-			// 			}
-			// 			return response.json();
-			// 		})
-			// 		.then((data) => {
-			// 			const { stripe_progress } = data;
-			// 			setStore({ stripe_progress_percentage: stripe_progress });
-			// 		})
-			// 		.catch((error) => {
-			// 			console.error("Error fetching Stripe progress data:", error);
-			// 		});
-			// },
+
+		
+
 
 			fetchEachDonation: () => {
 				const user_id = localStorage.getItem("user_id")
