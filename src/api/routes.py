@@ -389,27 +389,22 @@ def stripe_webhook():
 
     return {}
 
-@api.route('/contact', methods=['GET', 'POST'])
+@api.route('/contact', methods=['POST'])
 def email_contact_form():
-    first_name = request.form.get("first_name")
-    last_name = request.form.get("last_name")
-    email = request.form.get("email")
-    phone = request.form.get("phone")
-    comments = request.form.get("comments")
+    first_name = request.json.get('first_name', None)
+    last_name = request.json.get('last_name', None)
+    email = request.json.get('email', None)
+    phone = request.json.get('phone', None)
+    comments = request.json.get('comments', None)
 
-    message = "submitted"
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login("fundraisetest1@gmail.com", "vlle bzhr xaho anuz")
-    server.sendmail("fundraisetest1@gmail.com", "jessmor1993@gmail.com", message)
-    return "Contact form has been sent. Thank you!", 200
-
-    # if request.mehtod == 'POST':
-    #     msg = Message("Contact Form Submit", sender= 'fundraisetest1@gmail.com', recipients=['jessmor1993@gmail.com'])
-    #     msg.body = "testing form send"
-    #     mail.send(msg)
-    # return "Contact form has sent. Thank you"
-    # return jsonify({"Thank you, one of our teammembers will reach out to you shortly."})
+    obj= {
+        'first_name': first_name,
+        'last_name':last_name,
+        'email': email,
+        'phone': phone,
+        'comments': comments
+        }
+    app.send_contact_form(obj)
 
 if __name__ == '__main__':
     api.run()

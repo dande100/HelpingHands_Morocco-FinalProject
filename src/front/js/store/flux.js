@@ -269,7 +269,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			sendContactForm: (senderInfo) => {
-				fetch(process.env.BACKEND_URL + "/api/contact", {
+				fetch(process.env.BACKEND_URL + "api/contact", {
 					method: 'POST',
 					headers: { "Content-type": "application/json" },
 					body: JSON.stringify(senderInfo)

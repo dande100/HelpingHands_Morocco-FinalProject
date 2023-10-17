@@ -52,12 +52,12 @@ export const Contact = () => {
                                 <form id="contactForm" >
                                     <div className="mb-3">
                                         <label htmlFor="Name" className="form-label">First Name</label>
-                                        <input type="text" className="form-control" id="nameInput" name="first_name" placeholder="John Doe"
+                                        <input type="text" className="form-control" id="firstNameInput" name="first_name" placeholder="John Doe"
                                             onChange={event => setFirstNameInput(event.target.value)} value={firstNameInput}></input>
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="Name" className="form-label">Last Name</label>
-                                        <input type="text" className="form-control" id="nameInput" name="last_name" placeholder="John Doe"
+                                        <input type="text" className="form-control" id="lastNameInput" name="last_name" placeholder="John Doe"
                                             onChange={event => setLastNameInput(event.target.value)} value={lastNameInput}></input>
                                     </div>
                                     <div className="mb-3">
@@ -75,7 +75,7 @@ export const Contact = () => {
                                         <textarea type="text-area" className="form-control" id="commentsInput" name="comments" rows="5" placeholder="Let us know how we can help you help others."
                                             onChange={event => setCommentsInput(event.target.value)} value={commentsInput}></textarea>
                                     </div>
-                                    <button id="contactFormSubmit" name="submit" value={"Successfully sent message"}
+                                    <button id="contactFormSubmit" name="submit"
                                         onClick={() => onSubmit()}>Submit</button>
                                 </form>
                             </div>

@@ -89,10 +89,11 @@ def send_reset_email(email, token):
      msg.send(mail)
      return "Mail has sent"
 
-def send_contact_form():
+def send_contact_form(obj):
+
     msg = Message("Contact Form Submit", sender= 'fundraisetest1@gmail.com', recipients=['jessmor1993@gmail.com'])
-    msg.body = "testing form send"
-    mail.send(msg)
+    msg.body = f'Contact Form Sent : {obj}'
+    msg.send(mail)
     return "Contact form has sent. Thank you"
 
 # this only runs if `$ python src/main.py` is executed
