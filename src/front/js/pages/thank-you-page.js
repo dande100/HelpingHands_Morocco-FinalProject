@@ -47,9 +47,6 @@ export const ThankYou = () => {
                 We will immediately put your contribution to work, ensuring that it reaches those who need it most.
                 In the coming weeks, we will provide updates on our relief efforts and the difference you are helping us make.<br></br><br></br>
 
-                We encourage you to stay connected with us and follow our progress.
-                Consider subscribing to our newsletter for regular updates on how your support is impacting Morocco's recovery journey.<br></br><br></br>
-
                 Once again, thank you for your generosity and compassion. With supporters like you, we can bring hope and relief to those facing adversity.<br></br><br></br>
 
                 Warm regards,<br></br><br></br>
