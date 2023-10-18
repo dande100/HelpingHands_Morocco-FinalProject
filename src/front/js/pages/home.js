@@ -10,6 +10,7 @@ import happyKidsImageUrl from "../../img/happyKids.jpg";
 import happyKids1ImageUrl from "../../img/happyKids1.png";
 import youtubeImageUrl from "../../img/youtube.png";
 import CircularProgressBar from "./circularProgressBar";
+import CountdownTimer from "./countDownTimer";
 
 
 
@@ -20,6 +21,27 @@ export const Home = () => {
 	const [showVideo, setShowVideo] = useState(false);
 	const [showStatement2, setShowStatement2] = useState(false);
 	const [readMoreText, setReadMoreText] = useState("Read More");
+	const [isMoving, setIsMoving] = useState(false);
+
+	const startAnimation = () => {
+		setIsMoving(true);
+	};
+
+	const stopAnimation = () => {
+		setIsMoving(false);
+	};
+	useEffect(() => {
+
+		startAnimation();
+
+
+		const animationTimeout = setTimeout(() => {
+			stopAnimation();
+		}, 1000);
+		return () => {
+			clearTimeout(animationTimeout);
+		};
+	}, []);
 
 
 	const handleReadMoreClick = () => {
@@ -48,11 +70,11 @@ export const Home = () => {
 	useEffect(() => {
 		fetchProgress();
 
-		const intervalId = setInterval(() => {
-			fetchProgress();
-		}, 1000);
+		// const intervalId = setInterval(() => {
+		// 	fetchProgress();
+		// }, 1000);
 
-		return () => clearInterval(intervalId);
+		// return () => clearInterval(intervalId);
 	}, []);
 
 	const toggleVideo = () => {
@@ -90,23 +112,29 @@ export const Home = () => {
 			<div className="progress-bar">
 				<div className="row progress-bar1">
 					<div className="col-6"><CircularProgressBar />
-
 					</div>
-					<div className="col-6 mt-5 statement">
+
+					{/* <div className="col-4 mt-5 statement">
 						<h2>Urgent Relief</h2>
 						<p>In the wake of a devastating earthquake that has left communities in Morocco reeling,<br /> we are calling upon compassionate individuals, organizations, and communities worldwide  <br /> to come together and join our mission to be a beacon of hope in aiding Morocco's earthquake recovery efforts.</p>
 						<Link to="/signup">
 							<button className="donate-button-statement">Donate Now</button>
 						</Link>
-					</div>
+					</div> */}
+					<div className="col-6"><CountdownTimer dueDate={new Date("2023-12-31T23:59:59")} /></div>
 				</div>
-				<div className="row  raised-goal">
-					<div className="col">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
 
-					<div className="col ">Goal<br />$50,000</div>
+				<div className="row  raised-goal">
+					<div className="col donationMoney">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
+
+					<div className="col donationMoney">Goal<br />$50000</div>
 				</div>
 			</div >
+			<div className={`instruction  ${isMoving ? 'moving' : ''}`}>
+				Click the youtube icon to watch the video/click the photo to expand
+			</div>
 			<div className="row image-video-aboutUs">
+
 				<div className="col image-video">
 					<img
 						className={`image1`}
