@@ -87,7 +87,7 @@
 		"stripe": "^13.10.0"
 	},
 	"directories": {
-    "doc": "docs"
-  },
+		"doc": "docs"
+	},
 	"keywords": []
 }

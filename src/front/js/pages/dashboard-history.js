@@ -75,8 +75,8 @@ export const DashboardHistory = () => {
                 <div className="container py-5">
                     <div className="row">
                         <div className="col dashboard">
-                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mx-5 my-5">
-                                <ol className="breadcrumb mt-0">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mb-5" style={{ height: "55px" }}>
+                                <ol className="breadcrumb mb-0 float-end">
                                     <li className="breadcrumb-item"><Link to="/dashboard">User Profile</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Donation History</li>
                                 </ol>

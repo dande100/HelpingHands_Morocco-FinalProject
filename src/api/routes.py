@@ -18,6 +18,7 @@ import os
 from datetime import datetime
 import stripe
 import os
+import smtplib
 
 api = Blueprint("api", __name__)
 
@@ -387,5 +388,23 @@ def stripe_webhook():
         line_items = stripe.checkout.Session.list_line_items(session["id"], limit=1)
 
     return {}
+
+@api.route('/contact', methods=['POST'])
+def email_contact_form():
+    first_name = request.json.get('first_name', None)
+    last_name = request.json.get('last_name', None)
+    email = request.json.get('email', None)
+    phone = request.json.get('phone', None)
+    comments = request.json.get('comments', None)
+
+    obj= {
+        'first_name': first_name,
+        'last_name':last_name,
+        'email': email,
+        'phone': phone,
+        'comments': comments
+        }
+    app.send_contact_form(obj)
+
 if __name__ == '__main__':
     api.run()
