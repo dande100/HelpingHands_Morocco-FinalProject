@@ -81,7 +81,7 @@ export const Home = () => {
 					<div className="text-overlay">
 						<h1>Give A Hand To Make <br /> The <span id="better">Better</span> World</h1>
 						<p>Following the recent earthquake in Morocco, your donation can truly make a difference. <br /> Join us in helping the affected communities recover and rebuild. <br /> Your contribution offers hope and strength to those in need, and together, <br /> we can work towards a resilient Morocco.</p>
-						<Link to="/signup">
+						<Link to="/donatepage">
 							<button className="donate-button">Donate Now</button>
 						</Link>
 					</div>
@@ -95,7 +95,7 @@ export const Home = () => {
 					<div className="col-6 mt-5 statement">
 						<h2>Urgent Relief</h2>
 						<p>In the wake of a devastating earthquake that has left communities in Morocco reeling,<br /> we are calling upon compassionate individuals, organizations, and communities worldwide  <br /> to come together and join our mission to be a beacon of hope in aiding Morocco's earthquake recovery efforts.</p>
-						<Link to="/signup">
+						<Link to="/donatepage">
 							<button className="donate-button-statement">Donate Now</button>
 						</Link>
 					</div>

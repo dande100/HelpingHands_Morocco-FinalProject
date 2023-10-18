@@ -295,15 +295,13 @@ def add_donations():
             new_donation = DonationInfo(
                 time_created=data['time_created'],
                 currency=data['currency'],
-                payment_method=data['payment_method'],
+                 payment_method=data['payment_method_id'],
                 amount=float(amount),
                 full_name = data['full_name'],
                 gender = data ['gender'],
                 address = data ['address'],
                 phone_number=data['phone_number'],
                 email = data['email'] ,
-                
-                
             )
 
         else : 
@@ -331,7 +329,11 @@ def add_donations():
         db.session.add(new_donation)
         db.session.commit()
 
-        return jsonify({"message": "Donation added successfully"}), 201
+        donation=DonationInfo.query.filter_by(email=data["email"], time_created=data['time_created'])
+
+        return jsonify({"message": "Donation added successfully", 
+                        "donationInfo": donation.serialize()
+                        }), 201
 
     except stripe.error.CardError as e:
         return jsonify({"message": f"Card error: {str(e)}"}), 400
@@ -339,87 +341,6 @@ def add_donations():
         return jsonify({"message": f"Payment failed: {str(e)}"}), 500
 
         
-        
-
-
-# @api.route("/checkout", methods=["POST"])
-# def checkout():
-#     try:
-#         data = request.get_json()
-#         print("Received data:", data)
-#         amount = data["amount"]
-#         payment_intent = stripe.PaymentIntent.create(
-#             amount=amount,
-#             currency="usd",
-#             description="Payment for your product",
-#             payment_method=data["payment_method_id"],
-#             payment_method_types=["card"],
-#             confirm=True,
-#         )
-#         donation = DonationInfo(
-#             amount=amount,
-#             currency="usd",
-#             description="Payment for your product",
-#         )
-#         db.session.add(donation)
-#         db.session.commit()
-#         print("Stripe PaymentIntent:", payment_intent)
-#         return jsonify({"message": "Payment successful"})
-#     except stripe.error.CardError as e:
-#         return jsonify({"message": f"Card error: {str(e)}"}), 400
-#     except Exception as e:
-#         print("Error during payment:", e)
-#         return jsonify({"error": f"Payment failed: {str(e)}"}), 500
-
-    
-    
-
-
-
-# @api.route("/create-checkout-session", methods=["POST"])
-# def create_checkout_session():
-    
-#     product_name = request.json.get('product_name')
-#     custom_amount = request.json.get('custom_amount', 0) 
-
-   
-#     product_prices = {
-#         '10 dollar donation': 1000,
-#         '20 dollar donation': 2000,
-#         '30 dollar donation': 3000,
-#         '60 dollar donation': 6000,
-#         'custom dollar donation': custom_amount
-#     }
-
-#     if product_name not in product_prices:
-#         return jsonify(error="Invalid product name"), 400
-
-#     unit_amount = product_prices[product_name]
-#     currency = 'usd'
-#     success_url = 'YOUR_SUCCESS_URL'  # Replace with your actual success URL
-#     cancel_url = 'YOUR_CANCEL_URL'    # Replace with your actual cancel URL
-
-#     try:
-#         # Create a new Checkout Session
-#         checkout_session = stripe.checkout.Session.create(
-#             payment_method_types=['card'],
-#             line_items=[{
-#                 'price_data': {
-#                     'currency': currency,
-#                     'product_data': {
-#                         'name': product_name,
-#                     },
-#                     'unit_amount': unit_amount,
-#                 },
-#                 'quantity': 1,
-#             }],
-#             mode='payment',
-#             success_url=success_url,
-#             cancel_url=cancel_url,
-#         )
-#         return jsonify({"id": checkout_session.id})
-#     except Exception as e:
-#         return jsonify(error=str(e)), 400
 
 @api.route("/thank_you")
 def thanks():

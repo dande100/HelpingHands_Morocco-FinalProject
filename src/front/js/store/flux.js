@@ -12,6 +12,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isPasswordReset: false,
 			user: [],
 			donations: [],
+			latestDonation:{},
+			amount: 0,
 			demo: [
 				{
 					title: "FIRST",
@@ -35,20 +37,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 
 		actions: {
-			checkout: async (productId) => {
-				const product = getStore().products.find(p => p.id === productId);
-				if (!product) {
-					console.error("Product not found");
-					return;
-				}
-				const user_id = localStorage.getItem("user_id")
-				const localtime=Date.now()
-				const currency="usd"
-				const amount= 
-				const paymnent_method="Card"
-				const paymnent_id="pm_card_us"
+			updateAmount: (amountToDonate) => {
+				setStore({ amount: amountToDonate })
+			},
+			checkout: async (full_name, address, phone_number, email) => {
+				const user_id = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : "non_member"
 
-				
+				const localtime = Date.now()
+				const currency = "usd";
+				const payment_method = "Card";
+				const payment_method_id = "pm_card_us";
+
+
+
 
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/donations", {
@@ -56,22 +57,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: {
 							'Content-Type': 'application/json'
 						},
-						body: JSON.stringify({ 
+						body: JSON.stringify({
 							"user_id": user_id,
-							"time_created":localtime ,
+							"time_created": localtime,
 							"currency": currency,
-							"payment_method_id": "payment_method_id",
-							"payment_method": "payment_method",
-							"amount": 8000,
-							
-						 })
+							"payment_method_id": payment_method_id,
+							"payment_method": payment_method,
+							"amount": getStore().amount,
+							"full_name": full_name,
+							"gender": "non specify",
+							"address": address,
+							"phone_number": phone_number,
+							"email": email
+						})
 					});
 
 					const data = await response.json();
 
-					if (data.url) {
-						window.location.assign(data.url); // Forwarding user to Stripe
-					}
+					setStore({lastestDonation:data.donationInfo})
 				} catch (error) {
 					console.error("Checkout error:", error);
 				}
