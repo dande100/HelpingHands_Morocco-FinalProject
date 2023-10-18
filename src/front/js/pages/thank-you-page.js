@@ -28,7 +28,7 @@ export const ThankYou = () => {
 
     return (
         <>
-            <div className="d-flex m-5 p-2 bd-highlight">Dear {store.user.first_name}  {store.user.last_name},<br></br><br></br>
+            <div className="d-flex m-5 p-2 bd-highlight">Dear {store.user.first_name == null ? "Anonymous Donor" : `${store.user.first_name}  ${store.user.last_name}`},<br></br><br></br>
 
                 We want to express our heartfelt gratitude for your generous contribution to support earthquake relief efforts in Morocco.
                 Your kindness and compassion are making a significant impact on the lives of those affected by this disaster.<br></br><br></br>

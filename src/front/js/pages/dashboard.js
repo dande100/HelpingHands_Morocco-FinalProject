@@ -42,7 +42,7 @@ export const Dashboard = (props) => {
                     <div className="row">
                         <div className="col">
                             <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 my-5" style={{ height: "55px" }}>
-                                <ol className="breadcrumb mb-0 ">
+                                <ol className="breadcrumb mb-0  float-end">
                                     <li className="breadcrumb-item active" aria-current="page">User Profile</li>
                                     <li className="breadcrumb-item"><RouterLink to="/dashboard-history">Donation History</RouterLink></li>
                                 </ol>

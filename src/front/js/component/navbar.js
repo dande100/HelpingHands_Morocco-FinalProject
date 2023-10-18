@@ -41,14 +41,13 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
-        <Link to="/">
-          <img
-            className="logo"
-            src={logoImageUrl}
-            style={{ width: "220px", height: "220px" }}
-            alt="Logo"
-          />
-        </Link>
+        <img
+          className="logo"
+          src={logoImageUrl}
+          style={{ width: "250px", height: "185px", objectFit: "cover" }}
+          alt="Logo"
+        />
+
         <div className={`navLinks ${isMobileMenuOpen ? "open" : ""}`}>
           <Link to="/home">Home</Link>
           <Link to="/contact">Contact</Link>
