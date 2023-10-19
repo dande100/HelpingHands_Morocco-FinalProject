@@ -111,7 +111,8 @@
 }
 
 .login-button::before,
-.signup-button::before {
+.signup-button::before,
+.dashboard-button::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -146,6 +147,18 @@
 }
 .login-button:hover {
   background-color: teal;
+  color: white !important;
+  font-weight: bold;
+}
+.dashboard-button {
+  background-color:  teal;
+  width: 90px;
+  height: 30px;
+  padding: 2px 12px;
+  
+}  
+.dashboard-button:hover{
+  background-color: purple; 
   color: white !important;
   font-weight: bold;
 }

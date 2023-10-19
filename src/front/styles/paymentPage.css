@@ -1,0 +1,26 @@
+
+.PaymentPagecontainer{
+    margin-top: 30px;
+}
+.paymentButton{
+    background-color: rgb(132, 29, 132);
+    color: white;
+    width: 150px;         
+    height: 40px;         
+    padding: 10px 20px;   
+    font-size: 16px;      
+    border: none;         
+    display: inline-block;
+}
+
+.cancelButton{
+    background-color: rgb(132, 29, 132);
+    color: white;
+    width: 150px;         
+    height: 40px;         
+    padding: 10px 20px;  
+    font-size: 16px;   
+    margin-right: 50px;   
+    border: none;        
+    display: inline-block;
+}

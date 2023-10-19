@@ -17,6 +17,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail, Message
 import secrets
+import smtplib
 #from models import Person
 
 
@@ -49,7 +50,7 @@ MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
 # Allow CORS requests to this API from specific origin
-CORS(app, origins=["https://probable-orbit-9pvxvpj4wqw34x9-3000.app.github.dev"])
+CORS(app)
 
 # add the admin
 setup_admin(app)
@@ -87,6 +88,13 @@ def send_reset_email(email, token):
      
      msg.send(mail)
      return "Mail has sent"
+
+def send_contact_form(obj):
+
+    msg = Message("Contact Form Submit", sender= 'fundraisetest1@gmail.com', recipients=['jessmor1993@gmail.com'])
+    msg.body = f'Contact Form Sent : {obj}'
+    msg.send(mail)
+    return "Contact form has sent. Thank you"
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

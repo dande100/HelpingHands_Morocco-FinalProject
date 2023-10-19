@@ -36,6 +36,7 @@ const AboutUs = () => {
                         className="aboutUsCarouselImage"
                         src={carouselImages1[currentImageIndex]}
                         alt="Slider Background"
+                        width="750px"
                     />
                 </div>
                 <div className="col-2"></div>

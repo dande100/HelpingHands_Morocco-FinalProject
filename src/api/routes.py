@@ -1,9 +1,4 @@
 
-
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
-
 from flask import Flask, request, jsonify, url_for, Blueprint, abort, render_template
 from api.models import db, User, ResetTokens, DonationInfo
 from api.utils import generate_sitemap, APIException
@@ -18,6 +13,7 @@ import os
 from datetime import datetime
 import stripe
 import os
+import smtplib
 
 api = Blueprint("api", __name__)
 
@@ -25,9 +21,8 @@ stripe.api_key ="sk_test_51NuMomEkSwAVwyolKawuX9hQ9U0Uzp2dMImjTiMZzs5Z6V2F2zersS
 
 # Define the Flask app
 
+api = Blueprint('api', __name__)
 
-# Create a route to authenticate your users and return JWTs. The
-# create_access_token() function is used to actually generate the JWT.
 @api.route("/signup", methods=["POST"])
 def addUser():
     email = request.json.get("email", None)
@@ -361,59 +356,83 @@ def updateUser():
 
 #     return jsonify({'stripe_progress': stripe_progress_percentage})
 
-@api.route("/payment", methods=["POST"])
-def process_payment():
+@api.route('/donations', methods=['POST'])
+def add_donations(): 
+   
     try:
         data = request.get_json()
+        user_id = data.get('user_id')
         amount = data["amount"]
         payment_intent = stripe.PaymentIntent.create(
             amount=amount,
             currency="usd",
-            description="Payment for your product",
+            description="Payment for your donation",
             payment_method=data["payment_method_id"],
             payment_method_types=["card"],
             confirm=True,
         )
-        return jsonify({"message": "Payment successful"})
+        print("Stripe PaymentIntent:", payment_intent)
+        if user_id == 'non_member' : 
+            amount=str(data["amount"])
+            amount = amount[:-2] + "." + amount[-2:]
+            
+            
+            new_donation = DonationInfo(
+                time_created=data['time_created'],
+                currency=data['currency'],
+                 payment_method=data['payment_method_id'],
+                amount=float(amount),
+                full_name = data['full_name'],
+                gender = data ['gender'],
+                address = data ['address'],
+                phone_number=data['phone_number'],
+                email = data['email'] ,
+            )
+
+        else : 
+            user = User.query.get(user_id)
+            if not user:
+                return jsonify({"message": "User not found"}), 404
+            user = user.serialize()
+            amount=str(data["amount"])
+            amount = amount[:-2] + "." + amount[-2:]
+        
+            new_donation = DonationInfo(
+                time_created=data['time_created'],
+                currency=data['currency'],
+                payment_method=data['payment_method_id'],
+                amount=float(amount),
+                full_name = user ['first_name'] + ' ' +  user ['last_name'],
+                gender = user ['gender'],
+                address = user ['street_address'] + ' ' + user ['city'] + ' ' + user ['state'] + ' ' + user['country'],
+                phone_number=user['phone'],
+                email = user['email'] ,
+                user_id=user_id
+
+            )
+
+        db.session.add(new_donation)
+        db.session.commit()
+
+        donation=DonationInfo.query.filter_by(email=data["email"], time_created=data['time_created'])
+
+        return jsonify({"message": "Donation added successfully", 
+                        "donationInfo": donation.serialize()
+                        }), 201
+
     except stripe.error.CardError as e:
         return jsonify({"message": f"Card error: {str(e)}"}), 400
     except Exception as e:
         return jsonify({"message": f"Payment failed: {str(e)}"}), 500
+
         
-
-
-@api.route("/checkout", methods=["POST"])
-
-def checkout():
-     
-    try:
-        data = request.get_json()
-        print("Received data:", data)
-        amount = data["amount"]
-        payment_intent = stripe.PaymentIntent.create(
-            amount=amount,
-            currency="usd",
-            description="Payment for your product",
-            payment_method=data["payment_method_id"],
-            payment_method_types=["card"],
-            confirm=True,
-        )
-    
-        print("Stripe PaymentIntent:", payment_intent)
-        return jsonify({"message": "Payment successful"})
-    except stripe.error.CardError as e:
-        return jsonify({"message": f"Card error: {str(e)}"}), 400
-    except Exception as e:
-        # This will help you debug any unexpected errors
-        print("Error during payment:", e)
-        return jsonify({"error": f"Payment failed: {str(e)}"}), 500
-    
-
 
 @api.route("/thank_you")
 def thanks():
     return render_template("thank_you.html")
 
+
+from flask import jsonify
 
 @api.route("/stripe_webhook", methods=["POST"])
 def stripe_webhook():
@@ -421,23 +440,45 @@ def stripe_webhook():
         abort(400)
     payload = request.get_data()
     sig_header = request.environ.get("HTTP_STRIPE_SIGNATURE")
-    endpoint_secret = os.getenv(
-        "STRIPE_ENDPOINT_SECRET"
-    )  # Fetch from environment variable
+    endpoint_secret = os.getenv("STRIPE_ENDPOINT_SECRET")
     event = None
 
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
     except ValueError as e:
-        return {}, 400
+        print("Error:", e)
+        return jsonify({"message": "Invalid payload"}), 400
     except stripe.error.SignatureVerificationError as e:
-        return {}, 400
+        print("Error:", e)
+        return jsonify({"message": "Invalid signature"}), 400
 
-    # Handle the checkout.session.completed event
+  
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
         line_items = stripe.checkout.Session.list_line_items(session["id"], limit=1)
+        # TODO: Process the line items and save to the database or take other actions
+
+    return jsonify({"message": "Success"}), 200
+
 
     return {}
+
+@api.route('/contact', methods=['POST'])
+def email_contact_form():
+    first_name = request.json.get('first_name', None)
+    last_name = request.json.get('last_name', None)
+    email = request.json.get('email', None)
+    phone = request.json.get('phone', None)
+    comments = request.json.get('comments', None)
+
+    obj= {
+        'first_name': first_name,
+        'last_name':last_name,
+        'email': email,
+        'phone': phone,
+        'comments': comments
+        }
+    app.send_contact_form(obj)
+
 if __name__ == '__main__':
     api.run()
