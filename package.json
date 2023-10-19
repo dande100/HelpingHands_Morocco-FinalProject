@@ -86,7 +86,7 @@
 		"react-simple-chatbot": "^0.6.1",
 		"react-to-print": "^2.14.15",
 		"stripe": "^13.10.0",
-		"styled-components": "^6.0.9"
+		"styled-components": "^4.4.1"
 	},
 	"directories": {
 		"doc": "docs"
