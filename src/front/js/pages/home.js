@@ -338,10 +338,10 @@ export const Home = () => {
 				</div>
 			</section>
 			<section className="home-testimonial">
-				<div className="container-fluid">
+				<div className="container-fluid testimonial">
 					<div className="row d-flex justify-content-center testimonial-pos">
 						<div className="col-md-12 pt-4 d-flex justify-content-center">
-							<h3>Testimonials</h3>
+							<h3 className="testimonialHeading">Testimonials</h3>
 						</div>
 					</div>
 					<section className="home-testimonial-bottom">

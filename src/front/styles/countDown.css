@@ -21,3 +21,46 @@
   margin-top: 20px;
   border-radius: 5px;
 }
+.cardCounter {
+  width: 200px;
+  height: 155px;
+}
+/* Define the styles for screens with a maximum width of 768px (adjust the value as needed) */
+@media (max-width: 768px) {
+  .countdown-timer {
+    width: 450px;
+    height: 300px;
+  }
+
+  .timeRemainingFooter {
+    text-align: center; /* Center-align the footer text */
+  }
+
+  .timeRemaining {
+    font-size: 2rem; /* Adjust the font size of the countdown numbers */
+  }
+  .circular-progress {
+    margin-right: -200px;
+  }
+}
+@media (max-width: 1140px) {
+  .countdown-timer {
+    width: 380px;
+    height: 300px;
+  }
+
+  .timeRemainingFooter {
+    text-align: center; /* Center-align the footer text */
+  }
+
+  .timeRemaining {
+    font-size: 2rem; /* Adjust the font size of the countdown numbers */
+  }
+  .circular-progress {
+    margin-left: -350px;
+  }
+  .raised-goal {
+    margin-right: -150px;
+    margin-top: -50px;
+  }
+}
