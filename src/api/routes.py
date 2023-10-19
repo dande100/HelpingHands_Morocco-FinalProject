@@ -50,73 +50,7 @@ def handle_users():
         allUsers = User.query.all()
         user_serialize = [person.serialize()for person in allUsers]
         return jsonify(user_serialize), 200
-    
-@api.route('/donations', methods=['POST'])
-def add_donations(): 
-   
-    try:
-        data = request.get_json()
-        user_id = data.get('user_id')
-        amount = data["amount"]
-        payment_intent = stripe.PaymentIntent.create(
-            amount=amount,
-            currency="usd",
-            description="Payment for your donation",
-            payment_method=data["payment_method_id"],
-            payment_method_types=["card"],
-            confirm=True,
-        )
-        print("Stripe PaymentIntent:", payment_intent)
-        if user_id == 'non_member' : 
-            amount=str(data["amount"])
-            amount = amount[:-2] + "." + amount[-2:]
-            
-            
-            new_donation = DonationInfo(
-                time_created=data['time_created'],
-                currency=data['currency'],
-                payment_method=data['payment_method'],
-                amount=float(amount),
-                full_name = data['full_name'],
-                gender = data ['gender'],
-                address = data ['address'],
-                phone_number=data['phone_number'],
-                email = data['email'] ,
-                
-                
-            )
-
-        else : 
-            user = User.query.get(user_id)
-            if not user:
-                return jsonify({"message": "User not found"}), 404
-            user = user.serialize()
-            amount=str(data["amount"])
-            amount = amount[:-2] + "." + amount[-2:]
-        
-            new_donation = DonationInfo(
-                time_created=data['time_created'],
-                currency=data['currency'],
-                payment_method=data['payment_method_id'],
-                amount=float(amount),
-                full_name = user ['first_name'] + ' ' +  user ['last_name'],
-                gender = user ['gender'],
-                address = user ['street_address'] + ' ' + user ['city'] + ' ' + user ['state'] + ' ' + user['country'],
-                phone_number=user['phone'],
-                email = user['email'] ,
-                user_id=user_id
-
-            )
-
-        db.session.add(new_donation)
-        db.session.commit()
-
-        return jsonify({"message": "Donation added successfully"}), 201
-
-    except stripe.error.CardError as e:
-        return jsonify({"message": f"Card error: {str(e)}"}), 400
-    except Exception as e:
-        return jsonify({"message": f"Payment failed: {str(e)}"}), 500    
+      
     
 
 @api.route('/donations', methods=['GET'])
@@ -343,19 +277,6 @@ def updateUser():
 
 
 
-# def calculate_total_stripe_payments():
-#     total_donated = db.session.query(db.func.sum(DonationInfo.amount)).scalar()
-#     return total_donated or 0
-# @api.route('/stripe_progress', methods=['GET'])
-# def get_stripe_donation_progress():
-
-#     goal_amount = 50000  
-#     total_stripe_payments = calculate_total_stripe_payments()
-
-#     stripe_progress_percentage = (total_stripe_payments / goal_amount) * 100
-
-#     return jsonify({'stripe_progress': stripe_progress_percentage})
-
 @api.route('/donations', methods=['POST'])
 def add_donations(): 
    
@@ -432,7 +353,7 @@ def thanks():
     return render_template("thank_you.html")
 
 
-from flask import jsonify
+
 
 @api.route("/stripe_webhook", methods=["POST"])
 def stripe_webhook():
