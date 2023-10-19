@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import { Context } from "../store/appContext";
 import "../../styles/contact.css"
+import backgroundUrl from "../../img/about-bg.jpg"
 
 export const Contact = () => {
     const { store, actions } = useContext(Context);
@@ -25,16 +26,20 @@ export const Contact = () => {
     return (
         <>
             <div id="contactPageContainer">
-                <div className="headerDiv">
-                    <h1 className="text-center pt-4 text-white" >
-                        Contact Us
-                    </h1>
+                <div className="page-header" style={{ backgroundImage: `url(${backgroundUrl})` }}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12">
+                                <h1 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>Contact Us</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="container mt-4" id="contactPageP">
                     <div className="row">
                         <div className="col-1"></div>
                         <div className="col-10">
-                            <p className="text-white fs-4">
+                            <p className="fs-4">
                                 If you have any questions for our team send us a message below. If you are interested in ways you can help or
                                 about volunteering in Morocco please fill out the form below. We will reach out to you about our next
                                 volunteer trip schedules and other ways to get involved!

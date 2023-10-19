@@ -14,7 +14,7 @@ import injectContext, { Context } from "./store/appContext";
 
 
 import { Navbar } from "./component/navbar";
-import { PaymentPage } from "./pages/paymentPage";
+import PaymentPage from "./pages/paymentPage";
 import { Footer } from "./component/footer";
 import Login from "./pages/login";
 import Signup from "./pages/signup";

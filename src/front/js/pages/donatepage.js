@@ -5,6 +5,8 @@ import "../../styles/home.css";
 import "../../styles/donatepage.css";
 import Morocco1ImageUrl from "../../img/morocco1.jpg";
 import { useNavigate } from "react-router-dom";
+import backgroundUrl from "../../img/about-bg.jpg"
+
 
 const DonatePage = () => {
   const { store, actions } = useContext(Context);
@@ -38,45 +40,21 @@ const DonatePage = () => {
     setAmountToDonate(parseInt(result));
   }
 
-  // const checkout = async (amount) => {
-  //   if (isNaN(amount) || amount <= 0) {
-  //     alert("Please enter a valid donation amount.");
-  //     return;
-  //   }
 
-  //   await fetch(process.env.BACKEND_URL + '/api/donations', {
-  //     method: "POST",
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ amount: amount, payment_method_id: "pm_card_us" })
-  //   })
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error(`Server responded with status: ${response.status}`);
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => {
-  //       if (data.error) {
-  //         throw new Error(data.error);
-  //       }
-  //       if (data.url) {
-  //         window.location.assign(data.url);
-  //       }
-  //       console.log(data)
-  //     })
-  //     .catch(error => {
-  //       console.error("Error:", error);
-  //       alert(`An error occurred: ${error.message}`);
-  //     });
-  // };
 
 
 
   return (
     <>
+      <div className="page-header" style={{ backgroundImage: `url(${backgroundUrl})` }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h1 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>Donate Now</h1>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="container donatePagecontainer">
 
         <div className="row">
@@ -99,35 +77,7 @@ const DonatePage = () => {
             </div>
           </div>
           <div className="col-6 p-5 d-flex flex-column ">
-            <div className="row">
-              <div className="col-3">
-                <p>Donate Now </p>
-              </div>
-              {/* <div className="col-9 text-end dropdown">
-                <button
-                  className="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <text> {selection} </text>
-                </button>
-                <ul
-                  className="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  {currency.map((item) => (
-                    <li onClick={() => setSelection(item)}>
-                      <a className="dropdown-item" href="#">
-                        {" "}
-                        {item}{" "}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-            </div>
+
             <div className="">
               <div className="d-flex">
                 <div className="">
@@ -209,7 +159,6 @@ const DonatePage = () => {
                 </div>
               </div>
 
-              {/* <div className="text-center pt-4">Your Gift Amount</div> */}
 
               <div className="row pt-3">
                 <div className="d-flex align-items-center">
@@ -250,7 +199,7 @@ const DonatePage = () => {
           </div>
         </div>
 
-        <div className="text-center mt-5">
+        {/* <div className="text-center mt-5">
           <div className="row ">
             <div className=" col-4 p-5">
               <p>
@@ -288,9 +237,12 @@ const DonatePage = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row">
+          <div className="col-6 p-5">
+            <img src={Morocco1ImageUrl} alt="Morocco" width="460" height="345" />
+          </div>
           <div className=" col-6 p-5">
             <h4>
               Effortless Giving, <br></br>
@@ -304,65 +256,10 @@ const DonatePage = () => {
               making a real difference, effortlessly.
             </p>
           </div>
-          <div className="col-6 p-5">
-            <img src={Morocco1ImageUrl} alt="Morocco" width="460" height="345" />
-          </div>
+
         </div>
 
-        <div className="text-center mt-5">
-          <div>
-            <p>
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              quam velit, vulputate eu pharetra nec, mattis ac neque. Duis
-              vulputate commodo lectus, ac blandit elit tincidunt id."
-            </p>
-          </div>
-          <div>
-            <i className="fa-regular fa-image"></i>
-            <p>John Doe, CTO of Client Company</p>
-          </div>
-        </div>
 
-        <div className="text-center mt-5">
-          <div>
-            <h2>Get In Touch </h2>
-          </div>
-          <div>
-            <p>
-              Stay connected with us! Subscribe to our newsletter by entering
-              your email below. Receive updates on our relief efforts and
-              stories of impact. Together, we can make a difference. Join us in
-              bringing hope and relief to those in need.
-            </p>
-          </div>
-          <div className="text-center mt-5">
-            <div className="row">
-              <div className="col-5">
-                <label></label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="email"
-                  placeholder="Email Address"
-                />
-              </div>
-              <div className="col-5">
-                <label></label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  placeholder="Full Name"
-                />
-              </div>
-              <div className="col-2 p-4">
-                <button type="button" className="btn btn-secondary">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

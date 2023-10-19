@@ -4,14 +4,7 @@ import "../../styles/home.css";
 import "../../styles/paymentPage.css";
 import Morocco1ImageUrl from "../../img/morocco1.jpg";
 import { useNavigate } from "react-router-dom";
-
-
-
-
-
-
-
-
+import backgroundUrl from "../../img/about-bg.jpg"
 
 
 const PaymentPage = () => {
@@ -35,12 +28,19 @@ const PaymentPage = () => {
 
   return (
     <>
-      <div className="container PaymentPagecontainer">
-        <div className="text-center mt-5">
-          <h2> Billing Information </h2>
+      <div className="page-header" style={{ backgroundImage: `url(${backgroundUrl})` }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h1 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>Billing Information</h1>
+            </div>
+          </div>
         </div>
+      </div>
+      <div className="container PaymentPagecontainer">
+
         <div className="row">
-          <div className="col-6 p-5">
+          <div className="col-lg-6 col-md-12 p-5">
             <label htmlFor="fullName">Full Name</label>
             <input
               type="text"
@@ -110,7 +110,7 @@ const PaymentPage = () => {
             />
           </div>
 
-          <div className="col-6 p-5">
+          <div className="col-lg-6 col-md-12 p-5">
             {/* Note: For security reasons, consider using a specialized library or service for credit card inputs */}
             <label htmlFor="creditCard">Credit Card Number</label>
             <input
@@ -169,27 +169,29 @@ const PaymentPage = () => {
                 <strong> {amount.slice(0, -2) + "." + amount.slice(-2)} </strong>
                 <br />
 
-                <button
-                type="button"
-                className="btn cancelButton"
-                onClick={() => {
-                  navigate("/thank-you-page")
-                }}
-                >
-                Cancel 
+                <div className="d-flex">
+                  <button
+                    type="button"
+                    className="btn cancelButton"
+                    onClick={() => {
+                      navigate("/thank-you-page")
+                    }}
+                  >
+                    Cancel
 
-                </button>
+                  </button>
 
-                <button
-                  type="button"
-                  className="btn paymentButton"
-                  onClick={() => {
-                    actions.checkout(full_name, address1 + ", " + address2 + ", " + city + ", " + state, phone, email);
-                    navigate("/thank-you-page");
-                  }}
-                >
-                  Donate Now
-                </button>
+                  <button
+                    type="button"
+                    className="btn paymentButton"
+                    onClick={() => {
+                      actions.checkout(full_name, address1 + ", " + address2 + ", " + city + ", " + state, phone, email);
+                      navigate("/thank-you-page");
+                    }}
+                  >
+                    Donate Now
+                  </button>
+                </div>
 
                 <br />
                 <p>
@@ -199,48 +201,13 @@ const PaymentPage = () => {
             </div>
           </div>
         </div>
-        <div className="text-center mt-5">
-          <div className="row ">
-            <div className=" col-4 p-5">
-              <p>
-                <i className="fa-solid fa-square-check fa-2xl  donatePageIcons"></i>
-              </p>
-              <h4> Feature One </h4>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                quis felis convallis, rhoncus leo id, scelerisque purus. Ut
-                auctor gravida nulla.
-              </p>
-            </div>
-            <div className=" col-4 p-5 ">
-              <p>
-                <i className="fa-brands fa-font-awesome fa-2xl mb-1 donatePageIcons"></i>
-              </p>
-              <h4> Feature Two </h4>
-
-              <p>
-                Aliquam vel nibh iaculis, ornare purus sit amet, euismod dui.
-                Cras sed tristique neque. Cras ornare dui lorem, vel rhoncus
-                elit venenatis sit amet.
-              </p>
-            </div>
-            <div className=" col-4 p-5">
-              <p>
-                <i className="fa-regular fa-star fa-2xl donatePageIcons"></i>
-              </p>
-              <h4> Feature Three </h4>
-              <p>
-                Vestibulum ultricies erat vitae faucibus vulputate. Sed finibus
-                ipsum eu nibh volutpat, in congue sapien vehicula condimentum
-                ligula vitae.
-              </p>
-            </div>
-          </div>
-        </div>
 
         <div className="row">
-          <div className=" col-6 p-5">
+          <div className="col-lg-6 col-md-12 p-5">
+            <img src={Morocco1ImageUrl} alt="Morocco" width="460" height="345" />
+          </div>
+          <div className=" col-lg-6 col-md-12 p-5">
             <h4>
               Effortless Giving, <br></br>
               Immediate Impact
@@ -253,65 +220,12 @@ const PaymentPage = () => {
               making a real difference, effortlessly.
             </p>
           </div>
-          <div className="col-6 p-5">
-            <img src={Morocco1ImageUrl} alt="Morocco" width="460" height="345" />
-          </div>
+
         </div>
 
-        <div className="text-center mt-5">
-          <div>
-            <p>
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              quam velit, vulputate eu pharetra nec, mattis ac neque. Duis
-              vulputate commodo lectus, ac blandit elit tincidunt id."
-            </p>
-          </div>
-          <div>
-            <i className="fa-regular fa-image"></i>
-            <p>John Doe, CTO of Client Company</p>
-          </div>
-        </div>
 
-        <div className="text-center mt-5">
-          <div>
-            <h2>Get In Touch </h2>
-          </div>
-          <div>
-            <p>
-              Stay connected with us! Subscribe to our newsletter by entering
-              your email below. Receive updates on our relief efforts and
-              stories of impact. Together, we can make a difference. Join us in
-              bringing hope and relief to those in need.
-            </p>
-          </div>
-          <div className="text-center mt-5">
-            <div className="row">
-              <div className="col-5">
-                <label></label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="email"
-                  placeholder="Email Address"
-                />
-              </div>
-              <div className="col-5">
-                <label></label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  placeholder="Full Name"
-                />
-              </div>
-              <div className="col-2 p-4">
-                <button type="button" className="btn btn-secondary">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+
+
       </div>
     </>
   );

@@ -12,8 +12,15 @@ import youtubeImageUrl from "../../img/youtube.png";
 import mapImgURL from "../../img/Blank_US_Map_(states_only).png";
 import CircularProgressBar from "./circularProgressBar";
 import CountdownTimer from "./countDownTimer";
+import backgroundUrl from '../../img/welcome-bg.jpg.webp'
 
-
+const backgroundLink = {
+	position: 'relative',
+	padding: '96px 0',
+	background: `url(${backgroundUrl}) no-repeat center`,
+	backgroundSize: 'cover',
+	zIndex: 99,
+}
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -127,7 +134,7 @@ export const Home = () => {
 			<div className={`instruction  ${isMoving ? 'moving' : ''}`}>
 				Click the youtube icon to watch the video/click the photo to expand
 			</div>
-			<div className="row image-video-aboutUs">
+			<div className="row image-video-aboutUs" style={backgroundLink}>
 
 				<div className="col image-video">
 					<img
@@ -166,9 +173,9 @@ export const Home = () => {
 						</div>
 					)}
 				</div>
-				<div className="col">
+				<div className="col d-flex justify-center-items align-items-center">
 					<div id="aboutUs" className="col aboutUsStatement">
-						<h3 className="aboutUsHeader">We’re Changing Lives with your Help</h3>
+						<h3 className="aboutUsHeader text-white">We’re Changing Lives with your Help</h3>
 						<p className="statement1">Catalyzing Change, Building Hope: Our mission, led by the HelpingHands Foundation, is to rally communities and individuals worldwide in support of Morocco's recovery and rebuilding efforts following natural disasters. We believe in the power of collective action to make a lasting impact, fostering resilience, and creating a brighter future for the people of Morocco.</p>
 						<button className="readMore" onClick={handleReadMoreClick}>
 							{readMoreText}
