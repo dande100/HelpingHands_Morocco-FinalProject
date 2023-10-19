@@ -9,7 +9,9 @@ import sliderImageUrl1 from "../../img/photo.jpg";
 import happyKidsImageUrl from "../../img/happyKids.jpg";
 import happyKids1ImageUrl from "../../img/happyKids1.png";
 import youtubeImageUrl from "../../img/youtube.png";
+import mapImgURL from "../../img/Blank_US_Map_(states_only).png";
 import CircularProgressBar from "./circularProgressBar";
+import CountdownTimer from "./countDownTimer";
 
 
 
@@ -20,6 +22,27 @@ export const Home = () => {
 	const [showVideo, setShowVideo] = useState(false);
 	const [showStatement2, setShowStatement2] = useState(false);
 	const [readMoreText, setReadMoreText] = useState("Read More");
+	const [isMoving, setIsMoving] = useState(false);
+
+	const startAnimation = () => {
+		setIsMoving(true);
+	};
+
+	const stopAnimation = () => {
+		setIsMoving(false);
+	};
+	useEffect(() => {
+
+		startAnimation();
+
+
+		const animationTimeout = setTimeout(() => {
+			stopAnimation();
+		}, 1000);
+		return () => {
+			clearTimeout(animationTimeout);
+		};
+	}, []);
 
 
 	const handleReadMoreClick = () => {
@@ -48,11 +71,11 @@ export const Home = () => {
 	useEffect(() => {
 		fetchProgress();
 
-		const intervalId = setInterval(() => {
-			fetchProgress();
-		}, 1000);
+		// const intervalId = setInterval(() => {
+		// 	fetchProgress();
+		// }, 1000);
 
-		return () => clearInterval(intervalId);
+		// return () => clearInterval(intervalId);
 	}, []);
 
 	const toggleVideo = () => {
@@ -90,23 +113,29 @@ export const Home = () => {
 			<div className="progress-bar">
 				<div className="row progress-bar1">
 					<div className="col-6"><CircularProgressBar />
-
 					</div>
-					<div className="col-6 mt-5 statement">
+
+					{/* <div className="col-4 mt-5 statement">
 						<h2>Urgent Relief</h2>
 						<p>In the wake of a devastating earthquake that has left communities in Morocco reeling,<br /> we are calling upon compassionate individuals, organizations, and communities worldwide  <br /> to come together and join our mission to be a beacon of hope in aiding Morocco's earthquake recovery efforts.</p>
 						<Link to="/donatepage">
 							<button className="donate-button-statement">Donate Now</button>
 						</Link>
-					</div>
+					</div> */}
+					<div className="col-6"><CountdownTimer dueDate={new Date("2023-12-31T23:59:59")} /></div>
 				</div>
-				<div className="row  raised-goal">
-					<div className="col">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
 
-					<div className="col ">Goal<br />$50,000</div>
+				<div className="row  raised-goal">
+					<div className="col donationMoney">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
+
+					<div className="col donationMoney">Goal<br />$50000</div>
 				</div>
 			</div >
+			<div className={`instruction  ${isMoving ? 'moving' : ''}`}>
+				Click the youtube icon to watch the video/click the photo to expand
+			</div>
 			<div className="row image-video-aboutUs">
+
 				<div className="col image-video">
 					<img
 						className={`image1`}
@@ -160,7 +189,161 @@ export const Home = () => {
 				</div>
 			</div>
 			<br /> <br />
+			<section className="country-section pb-100">
+				<div className="container">
+					<div className="row align-items-center">
+						<div className="col-lg-6 mb-4">
+							<div className="country-area-content">
+								<span>
+									<i className="flaticon-selection"></i>
+									Our Area
+								</span>
+								<h3>People generous is your state</h3>
+								<p>In our community, people are coming together to raise funds in various locations across the area. Their collective efforts are making a significant impact, helping to support important causes and initiatives that benefit our local residents and beyond. This spirit of generosity and unity is a testament to the strength and compassion of our community.</p>
+							</div>
 
+							<div className="skill-bar" data-percentage="68%">
+								<p className="progress-title-holder">
+									<span className="progress-title">Utah</span>
+									<span className="progress-number-wrapper">
+										<span className="progress-number-mark" style={{ left: "68%" }}>
+											<span className="percent">68%</span>
+											<span className="down-arrow"></span>
+										</span>
+									</span>
+								</p>
+								<div className="progress-content-outter">
+									<div className="progress-content" style={{ width: "68%" }}></div>
+								</div>
+							</div>
+
+							<div className="skill-bar" data-percentage="90%">
+								<p className="progress-title-holder">
+									<span className="progress-title">Texas</span>
+									<span className="progress-number-wrapper">
+										<span className="progress-number-mark" style={{ left: "90%" }}>
+											<span className="percent">90%</span>
+											<span className="down-arrow"></span>
+										</span>
+									</span>
+								</p>
+								<div className="progress-content-outter">
+									<div className="progress-content-two" style={{ width: "90%" }}></div>
+								</div>
+							</div>
+
+							<div className="skill-bar" data-percentage="95%">
+								<p className="progress-title-holder">
+									<span className="progress-title">Florida</span>
+									<span className="progress-number-wrapper">
+										<span className="progress-number-mark" style={{ left: "95%" }}>
+											<span className="percent">95%</span>
+											<span className="down-arrow"></span>
+										</span>
+									</span>
+								</p>
+								<div className="progress-content-outter">
+									<div className="progress-content-three" style={{ width: "95%" }}></div>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-lg-6">
+							<div className="map-img">
+								<img src={mapImgURL} alt="map" />
+
+								<div className="location location1">
+									<a href="#">
+										<div className="location-info">
+											<h5>Utah</h5>
+										</div>
+									</a>
+								</div>
+
+								<div className="location location2">
+									<a href="#">
+										<div className="location-info">
+											<h5>Wisconsin</h5>
+										</div>
+									</a>
+								</div>
+
+
+
+								<div className="location location4">
+									<a href="#">
+										<div className="location-info">
+											<h5>Arkansas</h5>
+										</div>
+									</a>
+								</div>
+
+								<div className="location location5">
+									<a href="#">
+										<div className="location-info">
+											<h5>Texas</h5>
+										</div>
+									</a>
+								</div>
+
+								<div className="location location6">
+									<a href="#">
+										<div className="location-info">
+											<h5>Florida</h5>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section className="fun-facts-area">
+				<div className="container">
+					<div className="row">
+						<div className="col-lg-3 col-md-6 col-sm-6">
+							<div className="single-fun-fact">
+								<p>Beneficiaries</p>
+								<h3>
+									<span className="sign-icon dolor">$</span>
+									<span className="odometer odometer-auto-theme" data-count="500"><div className="odometer-inside"><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">5</span></span></span></span></span><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">0</span></span></span></span></span><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">0</span></span></span></span></span></div></span>
+									<span className="sign-icon">M</span>
+								</h3>
+							</div>
+						</div>
+
+						<div className="col-lg-3 col-md-6 col-sm-6">
+							<div className="single-fun-fact">
+								<p>Happy Donators</p>
+								<h3>
+									<span className="odometer odometer-auto-theme" data-count="458"><div className="odometer-inside"><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">4</span></span></span></span></span><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">5</span></span></span></span></span><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">8</span></span></span></span></span></div></span>
+									<span className="sign-icon">+</span>
+								</h3>
+							</div>
+						</div>
+
+						<div className="col-lg-3 col-md-6 col-sm-6">
+							<div className="single-fun-fact">
+								<p>Volunteer</p>
+								<h3>
+									<span className="odometer odometer-auto-theme" data-count="45"><div className="odometer-inside"><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">4</span></span></span></span></span><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">5</span></span></span></span></span></div></span>
+									<span className="sign-icon">+</span>
+								</h3>
+							</div>
+						</div>
+
+						<div className="col-lg-3 col-md-6 col-sm-6">
+							<div className="single-fun-fact">
+								<p>Donated Poor</p>
+								<h3>
+									<span className="odometer odometer-auto-theme" data-count="20"><div className="odometer-inside"><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">2</span></span></span></span></span><span className="odometer-digit"><span className="odometer-digit-spacer">8</span><span className="odometer-digit-inner"><span className="odometer-ribbon"><span className="odometer-ribbon-inner"><span className="odometer-value">0</span></span></span></span></span></div></span>
+									<span className="sign-icon">K</span>
+								</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 			<section className="home-testimonial">
 				<div className="container-fluid">
 					<div className="row d-flex justify-content-center testimonial-pos">
@@ -198,7 +381,7 @@ export const Home = () => {
 												<i className="fa fa-star rating-color"></i>
 												<i className="fa fa-star rating-color"></i>
 												<i className="fa fa-star rating-color"></i>
-												<i className="fa fa-star"></i>
+												<i className="fa fa-star rating-gray-color"></i>
 											</div>
 										</div>
 									</div>

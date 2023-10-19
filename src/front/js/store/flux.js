@@ -286,6 +286,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
+			},
+			sendContactForm: (senderInfo) => {
+				fetch(process.env.BACKEND_URL + "api/contact", {
+					method: 'POST',
+					headers: { "Content-type": "application/json" },
+					body: JSON.stringify(senderInfo)
+				}).then(response => console.log(response.json()))
+					.catch(error => {
+						console.log("Error loading message from backend", error)
+					})
 			}
 		}
 	};

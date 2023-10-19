@@ -3,6 +3,7 @@ import React from 'react';
 
 import Authenticate from '../component/authenticate';
 const Login = () => {
+
   const loginToThePortal = () => {
     if (input != '' && password != '') {
       const obj = {
