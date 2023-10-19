@@ -112,9 +112,12 @@ export const Home = () => {
 			</div>
 			<div className="progress-bar">
 				<div className="row progress-bar1">
-					<div className="col-6"><CircularProgressBar />
+					<div className="col-md-6 col-sm-12"><CircularProgressBar />
 					</div>
 
+<<<<<<< HEAD
+					<div className="col-md-6 col-sm-12"><CountdownTimer dueDate={new Date("2023-12-31T23:59:59")} /></div>
+=======
 					{/* <div className="col-4 mt-5 statement">
 						<h2>Urgent Relief</h2>
 						<p>In the wake of a devastating earthquake that has left communities in Morocco reeling,<br /> we are calling upon compassionate individuals, organizations, and communities worldwide  <br /> to come together and join our mission to be a beacon of hope in aiding Morocco's earthquake recovery efforts.</p>
@@ -123,11 +126,12 @@ export const Home = () => {
 						</Link>
 					</div> */}
 					<div className="col-6"><CountdownTimer dueDate={new Date("2023-12-31T23:59:59")} /></div>
+>>>>>>> origin/main
 				</div>
 
 				<div className="row  raised-goal">
 					<div className="col donationMoney">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
-
+					{/* <div className="col donationMoney">Raised<br />${Math.round(store.stripeProgress * 500)}</div> */}
 					<div className="col donationMoney">Goal<br />$50000</div>
 				</div>
 			</div >
@@ -156,7 +160,7 @@ export const Home = () => {
 					/>
 
 					{showVideo && (
-						<div className="video-container">
+						<div className="video-container" >
 							<div className="video-player">
 								<ReactPlayer
 									url="https://youtu.be/st6p05Z8NdA"

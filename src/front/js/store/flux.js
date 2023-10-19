@@ -120,6 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			createAccount: async (obj) => {
 				try {
+
 					const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
 						method: 'POST',
 						headers: { "Content-type": "application/json" },
@@ -185,6 +186,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
+		
+
+
 			fetchEachDonation: () => {
 				const user_id = localStorage.getItem("user_id")
 				fetch(process.env.BACKEND_URL + `/api/donations/user/${user_id}`)
@@ -216,10 +220,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ user: data })
 					})
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-			},
+
 			requestForgotPassword: async (obj) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/request_reset_password", {

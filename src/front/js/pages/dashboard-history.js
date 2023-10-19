@@ -45,19 +45,19 @@ export const DashboardHistory = () => {
         if (selectedDate === "All") {
             setFilteredDonationHistory(store.donations);
         } else {
-            const filteredData = store.donations.filter((payment) => {
-                let newPayment = "";
+            const filteredData = store.donations.filter((donation) => {
+                let newDonation = "";
                 for (let i = 4; i < 8 || i == 7; i++) {
-                    newPayment += payment.date.toString()[i];
+                    newDonation += donation.time_created.toString()[i];
                 }
                 let newSelected = "";
                 for (let i = 0; i < 4; i++) {
                     newSelected += selectedDate[i];
                 }
-                console.log(newPayment, "payment date");
+                console.log(newDonation, "donation date");
                 console.log(newSelected, "selected");
 
-                return newPayment === newSelected;
+                return newDonation === newSelected;
             });
 
             setFilteredDonationHistory(filteredData);

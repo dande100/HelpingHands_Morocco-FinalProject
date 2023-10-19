@@ -15,12 +15,12 @@ const PrintDonationHistory = ({ userDonationHistory }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {userDonationHistory.map((payment) => (
-                        <tr key={payment.id}>
-                            <td>{payment.date}</td>
-                            <td>{payment.currency}</td>
-                            <td>{payment.payment_method}</td>
-                            <td>${payment.payment_amount}</td>
+                    {userDonationHistory.map((donation) => (
+                        <tr key={donation.id}>
+                            <td>{donation.time_created}</td>
+                            <td>{donation.currency}</td>
+                            <td>{donation.payment_method}</td>
+                            <td>${donation.amount}</td>
                         </tr>
                     ))}
                 </tbody>

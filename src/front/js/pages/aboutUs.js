@@ -77,9 +77,9 @@ const AboutUs = () => {
                     onMouseEnter={() => setIsCard1Hovered(true)}
                     onMouseLeave={() => setIsCard1Hovered(false)}>
                     <img src={jessImage} />
-                    <div className="card-body">
-                        <h5 className="card-title">President</h5>
-                        <p className="card-text">Jess</p>
+                    <div className="card-body" style={{ fontSize: "10px", textAlign: "center" }}>
+                        <h5 className="card-title " style={{ fontSize: "15px" }}>Founding Member</h5>
+                        <p className="card-text" style={{ fontSize: "12px" }}>Jess</p>
                         {isCard1Hovered && (
                             <div className="card-footer">
                                 <a href="https://www.linkedin.com/in/Jessmor02" className="btn linkedInIcon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-linkedin" viewBox="0 0 16 16">
@@ -104,9 +104,9 @@ const AboutUs = () => {
                     onMouseEnter={() => setIsCard2Hovered(true)}
                     onMouseLeave={() => setIsCard2Hovered(false)}>
                     <img className="card-hover-bg1" src={vasanthiImage} />
-                    <div className="card-body">
-                        <h5 className="card-title">President</h5>
-                        <p className="card-text">Vasanthi</p>
+                    <div className="card-body" style={{ fontSize: "10px", textAlign: "center" }}>
+                        <h5 className="card-title" style={{ fontSize: "15px" }}>Founding Member</h5>
+                        <p className="card-text" style={{ fontSize: "12px" }}>Vasanthi</p>
                         {isCard2Hovered && (
                             <div className="card-footer">
                                 <a href="https://www.linkedin.com/" className="btn linkedInIcon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-linkedin" viewBox="0 0 16 16">
@@ -132,9 +132,9 @@ const AboutUs = () => {
                     onMouseEnter={() => setIsCard3Hovered(true)}
                     onMouseLeave={() => setIsCard3Hovered(false)}>
                     <img src={ailyImage} />
-                    <div className="card-body">
-                        <h5 className="card-title">President</h5>
-                        <p className="card-text">Aily</p>
+                    <div className="card-body" style={{ fontSize: "10px", textAlign: "center" }}>
+                        <h5 className="card-title" style={{ fontSize: "15px" }}>Founding Member</h5>
+                        <p className="card-text" style={{ fontSize: "12px" }}>Aily</p>
                         {isCard3Hovered && (
                             <div className="card-footer">
                                 <a href="https://www.linkedin.com/in/ailygucfa" className="btn linkedInIcon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-linkedin" viewBox="0 0 16 16">
@@ -160,9 +160,9 @@ const AboutUs = () => {
                     onMouseEnter={() => setIsCard4Hovered(true)}
                     onMouseLeave={() => setIsCard4Hovered(false)}>
                     <img src={jerryImage} />
-                    <div className="card-body" >
-                        <h5 className="card-title">President</h5>
-                        <p className="card-text ">Jerry</p>
+                    <div className="card-body" style={{ fontSize: "10px", textAlign: "center" }}>
+                        <h5 className="card-title" style={{ fontSize: "15px" }}>Founding Member</h5>
+                        <p className="card-text " style={{ fontSize: "12px" }}>Jerry</p>
                         {isCard4Hovered && (
                             <div className="card-footer">
                                 <a href="https://www.linkedin.com/" className="btn linkedInIcon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-linkedin" viewBox="0 0 16 16">

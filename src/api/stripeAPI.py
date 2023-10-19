@@ -15,22 +15,22 @@ def index():
     # For now, I've left it commented out.
     return render_template('index.html')
 
-# @api.route('/stripe_pay')
-# def stripe_pay():
-#     session = stripe.checkout.Session.create(
-#         payment_method_types=['card'],
-#         line_items=[
-#             {'price': 'price_1NvRPvEkSwAVwyol4daWiYZ4', 'quantity': 1},
-#             # Add other line items here as needed
-#         ],
-#         mode='payment',
-#         success_url=url_for('thanks', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
-#         cancel_url=url_for('index', _external=True),
-#     )
-#     return {
-#         'checkout_session_id': session['id'], 
-#         'checkout_public_key': app.config['STRIPE_PUBLIC_KEY']
-#     }
+@app.route('/stripe_pay')
+def stripe_pay():
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[
+            {'price': 'price_1NvRPvEkSwAVwyol4daWiYZ4', 'quantity': 1},
+            # Add other line items here as needed
+        ],
+        mode='payment',
+        success_url=url_for('thanks', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=url_for('index', _external=True),
+    )
+    return {
+        'checkout_session_id': session['id'], 
+        'checkout_public_key': app.config['STRIPE_PUBLIC_KEY']
+    }
 
 @app.route('/thank_you')
 def thanks():

@@ -63,7 +63,7 @@ export const Dashboard = (props) => {
 
                                     <div className="d-flex justify-content-center mb-2">
 
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             Edit Contact Info
                                         </button>
                                     </div>

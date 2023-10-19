@@ -15,10 +15,10 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.post("/checkout", async (req, res) => {
- console.log(req.body);
+    console.log(req.body);
     const items = req.body.items;
     let lineItems = [];
-    items.forEach((item)=> {
+    items.forEach((item) => {
         lineItems.push(
             {
                 price: item.id,
