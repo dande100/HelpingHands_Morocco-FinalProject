@@ -45,19 +45,19 @@ export const DashboardHistory = () => {
         if (selectedDate === "All") {
             setFilteredDonationHistory(store.donations);
         } else {
-            const filteredData = store.donations.filter((payment) => {
-                let newPayment = "";
+            const filteredData = store.donations.filter((donation) => {
+                let newDonation = "";
                 for (let i = 4; i < 8 || i == 7; i++) {
-                    newPayment += payment.date.toString()[i];
+                    newDonation += donation.time_created.toString()[i];
                 }
                 let newSelected = "";
                 for (let i = 0; i < 4; i++) {
                     newSelected += selectedDate[i];
                 }
-                console.log(newPayment, "payment date");
+                console.log(newDonation, "donation date");
                 console.log(newSelected, "selected");
 
-                return newPayment === newSelected;
+                return newDonation === newSelected;
             });
 
             setFilteredDonationHistory(filteredData);
@@ -75,8 +75,8 @@ export const DashboardHistory = () => {
                 <div className="container py-5">
                     <div className="row">
                         <div className="col dashboard">
-                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mx-5 my-5">
-                                <ol className="breadcrumb mt-0">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mb-5" style={{ height: "55px" }}>
+                                <ol className="breadcrumb mb-0 float-end">
                                     <li className="breadcrumb-item"><Link to="/dashboard">User Profile</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Donation History</li>
                                 </ol>

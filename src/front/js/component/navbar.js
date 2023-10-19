@@ -41,18 +41,29 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
-        <Link to="/">
-          <img
-            className="logo"
-            src={logoImageUrl}
-            style={{ width: "220px", height: "220px" }}
-            alt="Logo"
-          />
-        </Link>
+        <img
+          className="logo"
+          src={logoImageUrl}
+          style={{ width: "250px", height: "185px", objectFit: "cover" }}
+          alt="Logo"
+        />
+
         <div className={`navLinks ${isMobileMenuOpen ? "open" : ""}`}>
           <Link to="/home">Home</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/aboutUs">About Us</Link>
+          {storage > 0 ? (
+            <Link
+              to="/dashboard"
+              className="button-link dashboard-button"
+            >
+              Profile
+            </Link>
+          ) : (
+            <Link to="/login" className="button-link login-button">
+              Login
+            </Link>
+          )}
           {storage > 0 ? (
             <Link
               to="/login"
@@ -62,13 +73,10 @@ export const Navbar = () => {
               Logout
             </Link>
           ) : (
-            <Link to="/login" className="button-link login-button">
-              Login
+            <Link to="/signup" className="button-link signup-button">
+              Sign Up
             </Link>
           )}
-          <Link to="/signup" className="button-link signup-button">
-            Sign Up
-          </Link>
         </div>
         <div
           className={`hamburger-menu ${isMobileMenuOpen ? "open" : ""}`}

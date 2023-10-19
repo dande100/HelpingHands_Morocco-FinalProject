@@ -2,7 +2,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			progressPercentage: 0,
-			// stripeProgress: 0,
 			message: null,
 			error: null,
 			isLoginSuccess: false,
@@ -13,6 +12,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isPasswordReset: false,
 			user: [],
 			donations: [],
+			latestDonation:{},
+			amount: 0,
 			demo: [
 				{
 					title: "FIRST",
@@ -36,27 +37,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 
 		actions: {
-			checkout: async (productId) => {
-				const product = getStore().products.find(p => p.id === productId);
-				if (!product) {
-					console.error("Product not found");
-					return;
-				}
+			updateAmount: (amountToDonate) => {
+				setStore({ amount: amountToDonate })
+			},
+			checkout: async (full_name, address, phone_number, email) => {
+				const user_id = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : "non_member"
+
+				const localtime = Date.now()
+				const currency = "usd";
+				const payment_method = "Card";
+				const payment_method_id = "pm_card_us";
+
+
+
 
 				try {
-					const response = await fetch(process.env.BACKEND_URL + '/payment', {
+					const response = await fetch(process.env.BACKEND_URL + "/api/donations", {
 						method: "POST",
 						headers: {
 							'Content-Type': 'application/json'
 						},
-						body: JSON.stringify({ items: [{ name: product.name, id: product.id }] })
+						body: JSON.stringify({
+							"user_id": user_id,
+							"time_created": localtime,
+							"currency": currency,
+							"payment_method_id": payment_method_id,
+							"payment_method": payment_method,
+							"amount": getStore().amount,
+							"full_name": full_name,
+							"gender": "non specify",
+							"address": address,
+							"phone_number": phone_number,
+							"email": email
+						})
 					});
 
 					const data = await response.json();
 
-					if (data.url) {
-						window.location.assign(data.url); // Forwarding user to Stripe
-					}
+					setStore({lastestDonation:data.donationInfo})
 				} catch (error) {
 					console.error("Checkout error:", error);
 				}
@@ -102,6 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			createAccount: async (obj) => {
 				try {
+
 					const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
 						method: 'POST',
 						headers: { "Content-type": "application/json" },
@@ -166,22 +185,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error fetching progress data:", error);
 					});
 			},
-			// fetchAllDonation: () => {
-			// 	fetch(process.env.BACKEND_URL + "/api/stripe_progress")
-			// 		.then((response) => {
-			// 			if (!response.ok) {
-			// 				throw new Error("Network response was not ok");
-			// 			}
-			// 			return response.json();
-			// 		})
-			// 		.then((data) => {
-			// 			const { stripe_progress } = data;
-			// 			setStore({ stripe_progress_percentage: stripe_progress });
-			// 		})
-			// 		.catch((error) => {
-			// 			console.error("Error fetching Stripe progress data:", error);
-			// 		});
-			// },
+
+		
+
 
 			fetchEachDonation: () => {
 				const user_id = localStorage.getItem("user_id")
@@ -281,6 +287,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
+			},
+			sendContactForm: (senderInfo) => {
+				fetch(process.env.BACKEND_URL + "api/contact", {
+					method: 'POST',
+					headers: { "Content-type": "application/json" },
+					body: JSON.stringify(senderInfo)
+				}).then(response => console.log(response.json()))
+					.catch(error => {
+						console.log("Error loading message from backend", error)
+					})
 			}
 		}
 	};

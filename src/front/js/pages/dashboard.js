@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import { Context } from "../store/appContext";
-import "../../styles/contact.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 export const Dashboard = (props) => {
     const { store, actions } = useContext(Context);
@@ -41,11 +40,11 @@ export const Dashboard = (props) => {
             <section style={{ backgroundColor: "#eee" }}>
                 <div className="container py-5">
                     <div className="row">
-                        <div className="col dashboard">
-                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 my-5">
-                                <ol className="breadcrumb mb-0">
+                        <div className="col">
+                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 my-5" style={{ height: "55px" }}>
+                                <ol className="breadcrumb mb-0  float-end">
                                     <li className="breadcrumb-item active" aria-current="page">User Profile</li>
-                                    <li className="breadcrumb-item"><Link to="/dashboard-history">Donation History</Link></li>
+                                    <li className="breadcrumb-item"><RouterLink to="/dashboard-history">Donation History</RouterLink></li>
                                 </ol>
                             </nav>
                         </div>
@@ -64,7 +63,7 @@ export const Dashboard = (props) => {
 
                                     <div className="d-flex justify-content-center mb-2">
 
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             Edit Contact Info
                                         </button>
                                     </div>
