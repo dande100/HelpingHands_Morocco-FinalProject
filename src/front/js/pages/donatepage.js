@@ -1,15 +1,19 @@
 import React, { useContext, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import "../../styles/donatepage.css";
 import Morocco1ImageUrl from "../../img/morocco1.jpg";
+import { useNavigate } from "react-router-dom";
 
 const DonatePage = () => {
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate()
   const [currency, setCurrency] = useState(["USD", "Bitcoin", "EUR", "AUD"]);
   const [selection, setSelection] = useState(currency[0]);
   const [activeButton, setActiveButton] = useState(null);
   const [amountToDonate, setAmountToDonate] = useState(0);
+  const [stripeLoading, setStripeLoading] = useState(false);
 
   const handleAmountClick = (buttonId) => {
     document.querySelector(".amount-input").value = "";
@@ -34,52 +38,42 @@ const DonatePage = () => {
     setAmountToDonate(parseInt(result));
   }
 
-  const checkout = async (amount) => {
-    // Validate the donation amount
-    if (isNaN(amount) || amount <= 0) {
-      alert("Please enter a valid donation amount.");
-      return;
-    }
+  // const checkout = async (amount) => {
+  //   if (isNaN(amount) || amount <= 0) {
+  //     alert("Please enter a valid donation amount.");
+  //     return;
+  //   }
 
-    await fetch(process.env.BACKEND_URL + '/api/checkout', {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ amount: amount, payment_method_id: "pm_card_us" })
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Server responded with status: ${response.status}`);
-        }
-        return response.json();
-      })
-      // // .then(data => {
-      // //   console.log("Raw response from server:", data);  // This logs the raw text response
+  //   await fetch(process.env.BACKEND_URL + '/api/donations', {
+  //     method: "POST",
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({ amount: amount, payment_method_id: "pm_card_us" })
+  //   })
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error(`Server responded with status: ${response.status}`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       if (data.error) {
+  //         throw new Error(data.error);
+  //       }
+  //       if (data.url) {
+  //         window.location.assign(data.url);
+  //       }
+  //       console.log(data)
+  //     })
+  //     .catch(error => {
+  //       console.error("Error:", error);
+  //       alert(`An error occurred: ${error.message}`);
+  //     });
+  // };
 
-      // //   // Continue processing the text
-      // //   try {
-      // //     return JSON.parse(data);  // Try to parse the text as JSON
-      // //   } catch (error) {
-      // //     console.error("Failed to parse as JSON:", data);
-      // //     throw new Error("Received invalid JSON from the server.");
-      // //   }
-      // })
-      .then(data => {
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        if (data.url) {
-          window.location.assign(data.url);
-        }
-        console.log(data)
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert(`An error occurred: ${error.message}`);
-      });
-  };
+
 
   return (
     <>
@@ -241,7 +235,8 @@ const DonatePage = () => {
                       if (amountToDonate < 50) {
                         alert("Minimum donation is $0.50")
                       } else {
-                        checkout(amountToDonate)
+                        actions.updateAmount(amountToDonate)
+                        navigate("/paymentPage")
                       }
                     }}
                     type="button"
@@ -256,7 +251,7 @@ const DonatePage = () => {
         </div>
 
         <div className="text-center mt-5">
-          <div className="row">
+          <div className="row ">
             <div className=" col-4 p-5">
               <p>
                 <i className="fa-solid fa-square-check fa-2xl  donatePageIcons"></i>
