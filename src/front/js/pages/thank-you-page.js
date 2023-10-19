@@ -1,6 +1,5 @@
 
 import React, { useContext, useState, useEffect } from "react";
-import React, { useState, useContext, useEffect } from "react";
 
 import { Context } from "../store/appContext";
 import CircularProgressBar from "./circularProgressBar";
