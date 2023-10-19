@@ -49,7 +49,7 @@ const AboutUs = () => {
             </div>
             <div className="row">
                 <div className="col-5 ">
-                    <h1 className="vision">Our Vission</h1>
+                    <h1 className="vision">Our Vision</h1>
                     <h5 className="visionH5Tag"> Empowering Morocco's Communities for a Sustainable Tomorrow</h5>
                     <p className="aboutUsPTag">We envision a future where the people of Morocco thrive, resilient in the face of challenges, and united in hope. Through collective action and unwavering commitment, we strive to catalyze lasting change. Our vision is a brighter, more prosperous Morocco, where every voice is heard, where transparency and fairness prevail, and where we continuously innovate to build a better future. Together, with the support of generous donors, we aim to be a beacon of hope and transformation, driving long-term recovery and resilience for Morocco and its people."</p>
                 </div>

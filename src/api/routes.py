@@ -139,9 +139,9 @@ def get_user_donation_history(user_id):
     if user is None:
         return jsonify({"message": "User not found"}), 404
 
-    user_payments = DonationInfo.query.filter_by(user_id=user_id).all()
-    payment_serialize = [payment.serialize() for payment in user_payments]
-    return jsonify(payment_serialize), 200
+    user_donation = DonationInfo.query.filter_by(user_id=user_id).all()
+    donation_serialize = [donation.serialize() for donation in user_donation]
+    return jsonify(donation_serialize), 200
 
 def calculate_total_donated():
     total_donated = db.session.query(db.func.sum(DonationInfo.amount)).scalar()
@@ -155,6 +155,7 @@ def get_donation_progress():
     total_donated = calculate_total_donated()
 
     progress_percentage = (total_donated / goal_amount) * 100
+    progress_percentage = round(progress_percentage, 2)
 
     return jsonify({'progress': progress_percentage})
 
