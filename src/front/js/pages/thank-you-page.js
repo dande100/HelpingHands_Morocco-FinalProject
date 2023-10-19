@@ -1,4 +1,3 @@
-
 import React, { useContext, useState, useEffect } from "react";
 
 import { Context } from "../store/appContext";
@@ -13,12 +12,7 @@ export const ThankYou = () => {
     useEffect(() => {
         setDonation(store.latestDonation)
     }, [store.latestDonation]);
-    return (
-        <div>
-            <div className="d-flex mx-5 p-2 bd-highlight">Dear {donation.full_name},<br></br><br></br>
 
-                We want to express our heartfelt gratitude for your generous contribution to support earthquake relief efforts in Morocco.
-                Your kindness and compassion are making a significant impact on the lives of those affected by this disaster.<br></br><br></br>
 
     const [filteredDonationHistory, setFilteredDonationHistory] = useState([]);
 
@@ -147,7 +141,7 @@ export const ThankYou = () => {
                 </div>
             </div>
 
-        </div>
+
 
             <div className="progress-bar">
                 <div className="row progress-bar1">
