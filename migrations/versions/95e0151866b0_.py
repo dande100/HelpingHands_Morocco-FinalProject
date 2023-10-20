@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: a67b1fabd425
+Revision ID: 95e0151866b0
 Revises: 
-Create Date: 2023-10-19 21:59:38.726330
+Create Date: 2023-10-20 13:50:16.385437
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a67b1fabd425'
+revision = '95e0151866b0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,16 +36,16 @@ def upgrade():
     )
     op.create_table('donationInfo',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('full_name', sa.String(length=120), nullable=False),
+    sa.Column('full_name', sa.String(length=120), nullable=True),
     sa.Column('gender', sa.String(length=20), nullable=True),
-    sa.Column('email', sa.String(length=120), nullable=False),
-    sa.Column('address', sa.String(length=500), nullable=False),
-    sa.Column('phone_number', sa.String(length=15), nullable=False),
-    sa.Column('time_created', sa.String(length=120), nullable=False),
+    sa.Column('email', sa.String(length=120), nullable=True),
+    sa.Column('address', sa.String(length=500), nullable=True),
+    sa.Column('phone_number', sa.String(length=15), nullable=True),
+    sa.Column('time_created', sa.String(length=120), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('amount', sa.Numeric(precision=10, scale=2), nullable=True),
-    sa.Column('currency', sa.String(length=80), nullable=False),
-    sa.Column('payment_method', sa.String(length=80), nullable=False),
+    sa.Column('amount', sa.Integer(), nullable=False),
+    sa.Column('currency', sa.String(length=80), nullable=True),
+    sa.Column('payment_method', sa.String(length=80), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
