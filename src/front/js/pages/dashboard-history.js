@@ -16,7 +16,7 @@ export const DashboardHistory = () => {
         actions.fetchEachDonation();
         setFilteredDonationHistory(store.donations);
 
-    }, []);
+    }, [store.donations]);
 
     const handlePrint = () => {
 
@@ -71,7 +71,7 @@ export const DashboardHistory = () => {
 
     return (
         <>
-            <section style={{ backgroundColor: "#eee" }}>
+            <section style={{ backgroundColor: "#eee", minHeight: "calc(100vh - 100px)" }}>
                 <div className="container py-5">
                     <div className="row">
                         <div className="col dashboard">
