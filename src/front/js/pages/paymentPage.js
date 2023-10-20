@@ -23,7 +23,14 @@ const PaymentPage = () => {
   const [cvv, setCvv] = useState("")
   const [year, setYear] = useState("")
 
-
+  const donateNowCall = () => {
+    if (full_name != '' && email != '') {
+      actions.checkout(full_name, address1 + ", " + address2 + ", " + city + ", " + state, phone, email);
+      if (store.redirectToThankYouPage) {
+        navigate("/thank-you-page");
+      }
+    }
+  }
 
 
   return (
@@ -174,7 +181,7 @@ const PaymentPage = () => {
                     type="button"
                     className="btn cancelButton"
                     onClick={() => {
-                      navigate("/thank-you-page")
+                      navigate("/paymentPage")
                     }}
                   >
                     Cancel
@@ -184,10 +191,7 @@ const PaymentPage = () => {
                   <button
                     type="button"
                     className="btn paymentButton"
-                    onClick={() => {
-                      actions.checkout(full_name, address1 + ", " + address2 + ", " + city + ", " + state, phone, email);
-                      navigate("/thank-you-page");
-                    }}
+                    onClick={donateNowCall}
                   >
                     Donate Now
                   </button>

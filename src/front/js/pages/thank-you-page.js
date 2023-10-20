@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import CircularProgressBar from "./circularProgressBar";
 import "../../styles/thank-you.css";
 import "../../styles/circular-progress-bar.css";
+import backgroundUrl from "../../img/about-bg.jpg"
 
 export const ThankYou = () => {
     const { store, actions } = useContext(Context);
@@ -36,6 +37,15 @@ export const ThankYou = () => {
 
     return (
         <>
+            <div className="page-header" style={{ backgroundImage: `url(${backgroundUrl})` }}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <h1 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>Thank You</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="d-flex m-5 p-2 bd-highlight">Dear {store.user.first_name == null ? "Anonymous Donor" : `${store.user.first_name}  ${store.user.last_name}`},<br></br><br></br>
 
                 We want to express our heartfelt gratitude for your generous contribution to support earthquake relief efforts in Morocco.
@@ -68,46 +78,18 @@ export const ThankYou = () => {
                 HelpingHands Morocco Team<br></br><br></br>
             </div>
 
-            <div className="container flex" id="progBarDiv">
-                <div class="row">
-                    <div class="col-4 mt-3">
-                        <div class="container">
-                            <div>
-                                <div class="progress blue">
-                                    <span class="progress-left">
-                                        <span class="progress-bar"></span>
-                                    </span>
-                                    <span class="progress-right">
-                                        <span class="progress-bar"></span>
-                                    </span>
-                                    <div class="progress-value">90%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-7 mt-5">
-                        <p><strong>Your donation has been added to the HelpingHands Morocco supportfund and brought the raised total to "new amount"!<br></br>
-                            Your transaction ID # is: {donation.transaction_id}</strong>
-                        </p>
-                    </div>
-                    <div class="row row-cols-auto">
-                        <div class="col ms-5">
-
-                        </div>
-                        <div class="col ms-5 ps-1">Raised<br></br>
-                            $37,500
-
-                        </div>
-                        <div class="col ms-3 ps-1">Goal<br></br>
-                            $50,000
-
-                        </div>
-                        <div class="col">
-
-                        </div>
-                    </div>
+            <div className="progress-bar">
+                <div className="row progress-bar1">
+                    <p className=" fs-4"><strong>Your donation has been added to the HelpingHands Morocco support fund!</strong>
+                    </p>
+                    <div className="col-12"><CircularProgressBar /></div>
                 </div>
-            </div>
+                <div className="raised-goal mt-3 ms-0 w-100 d-flex">
+                    <div className="col text-white text-end"><span>Raised<br />${Math.round(store.progressPercentage * 500)}</span></div>
+
+                    <div className="col text-white text-start ms-4"><span className="text-center">Goal<br />$50,000</span></div>
+                </div>
+            </div >
             <div class="container mt-3">
                 <div class="row position-relative">
                     <div class="col-3 me-5">
@@ -143,18 +125,7 @@ export const ThankYou = () => {
 
 
 
-            <div className="progress-bar">
-                <div className="row progress-bar1">
-                    <p className="text-dark fs-4"><strong>Your donation has been added to the HelpingHands Morocco support fund!</strong>
-                    </p>
-                    <div className="col-6"><CircularProgressBar /></div>
-                </div>
-                <div className="row  raised-goal mt-3">
-                    <div className="col">Raised<br />${Math.round(store.progressPercentage * 500)}</div>
 
-                    <div className="col">Goal<br />$50,000</div>
-                </div>
-            </div >
         </>
 
     );

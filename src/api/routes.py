@@ -313,19 +313,18 @@ def add_donations():
         else : 
             user = User.query.get(user_id)
             if not user:
-                return jsonify({"message": "User not found"}), 404
+                return jsonify({"error": "User not found"}), 404
             user = user.serialize()
             amount=str(data["amount"])
             amount = amount[:-2] + "." + amount[-2:]
-        
             new_donation = DonationInfo(
                 time_created=data['time_created'],
                 currency=data['currency'],
                 payment_method=data['payment_method_id'],
                 amount=float(amount),
-                full_name = user ['first_name'] + ' ' +  user ['last_name'],
+                full_name = f"{user['first_name']} {user['last_name']}",
                 gender = user ['gender'],
-                address = user ['street_address'] + ' ' + user ['city'] + ' ' + user ['state'] + ' ' + user['country'],
+                address = f"{user ['street_address']}  {user ['city']}  {user ['state']} { user['country']}",
                 phone_number=user['phone'],
                 email = user['email'] ,
                 user_id=user_id
@@ -337,14 +336,13 @@ def add_donations():
 
         donation=DonationInfo.query.filter_by(email=data["email"], time_created=data['time_created'])
 
-        return jsonify({"message": "Donation added successfully", 
-                        "donationInfo": donation.serialize()
-                        }), 201
+        return jsonify({"message": "Donation added successfully"
+                        }), 200
 
     except stripe.error.CardError as e:
-        return jsonify({"message": f"Card error: {str(e)}"}), 400
+        return jsonify({"error": f"Card error: {str(e)}"}), 400
     except Exception as e:
-        return jsonify({"message": f"Payment failed: {str(e)}"}), 500
+        return jsonify({"error": f"Payment failed: {str(e)}"}), 500
 
         
 

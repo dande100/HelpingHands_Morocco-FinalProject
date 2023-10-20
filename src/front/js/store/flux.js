@@ -12,8 +12,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isPasswordReset: false,
 			user: [],
 			donations: [],
-			latestDonation:{},
+			latestDonation: {},
 			amount: 0,
+			redirectToThankYouPage: false,
 			demo: [
 				{
 					title: "FIRST",
@@ -41,7 +42,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ amount: amountToDonate })
 			},
 			checkout: async (full_name, address, phone_number, email) => {
-				const user_id = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : "non_member"
+				const user_id = localStorage.getItem("user_id") ? Number(localStorage.getItem("user_id")) : "non_member"
 
 				const localtime = Date.now()
 				const currency = "usd";
@@ -73,8 +74,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const data = await response.json();
+					if (data.message) {
+						setStore({ redirectToThankYouPage: true })
+						setStore({ lastestDonation: data.donationInfo })
+					}
 
-					setStore({lastestDonation:data.donationInfo})
 				} catch (error) {
 					console.error("Checkout error:", error);
 				}
@@ -186,7 +190,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-		
+
 
 
 			fetchEachDonation: () => {
