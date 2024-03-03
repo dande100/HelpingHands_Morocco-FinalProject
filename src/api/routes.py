@@ -195,7 +195,7 @@ def generate_chat_bot_reply(user_input):
     if "weather" in user_input:
         return "I'm sorry, I don't have access to real-time weather information."
 
-    if "make a donation" in user_input:
+    if "make a donation" in user_input or "make a donate" in user_input or "donate" in user_input or "payment" in user_input:
         return f'You can easily make a donation by visiting our website and clicking on the "Donate Now" button. We accept various payment methods, including credit cards and PayPal. Or, {os.getenv("FRONTEND_URL")}/donatepage to go to our donation page.'
     
     if "link" in user_input:
